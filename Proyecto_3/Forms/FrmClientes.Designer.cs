@@ -45,123 +45,156 @@
             btnSeleccionarFoto = new Button();
             pbFoto = new PictureBox();
             dgvClientes = new DataGridView();
-
-            ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             SuspendLayout();
-
             // 
             // lblTitulo
             // 
             lblTitulo.AutoSize = true;
-            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            lblTitulo.Location = new System.Drawing.Point(200, 20);
+            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitulo.Location = new Point(175, 15);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(212, 30);
+            lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Gestión de Clientes";
-
             // 
             // lblNombre
             // 
             lblNombre.AutoSize = true;
-            lblNombre.Location = new System.Drawing.Point(40, 80);
+            lblNombre.Location = new Point(35, 60);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(54, 15);
+            lblNombre.TabIndex = 1;
             lblNombre.Text = "Nombre:";
-
-            // 
-            // txtNombre
-            // 
-            txtNombre.Location = new System.Drawing.Point(140, 75);
-            txtNombre.Width = 250;
-
             // 
             // lblCorreo
             // 
             lblCorreo.AutoSize = true;
-            lblCorreo.Location = new System.Drawing.Point(40, 120);
+            lblCorreo.Location = new Point(35, 90);
+            lblCorreo.Name = "lblCorreo";
+            lblCorreo.Size = new Size(46, 15);
+            lblCorreo.TabIndex = 3;
             lblCorreo.Text = "Correo:";
-
-            // 
-            // txtCorreo
-            // 
-            txtCorreo.Location = new System.Drawing.Point(140, 115);
-            txtCorreo.Width = 250;
-
             // 
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
-            lblTelefono.Location = new System.Drawing.Point(40, 160);
+            lblTelefono.Location = new Point(35, 120);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(55, 15);
+            lblTelefono.TabIndex = 5;
             lblTelefono.Text = "Teléfono:";
-
-            // 
-            // txtTelefono
-            // 
-            txtTelefono.Location = new System.Drawing.Point(140, 155);
-            txtTelefono.Width = 250;
-
             // 
             // lblDireccion
             // 
             lblDireccion.AutoSize = true;
-            lblDireccion.Location = new System.Drawing.Point(40, 200);
+            lblDireccion.Location = new Point(35, 150);
+            lblDireccion.Name = "lblDireccion";
+            lblDireccion.Size = new Size(60, 15);
+            lblDireccion.TabIndex = 7;
             lblDireccion.Text = "Dirección:";
-
+            // 
+            // txtNombre
+            // 
+            txtNombre.Location = new Point(122, 56);
+            txtNombre.Margin = new Padding(3, 2, 3, 2);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(219, 23);
+            txtNombre.TabIndex = 2;
+            // 
+            // txtCorreo
+            // 
+            txtCorreo.Location = new Point(122, 86);
+            txtCorreo.Margin = new Padding(3, 2, 3, 2);
+            txtCorreo.Name = "txtCorreo";
+            txtCorreo.Size = new Size(219, 23);
+            txtCorreo.TabIndex = 4;
+            // 
+            // txtTelefono
+            // 
+            txtTelefono.Location = new Point(122, 116);
+            txtTelefono.Margin = new Padding(3, 2, 3, 2);
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.Size = new Size(219, 23);
+            txtTelefono.TabIndex = 6;
             // 
             // txtDireccion
             // 
-            txtDireccion.Location = new System.Drawing.Point(140, 195);
-            txtDireccion.Width = 250;
-
+            txtDireccion.Location = new Point(122, 146);
+            txtDireccion.Margin = new Padding(3, 2, 3, 2);
+            txtDireccion.Name = "txtDireccion";
+            txtDireccion.Size = new Size(219, 23);
+            txtDireccion.TabIndex = 8;
             // 
             // btnAgregar
             // 
+            btnAgregar.Location = new Point(368, 60);
+            btnAgregar.Margin = new Padding(3, 2, 3, 2);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(66, 23);
+            btnAgregar.TabIndex = 9;
             btnAgregar.Text = "Agregar";
-            btnAgregar.Location = new System.Drawing.Point(420, 75);
             btnAgregar.Click += btnAgregar_Click;
-
             // 
             // btnEditar
             // 
+            btnEditar.Location = new Point(368, 101);
+            btnEditar.Margin = new Padding(3, 2, 3, 2);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(66, 23);
+            btnEditar.TabIndex = 10;
             btnEditar.Text = "Editar";
-            btnEditar.Location = new System.Drawing.Point(420, 115);
             btnEditar.Click += btnEditar_Click;
-
             // 
             // btnEliminar
             // 
+            btnEliminar.Location = new Point(368, 142);
+            btnEliminar.Margin = new Padding(3, 2, 3, 2);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(66, 23);
+            btnEliminar.TabIndex = 11;
             btnEliminar.Text = "Eliminar";
-            btnEliminar.Location = new System.Drawing.Point(420, 155);
             btnEliminar.Click += btnEliminar_Click;
-
             // 
             // btnSeleccionarFoto
             // 
+            btnSeleccionarFoto.Location = new Point(512, 146);
+            btnSeleccionarFoto.Margin = new Padding(3, 2, 3, 2);
+            btnSeleccionarFoto.Name = "btnSeleccionarFoto";
+            btnSeleccionarFoto.Size = new Size(66, 23);
+            btnSeleccionarFoto.TabIndex = 12;
             btnSeleccionarFoto.Text = "Seleccionar Foto";
-            btnSeleccionarFoto.Location = new System.Drawing.Point(420, 195);
             btnSeleccionarFoto.Click += btnSeleccionarFoto_Click;
-
             // 
             // pbFoto
             // 
-            pbFoto.Location = new System.Drawing.Point(600, 75);
-            pbFoto.Size = new System.Drawing.Size(120, 120);
-            pbFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pbFoto.BorderStyle = BorderStyle.FixedSingle;
+            pbFoto.Location = new Point(492, 45);
+            pbFoto.Margin = new Padding(3, 2, 3, 2);
+            pbFoto.Name = "pbFoto";
+            pbFoto.Size = new Size(105, 90);
             pbFoto.SizeMode = PictureBoxSizeMode.StretchImage;
-
+            pbFoto.TabIndex = 13;
+            pbFoto.TabStop = false;
             // 
             // dgvClientes
             // 
-            dgvClientes.Location = new System.Drawing.Point(40, 250);
-            dgvClientes.Size = new System.Drawing.Size(680, 200);
             dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvClientes.Location = new Point(35, 188);
+            dgvClientes.Margin = new Padding(3, 2, 3, 2);
+            dgvClientes.Name = "dgvClientes";
             dgvClientes.ReadOnly = true;
+            dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvClientes.Size = new Size(595, 150);
+            dgvClientes.TabIndex = 14;
             dgvClientes.CellClick += dgvClientes_CellClick;
-
             // 
             // FrmClientes
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 480);
+            ClientSize = new Size(700, 360);
             Controls.Add(lblTitulo);
             Controls.Add(lblNombre);
             Controls.Add(txtNombre);
@@ -177,13 +210,13 @@
             Controls.Add(btnSeleccionarFoto);
             Controls.Add(pbFoto);
             Controls.Add(dgvClientes);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FrmClientes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión de Clientes";
             Load += FrmClientes_Load;
-
-            ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

@@ -1,12 +1,9 @@
 ﻿using Datos.Database;
 using Datos.Repositorio;
 using Entidad.Models;
-using Microsoft.Data.SqlClient;
 using Negocio.Seguridad;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Negocio.Servicios
 {
@@ -46,6 +43,24 @@ namespace Negocio.Servicios
         {
             usuario.PasswordHash = _passwordHasher.HashPassword(passwordPlano);
             return _usuarioDatos.Registrar(usuario);
+        }
+
+        // Listar roles
+        public List<Rol> ListarRoles()
+        {
+            return _usuarioDatos.ListarRoles();
+        }
+
+        // Actualizar usuario
+        public bool ActualizarUsuario(Usuario usuario)
+        {
+            return _usuarioDatos.Actualizar(usuario);
+        }
+
+        // Eliminar usuario
+        public bool EliminarUsuario(int userId)
+        {
+            return _usuarioDatos.Eliminar(userId);
         }
     }
 }

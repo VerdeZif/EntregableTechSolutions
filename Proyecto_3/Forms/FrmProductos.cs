@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Negocio.Servicios;
 using Entidad.Models;
@@ -34,10 +36,41 @@ namespace Presentacion.Forms
             try
             {
                 dgvProductos.DataSource = _productoNegocio.ListarProductos();
+
+                // Ocultar columna Imagen
+                if (dgvProductos.Columns.Contains("Imagen"))
+                {
+                    dgvProductos.Columns["Imagen"].Visible = false;
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar productos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private byte[]? ObtenerImagenBytes()
+        {
+            if (pbImagen.Image == null)
+                return null;
+
+            using (var ms = new MemoryStream())
+            {
+                pbImagen.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+
+        private void btnSeleccionarImagen_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    pbImagen.Image = Image.FromFile(ofd.FileName);
+                }
             }
         }
 
@@ -60,7 +93,8 @@ namespace Presentacion.Forms
                 Nombre = txtNombre.Text.Trim(),
                 Descripcion = txtDescripcion.Text.Trim(),
                 Precio = precio,
-                Stock = (int)numStock.Value
+                Stock = (int)numStock.Value,
+                Imagen = ObtenerImagenBytes()
             };
 
             try
@@ -96,7 +130,8 @@ namespace Presentacion.Forms
                 Nombre = txtNombre.Text.Trim(),
                 Descripcion = txtDescripcion.Text.Trim(),
                 Precio = precio,
-                Stock = (int)numStock.Value
+                Stock = (int)numStock.Value,
+                Imagen = ObtenerImagenBytes()
             };
 
             try
@@ -143,9 +178,20 @@ namespace Presentacion.Forms
             if (e.RowIndex >= 0)
             {
                 txtNombre.Text = dgvProductos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
-                txtDescripcion.Text = dgvProductos.Rows[e.RowIndex].Cells["Descripcion"].Value.ToString();
+                txtDescripcion.Text = dgvProductos.Rows[e.RowIndex].Cells["Descripcion"].Value?.ToString();
                 txtPrecio.Text = dgvProductos.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
                 numStock.Value = Convert.ToDecimal(dgvProductos.Rows[e.RowIndex].Cells["Stock"].Value);
+
+                var imagenObj = dgvProductos.Rows[e.RowIndex].Cells["Imagen"].Value;
+                if (imagenObj != DBNull.Value && imagenObj is byte[] imagenBytes)
+                {
+                    using var ms = new MemoryStream(imagenBytes);
+                    pbImagen.Image = Image.FromStream(ms);
+                }
+                else
+                {
+                    pbImagen.Image = null;
+                }
             }
         }
 
@@ -155,6 +201,7 @@ namespace Presentacion.Forms
             txtDescripcion.Clear();
             txtPrecio.Clear();
             numStock.Value = 0;
+            pbImagen.Image = null;
         }
     }
 }

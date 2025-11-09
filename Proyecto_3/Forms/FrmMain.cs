@@ -26,6 +26,9 @@ namespace Presentacion.Forms
         private void FrmMain_Load(object sender, EventArgs e)
         {
             lblUsuarioActivo.Text = $"Usuario: {_usuario.NombreCompleto}";
+
+            // Habilitar o deshabilitar botón Usuarios según rol
+            btnUsuarios.Enabled = _usuario.NombreRol == "Administrador";
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
@@ -48,6 +51,20 @@ namespace Presentacion.Forms
             new FrmReportes().ShowDialog();
         }
 
+        private void btnUsuarios_Click(object sender, EventArgs e)
+        {
+            // Solo acceso para Administrador
+            if (_usuario.NombreRol != "Administrador")
+            {
+                MessageBox.Show("No tienes permisos para acceder a esta sección.", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Abrir formulario de gestión de usuarios
+            FrmUsuarios frmUsuarios = new FrmUsuarios();
+            frmUsuarios.ShowDialog();
+        }
+
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("¿Deseas cerrar sesión?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -58,4 +75,5 @@ namespace Presentacion.Forms
         }
     }
 }
+
 

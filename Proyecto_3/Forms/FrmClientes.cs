@@ -27,13 +27,19 @@ namespace Presentacion.Forms
         {
             try
             {
-                dgvClientes.DataSource = _clienteNegocio.ListarClientes();
+                var lista = _clienteNegocio.ListarClientes();
+                dgvClientes.DataSource = lista;
+
+                // Ocultar columna Foto
+                if (dgvClientes.Columns.Contains("Foto"))
+                    dgvClientes.Columns["Foto"].Visible = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar clientes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         // Validar correo
         private bool EsCorreoValido(string correo)
