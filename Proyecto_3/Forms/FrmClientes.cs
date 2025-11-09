@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System;
-using System.Drawing;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Negocio.Servicios;
 using Entidad.Models;
@@ -41,6 +35,38 @@ namespace Presentacion.Forms
             }
         }
 
+        // Validar correo
+        private bool EsCorreoValido(string correo)
+        {
+            if (string.IsNullOrWhiteSpace(correo)) return false;
+            string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(correo, patron);
+        }
+
+        private byte[]? ObtenerFotoBytes()
+        {
+            if (pbFoto.Image == null)
+                return null;
+
+            using (var ms = new MemoryStream())
+            {
+                pbFoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+
+        private void btnSeleccionarFoto_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    pbFoto.Image = Image.FromFile(ofd.FileName);
+                }
+            }
+        }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtCorreo.Text))
@@ -49,11 +75,19 @@ namespace Presentacion.Forms
                 return;
             }
 
+            if (!EsCorreoValido(txtCorreo.Text.Trim()))
+            {
+                MessageBox.Show("Correo no válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var cliente = new Cliente
             {
                 Nombre = txtNombre.Text.Trim(),
                 Correo = txtCorreo.Text.Trim(),
-                Telefono = txtTelefono.Text.Trim()
+                Telefono = txtTelefono.Text.Trim(),
+                Direccion = txtDireccion.Text.Trim(),
+                Foto = ObtenerFotoBytes()
             };
 
             try
@@ -77,12 +111,20 @@ namespace Presentacion.Forms
                 return;
             }
 
+            if (!EsCorreoValido(txtCorreo.Text.Trim()))
+            {
+                MessageBox.Show("Correo no válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var cliente = new Cliente
             {
                 ClienteId = Convert.ToInt32(dgvClientes.CurrentRow.Cells["ClienteId"].Value),
                 Nombre = txtNombre.Text.Trim(),
                 Correo = txtCorreo.Text.Trim(),
-                Telefono = txtTelefono.Text.Trim()
+                Telefono = txtTelefono.Text.Trim(),
+                Direccion = txtDireccion.Text.Trim(),
+                Foto = ObtenerFotoBytes()
             };
 
             try
@@ -128,9 +170,21 @@ namespace Presentacion.Forms
         {
             if (e.RowIndex >= 0)
             {
-                txtNombre.Text = dgvClientes.Rows[e.RowIndex].Cells["NombreCompleto"].Value.ToString();
+                txtNombre.Text = dgvClientes.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
                 txtCorreo.Text = dgvClientes.Rows[e.RowIndex].Cells["Correo"].Value.ToString();
                 txtTelefono.Text = dgvClientes.Rows[e.RowIndex].Cells["Telefono"].Value.ToString();
+                txtDireccion.Text = dgvClientes.Rows[e.RowIndex].Cells["Direccion"].Value.ToString();
+
+                var foto = dgvClientes.Rows[e.RowIndex].Cells["Foto"].Value;
+                if (foto != DBNull.Value && foto is byte[] fotoBytes)
+                {
+                    using var ms = new MemoryStream(fotoBytes);
+                    pbFoto.Image = Image.FromStream(ms);
+                }
+                else
+                {
+                    pbFoto.Image = null;
+                }
             }
         }
 
@@ -139,6 +193,8 @@ namespace Presentacion.Forms
             txtNombre.Clear();
             txtCorreo.Clear();
             txtTelefono.Clear();
+            txtDireccion.Clear();
+            pbFoto.Image = null;
         }
     }
 }

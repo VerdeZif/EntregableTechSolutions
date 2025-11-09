@@ -15,7 +15,6 @@ namespace Datos.Repositorio
             var lista = new List<Cliente>();
 
             using (var conn = ConexionBD.Instance.GetConnection())
-
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand("SELECT * FROM Clientes ORDER BY ClienteId DESC", conn))
@@ -47,12 +46,11 @@ namespace Datos.Repositorio
             Cliente? cliente = null;
 
             using (var conn = ConexionBD.Instance.GetConnection())
-
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand("SELECT * FROM Clientes WHERE ClienteId = @id", conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -79,18 +77,20 @@ namespace Datos.Repositorio
         public bool Registrar(Cliente cliente)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
-
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(@"
                     INSERT INTO Clientes (Nombre, Correo, Telefono, Direccion, Foto)
                     VALUES (@nombre, @correo, @telefono, @direccion, @foto)", conn))
                 {
-                    cmd.Parameters.AddWithValue("@nombre", cliente.Nombre);
-                    cmd.Parameters.AddWithValue("@correo", (object?)cliente.Correo ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@telefono", (object?)cliente.Telefono ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@direccion", (object?)cliente.Direccion ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@foto", (object?)cliente.Foto ?? DBNull.Value);
+                    cmd.Parameters.Add("@nombre", SqlDbType.NVarChar, 100).Value = cliente.Nombre;
+                    cmd.Parameters.Add("@correo", SqlDbType.NVarChar, 100).Value = (object?)cliente.Correo ?? DBNull.Value;
+                    cmd.Parameters.Add("@telefono", SqlDbType.NVarChar, 20).Value = (object?)cliente.Telefono ?? DBNull.Value;
+                    cmd.Parameters.Add("@direccion", SqlDbType.NVarChar, 200).Value = (object?)cliente.Direccion ?? DBNull.Value;
+
+                    var parametroFoto = new SqlParameter("@foto", SqlDbType.VarBinary, -1);
+                    parametroFoto.Value = (object?)cliente.Foto ?? DBNull.Value;
+                    cmd.Parameters.Add(parametroFoto);
 
                     return cmd.ExecuteNonQuery() > 0;
                 }
@@ -101,7 +101,6 @@ namespace Datos.Repositorio
         public bool Actualizar(Cliente cliente)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
-
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(@"
@@ -113,12 +112,16 @@ namespace Datos.Repositorio
                         Foto = @foto
                     WHERE ClienteId = @id", conn))
                 {
-                    cmd.Parameters.AddWithValue("@nombre", cliente.Nombre);
-                    cmd.Parameters.AddWithValue("@correo", (object?)cliente.Correo ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@telefono", (object?)cliente.Telefono ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@direccion", (object?)cliente.Direccion ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@foto", (object?)cliente.Foto ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@id", cliente.ClienteId);
+                    cmd.Parameters.Add("@nombre", SqlDbType.NVarChar, 100).Value = cliente.Nombre;
+                    cmd.Parameters.Add("@correo", SqlDbType.NVarChar, 100).Value = (object?)cliente.Correo ?? DBNull.Value;
+                    cmd.Parameters.Add("@telefono", SqlDbType.NVarChar, 20).Value = (object?)cliente.Telefono ?? DBNull.Value;
+                    cmd.Parameters.Add("@direccion", SqlDbType.NVarChar, 200).Value = (object?)cliente.Direccion ?? DBNull.Value;
+
+                    var parametroFoto = new SqlParameter("@foto", SqlDbType.VarBinary, -1);
+                    parametroFoto.Value = (object?)cliente.Foto ?? DBNull.Value;
+                    cmd.Parameters.Add(parametroFoto);
+
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = cliente.ClienteId;
 
                     return cmd.ExecuteNonQuery() > 0;
                 }
@@ -129,12 +132,11 @@ namespace Datos.Repositorio
         public bool Eliminar(int id)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
-
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand("DELETE FROM Clientes WHERE ClienteId = @id", conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
