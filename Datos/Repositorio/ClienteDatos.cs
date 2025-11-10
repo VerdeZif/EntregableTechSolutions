@@ -141,5 +141,43 @@ namespace Datos.Repositorio
                 }
             }
         }
+
+        // Obtener cliente por el nombre de usuario (Username)
+        public Cliente? ObtenerNombrePorUsuario(string username)
+        {
+            Cliente? cliente = null;
+
+            using (var conn = ConexionBD.Instance.GetConnection())
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT c.*
+            FROM Clientes c
+            INNER JOIN Usuarios u ON c.UserId = u.UserId
+            WHERE u.Username = @username", conn))
+                {
+                    cmd.Parameters.Add("@username", SqlDbType.NVarChar, 50).Value = username;
+
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            cliente = new Cliente
+                            {
+                                ClienteId = Convert.ToInt32(dr["ClienteId"]),
+                                Nombre = dr["Nombre"].ToString()!,
+                                Correo = dr["Correo"]?.ToString(),
+                                Telefono = dr["Telefono"]?.ToString(),
+                                Direccion = dr["Direccion"]?.ToString(),
+                                Foto = dr["Foto"] as byte[]
+                            };
+                        }
+                    }
+                }
+            }
+
+            return cliente;
+        }
+
     }
 }

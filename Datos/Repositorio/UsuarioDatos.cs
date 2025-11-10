@@ -1,8 +1,9 @@
-﻿using Entidad.Models;
+﻿using Datos.Database;
+using Entidad.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using Datos.Database;
+using System.Data;
 
 
 namespace Datos.Repositorio
@@ -213,6 +214,38 @@ namespace Datos.Repositorio
             }
             return roles;
         }
+
+        public Usuario? ObtenerPorId(int id)
+        {
+            Usuario? usuario = null;
+
+            using (var conn = ConexionBD.Instance.GetConnection())
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Usuarios WHERE UserId = @id", conn))
+                {
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            usuario = new Usuario
+                            {
+                                UserId = Convert.ToInt32(dr["UserId"]),
+                                Username = dr["Username"].ToString()!,
+                                NombreCompleto = dr["NombreCompleto"].ToString()!,
+                                FotoPerfil = dr["FotoPerfil"] as byte[],
+                                RoleId = Convert.ToInt32(dr["RoleId"])
+                            };
+                        }
+                    }
+                }
+            }
+
+            return usuario;
+        }
+
     }
 }
 

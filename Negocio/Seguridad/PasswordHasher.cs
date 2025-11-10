@@ -24,8 +24,8 @@
             public bool VerifyPassword(string inputPassword, string hashedPassword)
             {
                 string hashInput = HashPassword(inputPassword);
-                return hashInput == hashedPassword;
-            }
+                return string.Equals(hashInput, hashedPassword, StringComparison.OrdinalIgnoreCase);
+        }
         }
         
     

@@ -62,5 +62,10 @@ namespace Negocio.Servicios
         {
             return _usuarioDatos.Eliminar(userId);
         }
+
+        public Usuario? ObtenerPorId(int id)
+        {
+            return _usuarioDatos.ObtenerPorId(id);
+        }
     }
 }

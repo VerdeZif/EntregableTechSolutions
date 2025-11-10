@@ -63,6 +63,7 @@ namespace Presentacion.Forms
             {
                 ProductoId = producto.ProductoId,
                 NombreProducto = producto.Nombre,
+                Descripcion = producto.Descripcion,
                 Cantidad = cantidad,
                 PrecioUnitario = producto.Precio
             };
@@ -124,6 +125,11 @@ namespace Presentacion.Forms
             {
                 MessageBox.Show("Error al registrar venta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

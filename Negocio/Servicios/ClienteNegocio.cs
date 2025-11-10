@@ -31,6 +31,11 @@ namespace Negocio.Servicios
             return _clienteDatos.ObtenerPorId(id);
         }
 
+        public Cliente? ObtenerClientePorId(int id)
+        {
+            return ObtenerPorId(id);
+        }
+
         // Registrar cliente
         public bool RegistrarCliente(Cliente cliente)
         {

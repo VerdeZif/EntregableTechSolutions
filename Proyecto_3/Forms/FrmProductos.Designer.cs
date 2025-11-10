@@ -1,164 +1,116 @@
 ﻿namespace Presentacion.Forms
 {
-    partial class FrmProductos
+    partial class FrmProducto
     {
         private System.ComponentModel.IContainer components = null;
-        private Label lblTitulo;
-        private Label lblNombre;
-        private Label lblDescripcion;
-        private Label lblPrecio;
-        private Label lblStock;
-        private TextBox txtNombre;
-        private TextBox txtDescripcion;
-        private TextBox txtPrecio;
-        private NumericUpDown numStock;
-        private Button btnAgregar;
-        private Button btnEditar;
-        private Button btnEliminar;
-        private Button btnSeleccionarImagen;
-        private PictureBox pbImagen;
-        private DataGridView dgvProductos;
+        private System.Windows.Forms.PictureBox pbImagen;
+        private System.Windows.Forms.Button btnSeleccionarImagen;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtDescripcion;
+        private System.Windows.Forms.TextBox txtPrecio;
+        private System.Windows.Forms.NumericUpDown numStock;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Label lblDescripcion;
+        private System.Windows.Forms.Label lblPrecio;
+        private System.Windows.Forms.Label lblStock;
+        private System.Windows.Forms.Label lblImagen;
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-                components.Dispose();
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
-            lblTitulo = new Label();
-            lblNombre = new Label();
-            lblDescripcion = new Label();
-            lblPrecio = new Label();
-            lblStock = new Label();
-            txtNombre = new TextBox();
-            txtDescripcion = new TextBox();
-            txtPrecio = new TextBox();
-            numStock = new NumericUpDown();
-            btnAgregar = new Button();
-            btnEditar = new Button();
-            btnEliminar = new Button();
-            btnSeleccionarImagen = new Button();
-            pbImagen = new PictureBox();
-            dgvProductos = new DataGridView();
+            this.pbImagen = new System.Windows.Forms.PictureBox();
+            this.btnSeleccionarImagen = new System.Windows.Forms.Button();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.txtPrecio = new System.Windows.Forms.TextBox();
+            this.numStock = new System.Windows.Forms.NumericUpDown();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.lblDescripcion = new System.Windows.Forms.Label();
+            this.lblPrecio = new System.Windows.Forms.Label();
+            this.lblStock = new System.Windows.Forms.Label();
+            this.lblImagen = new System.Windows.Forms.Label();
 
-            ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numStock).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pbImagen).BeginInit();
-            SuspendLayout();
-
-            // lblTitulo
-            lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblTitulo.Location = new Point(180, 20);
-            lblTitulo.Text = "Gestión de Productos";
-
-            // lblNombre
-            lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(40, 80);
-            lblNombre.Text = "Nombre:";
-
-            // txtNombre
-            txtNombre.Location = new Point(140, 75);
-            txtNombre.Width = 250;
-
-            // lblDescripcion
-            lblDescripcion.AutoSize = true;
-            lblDescripcion.Location = new Point(40, 120);
-            lblDescripcion.Text = "Descripción:";
-
-            // txtDescripcion
-            txtDescripcion.Location = new Point(140, 115);
-            txtDescripcion.Width = 250;
-
-            // lblPrecio
-            lblPrecio.AutoSize = true;
-            lblPrecio.Location = new Point(40, 160);
-            lblPrecio.Text = "Precio:";
-
-            // txtPrecio
-            txtPrecio.Location = new Point(140, 155);
-            txtPrecio.Width = 250;
-
-            // lblStock
-            lblStock.AutoSize = true;
-            lblStock.Location = new Point(40, 200);
-            lblStock.Text = "Stock:";
-
-            // numStock
-            numStock.Location = new Point(140, 195);
-            numStock.Width = 100;
-            numStock.Maximum = 10000;
-
-            // btnAgregar
-            btnAgregar.Text = "Agregar";
-            btnAgregar.Location = new Point(420, 75);
-            btnAgregar.Click += btnAgregar_Click;
-
-            // btnEditar
-            btnEditar.Text = "Editar";
-            btnEditar.Location = new Point(420, 115);
-            btnEditar.Click += btnEditar_Click;
-
-            // btnEliminar
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.Location = new Point(420, 155);
-            btnEliminar.Click += btnEliminar_Click;
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numStock)).BeginInit();
+            this.SuspendLayout();
 
             // pbImagen
-            pbImagen.BorderStyle = BorderStyle.FixedSingle;
-            pbImagen.Location = new Point(520, 50);
-            pbImagen.Size = new Size(100, 100);
-            pbImagen.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.pbImagen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbImagen.Location = new System.Drawing.Point(20, 30);
+            this.pbImagen.Size = new System.Drawing.Size(120, 120);
+            this.pbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 
             // btnSeleccionarImagen
-            btnSeleccionarImagen.Text = "Seleccionar Imagen";
-            btnSeleccionarImagen.Location = new Point(520, 160);
-            btnSeleccionarImagen.Click += btnSeleccionarImagen_Click;
+            this.btnSeleccionarImagen.Text = "Seleccionar Imagen";
+            this.btnSeleccionarImagen.Location = new System.Drawing.Point(20, 160);
+            this.btnSeleccionarImagen.Click += new System.EventHandler(this.btnSeleccionarImagen_Click);
 
-            // dgvProductos
-            dgvProductos.Location = new Point(40, 250);
-            dgvProductos.Size = new Size(600, 200);
-            dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProductos.ReadOnly = true;
-            dgvProductos.CellClick += dgvProductos_CellClick;
+            // Labels de detalle
+            this.lblNombre.Text = "Nombre:";
+            this.lblNombre.Location = new System.Drawing.Point(160, 30);
+            this.lblDescripcion.Text = "Descripción:";
+            this.lblDescripcion.Location = new System.Drawing.Point(160, 70);
+            this.lblPrecio.Text = "Precio:";
+            this.lblPrecio.Location = new System.Drawing.Point(160, 110);
+            this.lblStock.Text = "Stock:";
+            this.lblStock.Location = new System.Drawing.Point(160, 150);
+            this.lblImagen.Text = "Imagen:";
+            this.lblImagen.Location = new System.Drawing.Point(20, 10);
 
-            // FrmProductos
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 480);
-            Controls.Add(lblTitulo);
-            Controls.Add(lblNombre);
-            Controls.Add(txtNombre);
-            Controls.Add(lblDescripcion);
-            Controls.Add(txtDescripcion);
-            Controls.Add(lblPrecio);
-            Controls.Add(txtPrecio);
-            Controls.Add(lblStock);
-            Controls.Add(numStock);
-            Controls.Add(btnAgregar);
-            Controls.Add(btnEditar);
-            Controls.Add(btnEliminar);
-            Controls.Add(pbImagen);
-            Controls.Add(btnSeleccionarImagen);
-            Controls.Add(dgvProductos);
-            Name = "FrmProductos";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Gestión de Productos";
-            Load += FrmProductos_Load;
+            // TextBoxes
+            this.txtNombre.Location = new System.Drawing.Point(250, 30);
+            this.txtDescripcion.Location = new System.Drawing.Point(250, 70);
+            this.txtPrecio.Location = new System.Drawing.Point(250, 110);
+            this.numStock.Location = new System.Drawing.Point(250, 150);
 
-            ((System.ComponentModel.ISupportInitialize)dgvProductos).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numStock).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pbImagen).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            // Botones
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.Location = new System.Drawing.Point(250, 200);
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.Location = new System.Drawing.Point(350, 200);
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.Location = new System.Drawing.Point(450, 30);
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+
+            // Form
+            this.ClientSize = new System.Drawing.Size(550, 250);
+            this.Controls.Add(this.pbImagen);
+            this.Controls.Add(this.btnSeleccionarImagen);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.txtDescripcion);
+            this.Controls.Add(this.txtPrecio);
+            this.Controls.Add(this.numStock);
+            this.Controls.Add(this.btnGuardar);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnEditar);
+            this.Controls.Add(this.lblNombre);
+            this.Controls.Add(this.lblDescripcion);
+            this.Controls.Add(this.lblPrecio);
+            this.Controls.Add(this.lblStock);
+            this.Controls.Add(this.lblImagen);
+            this.Name = "FrmProducto";
+            this.Text = "Detalle Producto";
+            this.Load += new System.EventHandler(this.FrmProducto_Load);
+
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numStock)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
-
-        #endregion
     }
 }

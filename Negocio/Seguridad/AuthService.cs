@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entidad.Models;
+﻿using Entidad.Models;
 using Negocio.Servicios;
 
 namespace Negocio.Seguridad
@@ -19,7 +14,9 @@ namespace Negocio.Seguridad
 
         public Usuario? Login(string username, string password)
         {
+            // Llama al método Login de UsuarioNegocio
             return _usuarioNegocio.Login(username, password);
         }
     }
 }
+

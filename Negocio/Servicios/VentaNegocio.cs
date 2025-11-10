@@ -35,5 +35,56 @@ namespace Negocio.Servicios
         {
             return _ventaDatos.ListarVentas();
         }
+
+        // Listar compras por cliente
+        public List<dynamic> ListarComprasPorCliente(int clienteId)
+        {
+            if (clienteId <= 0)
+                throw new ArgumentException("ID de cliente inválido.");
+
+            return _ventaDatos.ListarComprasPorCliente(clienteId);
+        }
+
+        public List<dynamic> ListarVentasPorVendedor(int vendedorUserId)
+        {
+            var lista = new List<dynamic>();
+
+            using (var conn = ConexionBD.Instance.GetConnection())
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT v.VentaId, v.Fecha, v.Total, c.Nombre AS Cliente, u.NombreCompleto AS Vendedor
+            FROM Ventas v
+            INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
+            INNER JOIN Usuarios u ON v.UserId = u.UserId
+            WHERE v.UserId = @vendedorUserId AND u.RoleId = 2
+            ORDER BY v.Fecha DESC
+        ", conn))
+                {
+                    cmd.Parameters.Add("@vendedorUserId", System.Data.SqlDbType.Int).Value = vendedorUserId;
+
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new
+                            {
+                                VentaId = Convert.ToInt32(dr["VentaId"]),
+                                Fecha = Convert.ToDateTime(dr["Fecha"]).ToString("dd/MM/yyyy HH:mm"),
+                                Total = Convert.ToDecimal(dr["Total"]),
+                                Cliente = dr["Cliente"].ToString(),
+                                Vendedor = dr["Vendedor"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+
+
+
     }
 }

@@ -3,88 +3,98 @@
     partial class FrmReporteVenta
     {
         private System.ComponentModel.IContainer components = null;
-        private Label lblTitulo;
+        private Panel pnlEncabezado;
+        private Panel pnlDetalle;
+        private Panel pnlTotales;
         private Label lblVentaId;
         private Label lblFecha;
         private Label lblCliente;
         private Label lblTotal;
-        private DataGridView dgvDetalle;
+        private Button btnExportarPDF;
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-                components.Dispose();
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
-            lblTitulo = new Label();
-            lblVentaId = new Label();
-            lblFecha = new Label();
-            lblCliente = new Label();
-            lblTotal = new Label();
-            dgvDetalle = new DataGridView();
-
-            ((System.ComponentModel.ISupportInitialize)dgvDetalle).BeginInit();
-            SuspendLayout();
-
-            // lblTitulo
-            lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTitulo.Location = new Point(220, 20);
-            lblTitulo.Text = "Detalle de Venta";
-
+            this.pnlEncabezado = new System.Windows.Forms.Panel();
+            this.lblVentaId = new System.Windows.Forms.Label();
+            this.lblFecha = new System.Windows.Forms.Label();
+            this.lblCliente = new System.Windows.Forms.Label();
+            this.pnlDetalle = new System.Windows.Forms.Panel();
+            this.pnlTotales = new System.Windows.Forms.Panel();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.btnExportarPDF = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // pnlEncabezado
+            // 
+            this.pnlEncabezado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlEncabezado.Controls.Add(this.lblVentaId);
+            this.pnlEncabezado.Controls.Add(this.lblFecha);
+            this.pnlEncabezado.Controls.Add(this.lblCliente);
+            this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlEncabezado.Height = 100;
+            // 
             // lblVentaId
-            lblVentaId.AutoSize = true;
-            lblVentaId.Location = new Point(40, 80);
-            lblVentaId.Text = "Venta N°:";
-
+            // 
+            this.lblVentaId.AutoSize = true;
+            this.lblVentaId.Location = new System.Drawing.Point(10, 10);
+            this.lblVentaId.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            // 
             // lblFecha
-            lblFecha.AutoSize = true;
-            lblFecha.Location = new Point(40, 110);
-            lblFecha.Text = "Fecha:";
-
+            // 
+            this.lblFecha.AutoSize = true;
+            this.lblFecha.Location = new System.Drawing.Point(10, 40);
+            this.lblFecha.Font = new System.Drawing.Font("Consolas", 10F);
+            // 
             // lblCliente
-            lblCliente.AutoSize = true;
-            lblCliente.Location = new Point(40, 140);
-            lblCliente.Text = "Cliente:";
-
+            // 
+            this.lblCliente.AutoSize = true;
+            this.lblCliente.Location = new System.Drawing.Point(10, 65);
+            this.lblCliente.Font = new System.Drawing.Font("Consolas", 10F);
+            // 
+            // pnlDetalle
+            // 
+            this.pnlDetalle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlDetalle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlDetalle.Height = 300;
+            this.pnlDetalle.AutoScroll = true;
+            // 
+            // pnlTotales
+            // 
+            this.pnlTotales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlTotales.Controls.Add(this.lblTotal);
+            this.pnlTotales.Controls.Add(this.btnExportarPDF);
+            this.pnlTotales.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlTotales.Height = 80;
+            // 
             // lblTotal
-            lblTotal.AutoSize = true;
-            lblTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTotal.Location = new Point(40, 170);
-            lblTotal.Text = "Total:";
-
-            // dgvDetalle
-            dgvDetalle.Location = new Point(40, 210);
-            dgvDetalle.Size = new Size(700, 220);
-            dgvDetalle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvDetalle.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDetalle.ReadOnly = true;
-
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Location = new System.Drawing.Point(10, 10);
+            this.lblTotal.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            // 
+            // btnExportarPDF
+            // 
+            this.btnExportarPDF.Location = new System.Drawing.Point(350, 20);
+            this.btnExportarPDF.Size = new System.Drawing.Size(120, 40);
+            this.btnExportarPDF.Text = "Exportar PDF";
+            this.btnExportarPDF.Click += new System.EventHandler(this.btnExportarPDF_Click);
+            // 
             // FrmReporteVenta
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 460);
-            Controls.Add(lblTitulo);
-            Controls.Add(lblVentaId);
-            Controls.Add(lblFecha);
-            Controls.Add(lblCliente);
-            Controls.Add(lblTotal);
-            Controls.Add(dgvDetalle);
-            Name = "FrmReporteVenta";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Detalle de Venta";
-            Load += FrmReporteVenta_Load;
-
-            ((System.ComponentModel.ISupportInitialize)dgvDetalle).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(500, 500);
+            this.Controls.Add(this.pnlDetalle);
+            this.Controls.Add(this.pnlEncabezado);
+            this.Controls.Add(this.pnlTotales);
+            this.Text = "Reporte de Venta";
+            this.Load += new System.EventHandler(this.FrmReporteVenta_Load);
+            this.ResumeLayout(false);
         }
-
-        #endregion
     }
 }

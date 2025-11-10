@@ -142,5 +142,37 @@ namespace Datos.Repositorio
 
             return lista;
         }
+        public List<dynamic> ListarComprasPorCliente(int clienteId)
+        {
+            var lista = new List<dynamic>();
+
+            using (var conn = ConexionBD.Instance.GetConnection())
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(@"
+                    SELECT v.VentaId, v.Fecha, v.Total
+                    FROM Ventas v
+                    WHERE v.ClienteId = @clienteId
+                    ORDER BY v.Fecha DESC", conn))
+                {
+                    cmd.Parameters.Add("@clienteId", SqlDbType.Int).Value = clienteId;
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new
+                            {
+                                VentaId = Convert.ToInt32(dr["VentaId"]),
+                                Fecha = Convert.ToDateTime(dr["Fecha"]).ToString("dd/MM/yyyy HH:mm"),
+                                Total = Convert.ToDecimal(dr["Total"])
+                            });
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
     }
 }

@@ -12,4 +12,6 @@
     public DateTime FechaVenta { get; set; }
     public string NombreCliente { get; set; } = string.Empty;
     public decimal TotalVenta { get; set; }
+
+    public string? Descripcion { get; set; }
 }
