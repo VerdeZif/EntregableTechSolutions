@@ -28,130 +28,162 @@
 
         private void InitializeComponent()
         {
-            this.groupBoxDatos = new System.Windows.Forms.GroupBox();
-            this.pbFoto = new System.Windows.Forms.PictureBox();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.lblRole = new System.Windows.Forms.Label();
-
-            this.groupBoxAcciones = new System.Windows.Forms.GroupBox();
-            this.btnEditarPerfil = new System.Windows.Forms.Button();
-            this.btnGestionarClientes = new System.Windows.Forms.Button();
-            this.btnGestionarProductos = new System.Windows.Forms.Button();
-            this.btnGestionarVenta = new System.Windows.Forms.Button();
-            this.btnCerrarSesion = new System.Windows.Forms.Button();
-
-            this.groupBoxHistorial = new System.Windows.Forms.GroupBox();
-            this.dgvVentas = new System.Windows.Forms.DataGridView();
-
+            groupBoxDatos = new GroupBox();
+            pbFoto = new PictureBox();
+            lblNombre = new Label();
+            lblRole = new Label();
+            groupBoxAcciones = new GroupBox();
+            btnEditarPerfil = new Button();
+            btnGestionarClientes = new Button();
+            btnGestionarProductos = new Button();
+            btnGestionarVenta = new Button();
+            btnCerrarSesion = new Button();
+            groupBoxHistorial = new GroupBox();
+            dgvVentas = new DataGridView();
+            groupBoxDatos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
+            groupBoxAcciones.SuspendLayout();
+            groupBoxHistorial.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
+            SuspendLayout();
             // 
             // groupBoxDatos
             // 
-            this.groupBoxDatos.Controls.Add(this.pbFoto);
-            this.groupBoxDatos.Controls.Add(this.lblNombre);
-            this.groupBoxDatos.Controls.Add(this.lblRole);
-            this.groupBoxDatos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxDatos.Height = 120;
-            this.groupBoxDatos.Text = "Datos del Vendedor";
-
+            groupBoxDatos.Controls.Add(pbFoto);
+            groupBoxDatos.Controls.Add(lblNombre);
+            groupBoxDatos.Controls.Add(lblRole);
+            groupBoxDatos.Dock = DockStyle.Top;
+            groupBoxDatos.Location = new Point(0, 0);
+            groupBoxDatos.Name = "groupBoxDatos";
+            groupBoxDatos.Size = new Size(800, 120);
+            groupBoxDatos.TabIndex = 2;
+            groupBoxDatos.TabStop = false;
+            groupBoxDatos.Text = "Datos del Vendedor";
             // 
             // pbFoto
             // 
-            this.pbFoto.Location = new System.Drawing.Point(350, 20);
-            this.pbFoto.Size = new System.Drawing.Size(80, 80);
-            this.pbFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-
+            pbFoto.BorderStyle = BorderStyle.FixedSingle;
+            pbFoto.Location = new Point(350, 20);
+            pbFoto.Name = "pbFoto";
+            pbFoto.Size = new Size(80, 80);
+            pbFoto.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbFoto.TabIndex = 0;
+            pbFoto.TabStop = false;
             // 
             // lblNombre
             // 
-            this.lblNombre.Location = new System.Drawing.Point(20, 30);
-            this.lblNombre.Size = new System.Drawing.Size(200, 20);
-            this.lblNombre.Text = "Nombre: ";
-
+            lblNombre.Location = new Point(20, 30);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(200, 20);
+            lblNombre.TabIndex = 1;
+            lblNombre.Text = "Nombre: ";
             // 
             // lblRole
             // 
-            this.lblRole.Location = new System.Drawing.Point(20, 60);
-            this.lblRole.Size = new System.Drawing.Size(200, 20);
-            this.lblRole.Text = "Rol: ";
-
+            lblRole.Location = new Point(20, 60);
+            lblRole.Name = "lblRole";
+            lblRole.Size = new Size(200, 20);
+            lblRole.TabIndex = 2;
+            lblRole.Text = "Rol: ";
             // 
             // groupBoxAcciones
             // 
-            this.groupBoxAcciones.Controls.Add(this.btnEditarPerfil);
-            this.groupBoxAcciones.Controls.Add(this.btnGestionarClientes);
-            this.groupBoxAcciones.Controls.Add(this.btnGestionarProductos);
-            this.groupBoxAcciones.Controls.Add(this.btnGestionarVenta);
-            this.groupBoxAcciones.Controls.Add(this.btnCerrarSesion);
-            this.groupBoxAcciones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxAcciones.Height = 70;
-            this.groupBoxAcciones.Text = "Acciones";
-
+            groupBoxAcciones.Controls.Add(btnEditarPerfil);
+            groupBoxAcciones.Controls.Add(btnGestionarClientes);
+            groupBoxAcciones.Controls.Add(btnGestionarProductos);
+            groupBoxAcciones.Controls.Add(btnGestionarVenta);
+            groupBoxAcciones.Controls.Add(btnCerrarSesion);
+            groupBoxAcciones.Dock = DockStyle.Top;
+            groupBoxAcciones.Location = new Point(0, 120);
+            groupBoxAcciones.Name = "groupBoxAcciones";
+            groupBoxAcciones.Size = new Size(800, 70);
+            groupBoxAcciones.TabIndex = 1;
+            groupBoxAcciones.TabStop = false;
+            groupBoxAcciones.Text = "Acciones";
             // 
             // btnEditarPerfil
             // 
-            this.btnEditarPerfil.Location = new System.Drawing.Point(20, 25);
-            this.btnEditarPerfil.Size = new System.Drawing.Size(120, 30);
-            this.btnEditarPerfil.Text = "Editar Perfil";
-            this.btnEditarPerfil.Click += new System.EventHandler(this.btnEditarPerfil_Click);
-
+            btnEditarPerfil.Location = new Point(20, 25);
+            btnEditarPerfil.Name = "btnEditarPerfil";
+            btnEditarPerfil.Size = new Size(120, 30);
+            btnEditarPerfil.TabIndex = 0;
+            btnEditarPerfil.Text = "Gestionar Perfil";
+            btnEditarPerfil.Click += btnEditarPerfil_Click;
             // 
             // btnGestionarClientes
             // 
-            this.btnGestionarClientes.Location = new System.Drawing.Point(160, 25);
-            this.btnGestionarClientes.Size = new System.Drawing.Size(120, 30);
-            this.btnGestionarClientes.Text = "Gestionar Clientes";
-            this.btnGestionarClientes.Click += new System.EventHandler(this.btnGestionarClientes_Click);
-
+            btnGestionarClientes.Location = new Point(160, 25);
+            btnGestionarClientes.Name = "btnGestionarClientes";
+            btnGestionarClientes.Size = new Size(120, 30);
+            btnGestionarClientes.TabIndex = 1;
+            btnGestionarClientes.Text = "Gestionar Clientes";
+            btnGestionarClientes.Click += btnGestionarClientes_Click;
             // 
             // btnGestionarProductos
             // 
-            this.btnGestionarProductos.Location = new System.Drawing.Point(300, 25);
-            this.btnGestionarProductos.Size = new System.Drawing.Size(120, 30);
-            this.btnGestionarProductos.Text = "Gestionar Productos";
-            this.btnGestionarProductos.Click += new System.EventHandler(this.btnGestionarProductos_Click);
-
+            btnGestionarProductos.Location = new Point(300, 25);
+            btnGestionarProductos.Name = "btnGestionarProductos";
+            btnGestionarProductos.Size = new Size(120, 30);
+            btnGestionarProductos.TabIndex = 2;
+            btnGestionarProductos.Text = "Gestionar Productos";
+            btnGestionarProductos.Click += btnGestionarProductos_Click;
             // 
             // btnGestionarVenta
             // 
-            this.btnGestionarVenta.Location = new System.Drawing.Point(440, 25);
-            this.btnGestionarVenta.Size = new System.Drawing.Size(120, 30);
-            this.btnGestionarVenta.Text = "Registrar Venta";
-            this.btnGestionarVenta.Click += new System.EventHandler(this.btnGestionarVenta_Click);
-
+            btnGestionarVenta.Location = new Point(440, 25);
+            btnGestionarVenta.Name = "btnGestionarVenta";
+            btnGestionarVenta.Size = new Size(120, 30);
+            btnGestionarVenta.TabIndex = 3;
+            btnGestionarVenta.Text = "Registrar Venta";
+            btnGestionarVenta.Click += btnGestionarVenta_Click;
             // 
             // btnCerrarSesion
             // 
-            this.btnCerrarSesion.Location = new System.Drawing.Point(580, 25);
-            this.btnCerrarSesion.Size = new System.Drawing.Size(120, 30);
-            this.btnCerrarSesion.Text = "Cerrar Sesión";
-            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
-
+            btnCerrarSesion.Location = new Point(580, 25);
+            btnCerrarSesion.Name = "btnCerrarSesion";
+            btnCerrarSesion.Size = new Size(120, 30);
+            btnCerrarSesion.TabIndex = 4;
+            btnCerrarSesion.Text = "Cerrar Sesión";
+            btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
             // groupBoxHistorial
             // 
-            this.groupBoxHistorial.Controls.Add(this.dgvVentas);
-            this.groupBoxHistorial.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxHistorial.Text = "Historial de Ventas";
-
+            groupBoxHistorial.Controls.Add(dgvVentas);
+            groupBoxHistorial.Dock = DockStyle.Fill;
+            groupBoxHistorial.Location = new Point(0, 190);
+            groupBoxHistorial.Name = "groupBoxHistorial";
+            groupBoxHistorial.Size = new Size(800, 310);
+            groupBoxHistorial.TabIndex = 0;
+            groupBoxHistorial.TabStop = false;
+            groupBoxHistorial.Text = "Historial de Ventas";
             // 
             // dgvVentas
             // 
-            this.dgvVentas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvVentas.ReadOnly = true;
-            this.dgvVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVentas.MultiSelect = false;
-            this.dgvVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-
+            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVentas.Dock = DockStyle.Fill;
+            dgvVentas.Location = new Point(3, 19);
+            dgvVentas.MultiSelect = false;
+            dgvVentas.Name = "dgvVentas";
+            dgvVentas.ReadOnly = true;
+            dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvVentas.Size = new Size(794, 288);
+            dgvVentas.TabIndex = 0;
             // 
             // FrmVendedor
             // 
-            this.ClientSize = new System.Drawing.Size(800, 500);
-            this.Controls.Add(this.groupBoxHistorial);
-            this.Controls.Add(this.groupBoxAcciones);
-            this.Controls.Add(this.groupBoxDatos);
-            this.Text = "Panel Vendedor";
-            this.Load += new System.EventHandler(this.FrmVendedor_Load);
+            ClientSize = new Size(800, 500);
+            Controls.Add(groupBoxHistorial);
+            Controls.Add(groupBoxAcciones);
+            Controls.Add(groupBoxDatos);
+            Name = "FrmVendedor";
+            Text = "Panel Vendedor";
+            Load += FrmVendedor_Load;
+            groupBoxDatos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
+            groupBoxAcciones.ResumeLayout(false);
+            groupBoxHistorial.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
+            ResumeLayout(false);
         }
     }
 }

@@ -84,7 +84,7 @@
             btnEditarDatos.Name = "btnEditarDatos";
             btnEditarDatos.Size = new Size(120, 35);
             btnEditarDatos.TabIndex = 5;
-            btnEditarDatos.Text = "Editar Perfil";
+            btnEditarDatos.Text = "Gestionar Perfil";
             btnEditarDatos.UseVisualStyleBackColor = true;
             btnEditarDatos.Click += btnEditarDatos_Click;
             // 

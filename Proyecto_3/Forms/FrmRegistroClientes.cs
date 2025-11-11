@@ -1,18 +1,6 @@
-﻿using System;
-
-using System.Collections.Generic;
-
-using System.Drawing;
-
-using System.IO;
-
-using System.Text.RegularExpressions;
-
-using System.Windows.Forms;
-
+﻿using Entidad.Models;
 using Negocio.Servicios;
-
-using Entidad.Models;
+using System.Text.RegularExpressions;
 
 namespace Presentacion.Forms
 

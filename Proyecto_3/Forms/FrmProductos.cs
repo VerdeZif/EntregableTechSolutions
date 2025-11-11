@@ -1,9 +1,5 @@
 ﻿using Entidad.Models;
 using Negocio.Servicios;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
 
 namespace Presentacion.Forms
 {

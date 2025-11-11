@@ -2,9 +2,6 @@
 using Datos.Repositorio;
 using Entidad.Models;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
 
 namespace Negocio.Servicios
 {
@@ -82,9 +79,6 @@ namespace Negocio.Servicios
 
             return lista;
         }
-
-
-
 
     }
 }

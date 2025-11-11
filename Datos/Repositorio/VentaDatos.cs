@@ -40,21 +40,36 @@ namespace Datos.Repositorio
                     paramDetalle.SqlDbType = SqlDbType.Structured;
                     paramDetalle.TypeName = "TVP_DetalleVenta";
 
-                    // Ejecutar y leer resultado
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (var dr = cmd.ExecuteReader())
                     {
                         if (dr.Read())
                         {
-                            int ventaId = dr["VentaId"] != DBNull.Value ? Convert.ToInt32(dr["VentaId"]) : 0;
-                            string mensaje = dr["Mensaje"]?.ToString() ?? "Sin mensaje";
-                            return (ventaId, mensaje);
+                            // Intentamos obtener VentaId
+                            try
+                            {
+                                int ventaId = dr.GetInt32(dr.GetOrdinal("VentaId"));
+                                return (ventaId, "Venta registrada correctamente");
+                            }
+                            catch
+                            {
+                                // Si no existe VentaId, revisamos ErrorMessage
+                                try
+                                {
+                                    string error = dr.GetString(dr.GetOrdinal("ErrorMessage"));
+                                    return (0, error);
+                                }
+                                catch
+                                {
+                                    return (0, "Error desconocido al registrar la venta");
+                                }
+                            }
                         }
                     }
+
+                    return (0, "Error desconocido al registrar la venta");
                 }
             }
-
-            return (0, "Error al registrar la venta");
-        }
+        } // <- cierre del método RegistrarVenta
 
         // Listar ventas registradas
         public List<Venta> ListarVentas()
@@ -109,16 +124,16 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(@"
-            SELECT 
-                d.DetalleId, 
-                d.ProductoId, 
-                p.Nombre AS ProductoNombre,
-                d.Cantidad, 
-                d.PrecioUnitario, 
-                (d.Cantidad * d.PrecioUnitario) AS Subtotal
-            FROM DetalleVenta d
-            INNER JOIN Productos p ON d.ProductoId = p.ProductoId
-            WHERE d.VentaId = @ventaId", conn))
+                    SELECT 
+                        d.DetalleId, 
+                        d.ProductoId, 
+                        p.Nombre AS ProductoNombre,
+                        d.Cantidad, 
+                        d.PrecioUnitario, 
+                        (d.Cantidad * d.PrecioUnitario) AS Subtotal
+                    FROM DetalleVenta d
+                    INNER JOIN Productos p ON d.ProductoId = p.ProductoId
+                    WHERE d.VentaId = @ventaId", conn))
                 {
                     cmd.Parameters.AddWithValue("@ventaId", ventaId);
 
@@ -132,8 +147,7 @@ namespace Datos.Repositorio
                                 ProductoId = dr["ProductoId"] != DBNull.Value ? Convert.ToInt32(dr["ProductoId"]) : 0,
                                 NombreProducto = dr["ProductoNombre"] != DBNull.Value ? dr["ProductoNombre"].ToString()! : string.Empty,
                                 Cantidad = dr["Cantidad"] != DBNull.Value ? Convert.ToInt32(dr["Cantidad"]) : 0,
-                                PrecioUnitario = dr["PrecioUnitario"] != DBNull.Value ? Convert.ToDecimal(dr["PrecioUnitario"]) : 0m,
-                                //Subtotal = dr["Subtotal"] != DBNull.Value ? Convert.ToDecimal(dr["Subtotal"]) : 0m
+                                PrecioUnitario = dr["PrecioUnitario"] != DBNull.Value ? Convert.ToDecimal(dr["PrecioUnitario"]) : 0m
                             });
                         }
                     }
@@ -142,6 +156,8 @@ namespace Datos.Repositorio
 
             return lista;
         }
+
+        // Listar compras por cliente
         public List<dynamic> ListarComprasPorCliente(int clienteId)
         {
             var lista = new List<dynamic>();

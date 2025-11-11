@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entidad.Models
+﻿namespace Entidad.Models
 {
     public class Cliente
     {
@@ -14,5 +8,8 @@ namespace Entidad.Models
         public string? Telefono { get; set; }
         public string? Direccion { get; set; }
         public byte[]? Foto { get; set; }
+
+        // ✅ Relación con la tabla Usuarios
+        public int UsuarioId { get; set; }
     }
 }

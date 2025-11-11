@@ -1,15 +1,15 @@
-﻿using Entidad.Models;
+﻿using Datos.Database;
+using Entidad.Models;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using Datos.Database;
 
 namespace Datos.Repositorio
 {
     public class ClienteDatos
     {
-        // Listar todos los clientes
+        // =============================
+        // LISTAR TODOS LOS CLIENTES
+        // =============================
         public List<Cliente> Listar()
         {
             var lista = new List<Cliente>();
@@ -17,7 +17,10 @@ namespace Datos.Repositorio
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Clientes ORDER BY ClienteId DESC", conn))
+                using (SqlCommand cmd = new SqlCommand(@"
+                    SELECT ClienteId, Nombre, Correo, Telefono, Direccion, Foto, UserId AS UsuarioId
+                    FROM Clientes
+                    ORDER BY ClienteId DESC", conn))
                 {
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -30,7 +33,8 @@ namespace Datos.Repositorio
                                 Correo = dr["Correo"]?.ToString(),
                                 Telefono = dr["Telefono"]?.ToString(),
                                 Direccion = dr["Direccion"]?.ToString(),
-                                Foto = dr["Foto"] as byte[]
+                                Foto = dr["Foto"] as byte[],
+                                UsuarioId = Convert.ToInt32(dr["UsuarioId"])
                             });
                         }
                     }
@@ -40,7 +44,9 @@ namespace Datos.Repositorio
             return lista;
         }
 
-        // Obtener un cliente por su ID
+        // =============================
+        // OBTENER CLIENTE POR ID
+        // =============================
         public Cliente? ObtenerPorId(int id)
         {
             Cliente? cliente = null;
@@ -48,7 +54,10 @@ namespace Datos.Repositorio
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Clientes WHERE ClienteId = @id", conn))
+                using (SqlCommand cmd = new SqlCommand(@"
+                    SELECT ClienteId, Nombre, Correo, Telefono, Direccion, Foto, UserId AS UsuarioId
+                    FROM Clientes
+                    WHERE ClienteId = @id", conn))
                 {
                     cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
@@ -63,7 +72,8 @@ namespace Datos.Repositorio
                                 Correo = dr["Correo"]?.ToString(),
                                 Telefono = dr["Telefono"]?.ToString(),
                                 Direccion = dr["Direccion"]?.ToString(),
-                                Foto = dr["Foto"] as byte[]
+                                Foto = dr["Foto"] as byte[],
+                                UsuarioId = Convert.ToInt32(dr["UsuarioId"])
                             };
                         }
                     }
@@ -73,15 +83,17 @@ namespace Datos.Repositorio
             return cliente;
         }
 
-        // Registrar nuevo cliente
+        // =============================
+        // REGISTRAR NUEVO CLIENTE
+        // =============================
         public bool Registrar(Cliente cliente)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(@"
-                    INSERT INTO Clientes (Nombre, Correo, Telefono, Direccion, Foto)
-                    VALUES (@nombre, @correo, @telefono, @direccion, @foto)", conn))
+                    INSERT INTO Clientes (Nombre, Correo, Telefono, Direccion, Foto, UserId)
+                    VALUES (@nombre, @correo, @telefono, @direccion, @foto, @usuarioId)", conn))
                 {
                     cmd.Parameters.Add("@nombre", SqlDbType.NVarChar, 100).Value = cliente.Nombre;
                     cmd.Parameters.Add("@correo", SqlDbType.NVarChar, 100).Value = (object?)cliente.Correo ?? DBNull.Value;
@@ -92,12 +104,16 @@ namespace Datos.Repositorio
                     parametroFoto.Value = (object?)cliente.Foto ?? DBNull.Value;
                     cmd.Parameters.Add(parametroFoto);
 
+                    cmd.Parameters.Add("@usuarioId", SqlDbType.Int).Value = cliente.UsuarioId;
+
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
         }
 
-        // Actualizar cliente
+        // =============================
+        // ACTUALIZAR CLIENTE
+        // =============================
         public bool Actualizar(Cliente cliente)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
@@ -109,7 +125,8 @@ namespace Datos.Repositorio
                         Correo = @correo,
                         Telefono = @telefono,
                         Direccion = @direccion,
-                        Foto = @foto
+                        Foto = @foto,
+                        UserId = @usuarioId
                     WHERE ClienteId = @id", conn))
                 {
                     cmd.Parameters.Add("@nombre", SqlDbType.NVarChar, 100).Value = cliente.Nombre;
@@ -121,6 +138,7 @@ namespace Datos.Repositorio
                     parametroFoto.Value = (object?)cliente.Foto ?? DBNull.Value;
                     cmd.Parameters.Add(parametroFoto);
 
+                    cmd.Parameters.Add("@usuarioId", SqlDbType.Int).Value = cliente.UsuarioId;
                     cmd.Parameters.Add("@id", SqlDbType.Int).Value = cliente.ClienteId;
 
                     return cmd.ExecuteNonQuery() > 0;
@@ -128,7 +146,9 @@ namespace Datos.Repositorio
             }
         }
 
-        // Eliminar cliente
+        // =============================
+        // ELIMINAR CLIENTE
+        // =============================
         public bool Eliminar(int id)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
@@ -142,7 +162,9 @@ namespace Datos.Repositorio
             }
         }
 
-        // Obtener cliente por el nombre de usuario (Username)
+        // =============================
+        // OBTENER CLIENTE POR USERNAME
+        // =============================
         public Cliente? ObtenerNombrePorUsuario(string username)
         {
             Cliente? cliente = null;
@@ -151,10 +173,10 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(@"
-            SELECT c.*
-            FROM Clientes c
-            INNER JOIN Usuarios u ON c.UserId = u.UserId
-            WHERE u.Username = @username", conn))
+                    SELECT c.ClienteId, c.Nombre, c.Correo, c.Telefono, c.Direccion, c.Foto, c.UserId AS UsuarioId
+                    FROM Clientes c
+                    INNER JOIN Usuarios u ON c.UserId = u.UserId
+                    WHERE u.Username = @username", conn))
                 {
                     cmd.Parameters.Add("@username", SqlDbType.NVarChar, 50).Value = username;
 
@@ -169,7 +191,8 @@ namespace Datos.Repositorio
                                 Correo = dr["Correo"]?.ToString(),
                                 Telefono = dr["Telefono"]?.ToString(),
                                 Direccion = dr["Direccion"]?.ToString(),
-                                Foto = dr["Foto"] as byte[]
+                                Foto = dr["Foto"] as byte[],
+                                UsuarioId = Convert.ToInt32(dr["UsuarioId"])
                             };
                         }
                     }
@@ -178,6 +201,5 @@ namespace Datos.Repositorio
 
             return cliente;
         }
-
     }
 }

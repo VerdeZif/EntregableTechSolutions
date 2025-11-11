@@ -1,9 +1,6 @@
 ﻿using Datos.Repositorio;
-using Negocio;
-using Negocio.Seguridad;
-using System;
-using System.Windows.Forms;
 using Entidad.Models;
+using Negocio.Seguridad;
 
 namespace Presentacion.Forms
 {

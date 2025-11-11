@@ -1,10 +1,6 @@
 ﻿using Entidad.Models;
 using Negocio.Servicios;
-using System;
-using System.Drawing;
 using System.IO;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace Presentacion.Forms
 {
@@ -37,6 +33,7 @@ namespace Presentacion.Forms
             }
 
             txtNombre.Text = _vendedor.NombreCompleto;
+            txtUsername.Text = _vendedor.Username;
 
             if (_vendedor.FotoPerfil != null && _vendedor.FotoPerfil.Length > 0)
             {
@@ -51,7 +48,7 @@ namespace Presentacion.Forms
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.bmp";
+                ofd.Filter = "Imágenes|*.jpg;*.jpeg;*.png;*.bmp";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     pbFoto.Image = Image.FromFile(ofd.FileName);
@@ -62,15 +59,17 @@ namespace Presentacion.Forms
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             // Validar campos
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtUsername.Text))
             {
-                MessageBox.Show("Por favor, ingrese el nombre completo.", "Validación");
+                MessageBox.Show("Por favor, complete los campos obligatorios (nombre y username).", "Validación");
                 return;
             }
 
             // Actualizar datos
             _vendedor.NombreCompleto = txtNombre.Text.Trim();
+            _vendedor.Username = txtUsername.Text.Trim();
 
+            // Actualizar foto si existe
             if (pbFoto.Image != null)
             {
                 using (MemoryStream ms = new MemoryStream())
@@ -80,7 +79,13 @@ namespace Presentacion.Forms
                 }
             }
 
-            bool actualizado = _usuarioNegocio.ActualizarUsuario(_vendedor);
+            // Si se ingresa nueva contraseña
+            string? nuevaPassword = string.IsNullOrWhiteSpace(txtPassword.Text)
+                ? null
+                : txtPassword.Text.Trim();
+
+            bool actualizado = _usuarioNegocio.ActualizarUsuario(_vendedor, nuevaPassword);
+
             if (actualizado)
             {
                 MessageBox.Show("Perfil actualizado correctamente.", "Éxito");

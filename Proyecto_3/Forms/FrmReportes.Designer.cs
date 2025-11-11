@@ -37,7 +37,7 @@
             // lblTitulo
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTitulo.Location = new Point(230, 20);
+            lblTitulo.Location = new Point(250, 20);
             lblTitulo.Text = "Reportes de Ventas";
 
             // lblDesde
@@ -65,7 +65,7 @@
 
             // dgvReportes
             dgvReportes.Location = new Point(40, 130);
-            dgvReportes.Size = new Size(700, 250);
+            dgvReportes.Size = new Size(720, 250);
             dgvReportes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvReportes.ReadOnly = true;

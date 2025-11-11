@@ -1,16 +1,15 @@
 ﻿using Datos.Database;
 using Entidad.Models;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-
 
 namespace Datos.Repositorio
 {
     public class UsuarioDatos
     {
-        // Login (opcional, ya lo tienes)
+        // =======================
+        // LOGIN
+        // =======================
         public Usuario? Login(string username, string password)
         {
             Usuario? user = null;
@@ -18,7 +17,8 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 using (var cmd = new SqlCommand(@"
-                    SELECT u.UserId, u.Username, u.PasswordHash, u.NombreCompleto, u.FotoPerfil, u.RoleId, r.Nombre
+                    SELECT u.UserId, u.Username, u.PasswordHash, u.NombreCompleto, u.FotoPerfil, 
+                           u.RoleId, r.Nombre AS NombreRol
                     FROM Usuarios u
                     INNER JOIN Roles r ON u.RoleId = r.RoleId
                     WHERE u.Username = @username AND u.PasswordHash = @password", conn))
@@ -37,7 +37,7 @@ namespace Datos.Repositorio
                                 NombreCompleto = dr["NombreCompleto"]?.ToString() ?? string.Empty,
                                 FotoPerfil = dr["FotoPerfil"] as byte[],
                                 RoleId = Convert.ToInt32(dr["RoleId"]),
-                                NombreRol = dr["Nombre"]?.ToString() ?? string.Empty
+                                NombreRol = dr["NombreRol"]?.ToString() ?? string.Empty
                             };
                         }
                     }
@@ -46,7 +46,9 @@ namespace Datos.Repositorio
             return user;
         }
 
-        // Obtener usuario por username
+        // =======================
+        // OBTENER POR USERNAME
+        // =======================
         public Usuario? ObtenerPorUsername(string username)
         {
             Usuario? user = null;
@@ -54,7 +56,8 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 using (var cmd = new SqlCommand(@"
-                    SELECT u.UserId, u.Username, u.PasswordHash, u.NombreCompleto, u.FotoPerfil, u.RoleId, r.Nombre
+                    SELECT u.UserId, u.Username, u.PasswordHash, u.NombreCompleto, u.FotoPerfil, 
+                           u.RoleId, r.Nombre AS NombreRol
                     FROM Usuarios u
                     INNER JOIN Roles r ON u.RoleId = r.RoleId
                     WHERE u.Username = @username", conn))
@@ -72,7 +75,7 @@ namespace Datos.Repositorio
                                 NombreCompleto = dr["NombreCompleto"]?.ToString() ?? string.Empty,
                                 FotoPerfil = dr["FotoPerfil"] as byte[],
                                 RoleId = Convert.ToInt32(dr["RoleId"]),
-                                NombreRol = dr["Nombre"]?.ToString() ?? string.Empty
+                                NombreRol = dr["NombreRol"]?.ToString() ?? string.Empty
                             };
                         }
                     }
@@ -81,7 +84,9 @@ namespace Datos.Repositorio
             return user;
         }
 
-        // Listar todos los usuarios
+        // =======================
+        // LISTAR USUARIOS
+        // =======================
         public List<Usuario> Listar()
         {
             var lista = new List<Usuario>();
@@ -89,7 +94,8 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 using (var cmd = new SqlCommand(@"
-                    SELECT u.UserId, u.Username, u.NombreCompleto, u.FotoPerfil, r.Nombre, u.RoleId
+                    SELECT u.UserId, u.Username, u.NombreCompleto, u.FotoPerfil, 
+                           r.Nombre AS NombreRol, u.RoleId
                     FROM Usuarios u
                     INNER JOIN Roles r ON u.RoleId = r.RoleId", conn))
                 {
@@ -103,7 +109,7 @@ namespace Datos.Repositorio
                                 Username = dr["Username"]?.ToString() ?? string.Empty,
                                 NombreCompleto = dr["NombreCompleto"]?.ToString() ?? string.Empty,
                                 FotoPerfil = dr["FotoPerfil"] as byte[],
-                                NombreRol = dr["Nombre"]?.ToString() ?? string.Empty,
+                                NombreRol = dr["NombreRol"]?.ToString() ?? string.Empty,
                                 RoleId = Convert.ToInt32(dr["RoleId"])
                             });
                         }
@@ -113,7 +119,9 @@ namespace Datos.Repositorio
             return lista;
         }
 
-        // Registrar usuario
+        // =======================
+        // REGISTRAR USUARIO
+        // =======================
         public bool Registrar(Usuario usuario)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
@@ -127,45 +135,43 @@ namespace Datos.Repositorio
                     cmd.Parameters.AddWithValue("@password", usuario.PasswordHash);
                     cmd.Parameters.AddWithValue("@nombre", usuario.NombreCompleto);
                     cmd.Parameters.AddWithValue("@roleId", usuario.RoleId);
-                    var paramFoto = cmd.Parameters.Add("@foto", System.Data.SqlDbType.VarBinary, -1);
+                    var paramFoto = cmd.Parameters.Add("@foto", SqlDbType.VarBinary, -1);
                     paramFoto.Value = (object?)usuario.FotoPerfil ?? DBNull.Value;
+
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
         }
 
-        // Actualizar usuario
+        // =======================
+        // ACTUALIZAR USUARIO
+        // =======================
         public bool Actualizar(Usuario usuario)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
 
-                // Construir SQL dinámicamente
                 string sql = @"
-                UPDATE Usuarios
-                SET Username = @username,
-                    NombreCompleto = @nombre,
-                    RoleId = @roleId,
-                    FotoPerfil = @foto";
+                    UPDATE Usuarios
+                    SET Username = @username,
+                        NombreCompleto = @nombreCompleto,
+                        FotoPerfil = @fotoPerfil";
 
+                // Solo actualiza la contraseña si viene con valor
                 if (!string.IsNullOrWhiteSpace(usuario.PasswordHash))
-                {
                     sql += ", PasswordHash = @passwordHash";
-                }
 
                 sql += " WHERE UserId = @userId";
 
                 using (var cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@username", usuario.Username);
-                    cmd.Parameters.AddWithValue("@nombre", usuario.NombreCompleto);
-                    cmd.Parameters.AddWithValue("@roleId", usuario.RoleId);
-
-                    var paramFoto = cmd.Parameters.Add("@foto", System.Data.SqlDbType.VarBinary, -1);
-                    paramFoto.Value = (object?)usuario.FotoPerfil ?? DBNull.Value;
-
+                    cmd.Parameters.AddWithValue("@nombreCompleto", usuario.NombreCompleto);
                     cmd.Parameters.AddWithValue("@userId", usuario.UserId);
+
+                    var paramFoto = cmd.Parameters.Add("@fotoPerfil", SqlDbType.VarBinary, -1);
+                    paramFoto.Value = (object?)usuario.FotoPerfil ?? DBNull.Value;
 
                     if (!string.IsNullOrWhiteSpace(usuario.PasswordHash))
                         cmd.Parameters.AddWithValue("@passwordHash", usuario.PasswordHash);
@@ -175,8 +181,9 @@ namespace Datos.Repositorio
             }
         }
 
-
-        // Eliminar usuario
+        // =======================
+        // ELIMINAR USUARIO
+        // =======================
         public bool Eliminar(int userId)
         {
             using (var conn = ConexionBD.Instance.GetConnection())
@@ -190,7 +197,9 @@ namespace Datos.Repositorio
             }
         }
 
-        // Listar roles
+        // =======================
+        // LISTAR ROLES
+        // =======================
         public List<Rol> ListarRoles()
         {
             var roles = new List<Rol>();
@@ -215,14 +224,21 @@ namespace Datos.Repositorio
             return roles;
         }
 
+        // =======================
+        // OBTENER POR ID
+        // =======================
         public Usuario? ObtenerPorId(int id)
         {
             Usuario? usuario = null;
-
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Usuarios WHERE UserId = @id", conn))
+                using (SqlCommand cmd = new SqlCommand(@"
+                    SELECT u.UserId, u.Username, u.PasswordHash, u.NombreCompleto, u.FotoPerfil, 
+                           u.RoleId, r.Nombre AS NombreRol
+                    FROM Usuarios u
+                    INNER JOIN Roles r ON u.RoleId = r.RoleId
+                    WHERE u.UserId = @id", conn))
                 {
                     cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
@@ -233,19 +249,18 @@ namespace Datos.Repositorio
                             usuario = new Usuario
                             {
                                 UserId = Convert.ToInt32(dr["UserId"]),
-                                Username = dr["Username"].ToString()!,
-                                NombreCompleto = dr["NombreCompleto"].ToString()!,
+                                Username = dr["Username"].ToString() ?? string.Empty,
+                                PasswordHash = dr["PasswordHash"].ToString() ?? string.Empty,
+                                NombreCompleto = dr["NombreCompleto"].ToString() ?? string.Empty,
                                 FotoPerfil = dr["FotoPerfil"] as byte[],
-                                RoleId = Convert.ToInt32(dr["RoleId"])
+                                RoleId = Convert.ToInt32(dr["RoleId"]),
+                                NombreRol = dr["NombreRol"].ToString() ?? string.Empty
                             };
                         }
                     }
                 }
             }
-
             return usuario;
         }
-
     }
 }
-

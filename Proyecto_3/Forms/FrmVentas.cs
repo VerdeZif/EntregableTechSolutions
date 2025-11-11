@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Entidad.Models;
+using Negocio.Servicios;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Negocio.Servicios;
-using Entidad.Models;
 
 namespace Presentacion.Forms
 {
@@ -26,20 +27,26 @@ namespace Presentacion.Forms
             CargarClientes();
             CargarProductos();
             lblVendedor.Text = $"Vendedor: {_usuario.NombreCompleto}";
+            dgvDetalles.AutoGenerateColumns = false;
+            ConfigurarGridDetalles();
         }
 
         private void CargarClientes()
         {
-            cmbCliente.DataSource = _clienteNegocio.ListarClientes();
-            cmbCliente.DisplayMember = "NombreCompleto";
+            var clientes = _clienteNegocio.ListarClientes();
+            cmbCliente.DataSource = clientes;
+            cmbCliente.DisplayMember = "Nombre";
             cmbCliente.ValueMember = "ClienteId";
+            cmbCliente.SelectedIndex = -1; // No seleccionar nada al inicio
         }
 
         private void CargarProductos()
         {
-            cmbProducto.DataSource = _productoNegocio.ListarProductos();
+            var productos = _productoNegocio.ListarProductos();
+            cmbProducto.DataSource = productos;
             cmbProducto.DisplayMember = "Nombre";
             cmbProducto.ValueMember = "ProductoId";
+            cmbProducto.SelectedIndex = -1;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -59,16 +66,30 @@ namespace Presentacion.Forms
                 return;
             }
 
-            var detalle = new DetalleVenta
+            // Verificar si el producto ya está agregado y sumar cantidad
+            var detalleExistente = _detallesVenta.FirstOrDefault(d => d.ProductoId == producto.ProductoId);
+            if (detalleExistente != null)
             {
-                ProductoId = producto.ProductoId,
-                NombreProducto = producto.Nombre,
-                Descripcion = producto.Descripcion,
-                Cantidad = cantidad,
-                PrecioUnitario = producto.Precio
-            };
+                if (detalleExistente.Cantidad + cantidad > producto.Stock)
+                {
+                    MessageBox.Show("No hay suficiente stock para agregar esta cantidad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                detalleExistente.Cantidad += cantidad;
+            }
+            else
+            {
+                var detalle = new DetalleVenta
+                {
+                    ProductoId = producto.ProductoId,
+                    NombreProducto = producto.Nombre,
+                    Descripcion = producto.Descripcion,
+                    Cantidad = cantidad,
+                    PrecioUnitario = producto.Precio
+                };
+                _detallesVenta.Add(detalle);
+            }
 
-            _detallesVenta.Add(detalle);
             CargarDetalles();
             CalcularTotal();
         }
@@ -82,7 +103,7 @@ namespace Presentacion.Forms
         private void CalcularTotal()
         {
             decimal total = _detallesVenta.Sum(d => d.Subtotal);
-            lblTotal.Text = $"Total: S/ {total:F2}";
+            lblTotal.Text = $"Total: S/ {total.ToString("0.00")}";
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -97,29 +118,46 @@ namespace Presentacion.Forms
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
-            if (cmbCliente.SelectedItem == null || _detallesVenta.Count == 0)
+            if (cmbCliente.SelectedValue == null)
             {
-                MessageBox.Show("Debe seleccionar un cliente y agregar al menos un producto.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar un cliente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var cliente = (Cliente)cmbCliente.SelectedItem;
+            if (_detallesVenta.Count == 0)
+            {
+                MessageBox.Show("Debe agregar al menos un producto.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int clienteId = Convert.ToInt32(cmbCliente.SelectedValue);
             decimal total = _detallesVenta.Sum(d => d.Subtotal);
 
             try
             {
                 var resultado = _ventaNegocio.RegistrarVenta(
                     _usuario.UserId,
-                    cliente.ClienteId,
+                    clienteId,
                     total,
                     _detallesVenta
                 );
 
-                MessageBox.Show($"Venta registrada correctamente. ID: {resultado.ventaId}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (resultado.ventaId > 0)
+                {
+                    MessageBox.Show($"Venta registrada correctamente. ID: {resultado.ventaId}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                _detallesVenta.Clear();
-                CargarDetalles();
-                CalcularTotal();
+                    // Limpiar
+                    _detallesVenta.Clear();
+                    CargarDetalles();
+                    CalcularTotal();
+                    cmbCliente.SelectedIndex = -1;
+                    cmbProducto.SelectedIndex = -1;
+                    numCantidad.Value = 1;
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo registrar la venta: " + resultado.mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -127,9 +165,60 @@ namespace Presentacion.Forms
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void ConfigurarGridDetalles()
         {
+            dgvDetalles.Columns.Clear();
 
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NombreProducto",
+                HeaderText = "Producto",
+                ReadOnly = true
+            });
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Descripcion",
+                HeaderText = "Descripción",
+                ReadOnly = true
+            });
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Cantidad",
+                HeaderText = "Cantidad",
+                ReadOnly = true,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                }
+            });
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PrecioUnitario",
+                HeaderText = "Precio Unitario",
+                ReadOnly = true,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleRight,
+                    NullValue = "S/ 0.00"
+                }
+            });
+
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Subtotal",
+                HeaderText = "Subtotal",
+                ReadOnly = true,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleRight,
+                    NullValue = "S/ 0.00"
+                }
+            });
+
+            dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }

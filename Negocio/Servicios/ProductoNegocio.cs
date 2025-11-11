@@ -1,12 +1,5 @@
-﻿using Datos.Database;
-using Datos.Repositorio;
+﻿using Datos.Repositorio;
 using Entidad.Models;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Negocio.Servicios
 {

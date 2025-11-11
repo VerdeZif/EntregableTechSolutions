@@ -1,9 +1,6 @@
-﻿using Datos.Database;
-using Datos.Repositorio;
+﻿using Datos.Repositorio;
 using Entidad.Models;
 using Negocio.Seguridad;
-using System;
-using System.Collections.Generic;
 
 namespace Negocio.Servicios
 {
@@ -57,6 +54,17 @@ namespace Negocio.Servicios
             return _usuarioDatos.Actualizar(usuario);
         }
 
+        // Otra forma de Actualizar usuario
+        public bool ActualizarUsuario(Usuario usuario, string? nuevaPassword)
+        {
+            if (!string.IsNullOrWhiteSpace(nuevaPassword))
+            {
+                usuario.PasswordHash = _passwordHasher.HashPassword(nuevaPassword);
+            }
+
+            return _usuarioDatos.Actualizar(usuario);
+        }
+
         // Eliminar usuario
         public bool EliminarUsuario(int userId)
         {
@@ -66,6 +74,12 @@ namespace Negocio.Servicios
         public Usuario? ObtenerPorId(int id)
         {
             return _usuarioDatos.ObtenerPorId(id);
+        }
+
+        // Generar hash desde la capa de negocio (útil para cambio de contraseña)
+        public string GenerarHash(string passwordPlano)
+        {
+            return _passwordHasher.HashPassword(passwordPlano);
         }
     }
 }

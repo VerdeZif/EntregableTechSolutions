@@ -20,81 +20,113 @@
 
         private void InitializeComponent()
         {
-            this.pnlEncabezado = new System.Windows.Forms.Panel();
-            this.lblVentaId = new System.Windows.Forms.Label();
-            this.lblFecha = new System.Windows.Forms.Label();
-            this.lblCliente = new System.Windows.Forms.Label();
-            this.pnlDetalle = new System.Windows.Forms.Panel();
-            this.pnlTotales = new System.Windows.Forms.Panel();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.btnExportarPDF = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            pnlEncabezado = new Panel();
+            lblVentaId = new Label();
+            lblFecha = new Label();
+            lblCliente = new Label();
+            pnlDetalle = new Panel();
+            pnlTotales = new Panel();
+            lblTotal = new Label();
+            btnExportarPDF = new Button();
+            pnlEncabezado.SuspendLayout();
+            pnlTotales.SuspendLayout();
+            SuspendLayout();
             // 
             // pnlEncabezado
             // 
-            this.pnlEncabezado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlEncabezado.Controls.Add(this.lblVentaId);
-            this.pnlEncabezado.Controls.Add(this.lblFecha);
-            this.pnlEncabezado.Controls.Add(this.lblCliente);
-            this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlEncabezado.Height = 100;
+            pnlEncabezado.BorderStyle = BorderStyle.FixedSingle;
+            pnlEncabezado.Controls.Add(lblVentaId);
+            pnlEncabezado.Controls.Add(lblFecha);
+            pnlEncabezado.Controls.Add(lblCliente);
+            pnlEncabezado.Dock = DockStyle.Top;
+            pnlEncabezado.Location = new Point(0, 0);
+            pnlEncabezado.Name = "pnlEncabezado";
+            pnlEncabezado.Size = new Size(500, 100);
+            pnlEncabezado.TabIndex = 1;
+            pnlEncabezado.Paint += pnlEncabezado_Paint;
             // 
             // lblVentaId
             // 
-            this.lblVentaId.AutoSize = true;
-            this.lblVentaId.Location = new System.Drawing.Point(10, 10);
-            this.lblVentaId.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            lblVentaId.AutoSize = true;
+            lblVentaId.Font = new Font("Consolas", 12F, FontStyle.Bold);
+            lblVentaId.Location = new Point(10, 10);
+            lblVentaId.Name = "lblVentaId";
+            lblVentaId.Size = new Size(0, 19);
+            lblVentaId.TabIndex = 0;
             // 
             // lblFecha
             // 
-            this.lblFecha.AutoSize = true;
-            this.lblFecha.Location = new System.Drawing.Point(10, 40);
-            this.lblFecha.Font = new System.Drawing.Font("Consolas", 10F);
+            lblFecha.AutoSize = true;
+            lblFecha.Font = new Font("Consolas", 10F);
+            lblFecha.Location = new Point(10, 40);
+            lblFecha.Name = "lblFecha";
+            lblFecha.Size = new Size(0, 17);
+            lblFecha.TabIndex = 1;
             // 
             // lblCliente
             // 
-            this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(10, 65);
-            this.lblCliente.Font = new System.Drawing.Font("Consolas", 10F);
+            lblCliente.AutoSize = true;
+            lblCliente.Font = new Font("Consolas", 10F);
+            lblCliente.Location = new Point(10, 65);
+            lblCliente.Name = "lblCliente";
+            lblCliente.Size = new Size(0, 17);
+            lblCliente.TabIndex = 2;
             // 
             // pnlDetalle
             // 
-            this.pnlDetalle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlDetalle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlDetalle.Height = 300;
-            this.pnlDetalle.AutoScroll = true;
+            pnlDetalle.AutoScroll = true;
+            pnlDetalle.BorderStyle = BorderStyle.FixedSingle;
+            pnlDetalle.Dock = DockStyle.Top;
+            pnlDetalle.Location = new Point(0, 100);
+            pnlDetalle.Name = "pnlDetalle";
+            pnlDetalle.Size = new Size(500, 300);
+            pnlDetalle.TabIndex = 0;
             // 
             // pnlTotales
             // 
-            this.pnlTotales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlTotales.Controls.Add(this.lblTotal);
-            this.pnlTotales.Controls.Add(this.btnExportarPDF);
-            this.pnlTotales.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlTotales.Height = 80;
+            pnlTotales.BorderStyle = BorderStyle.FixedSingle;
+            pnlTotales.Controls.Add(lblTotal);
+            pnlTotales.Controls.Add(btnExportarPDF);
+            pnlTotales.Dock = DockStyle.Bottom;
+            pnlTotales.Location = new Point(0, 420);
+            pnlTotales.Name = "pnlTotales";
+            pnlTotales.Size = new Size(500, 80);
+            pnlTotales.TabIndex = 2;
             // 
             // lblTotal
             // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(10, 10);
-            this.lblTotal.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            lblTotal.AutoSize = true;
+            lblTotal.Font = new Font("Consolas", 12F, FontStyle.Bold);
+            lblTotal.Location = new Point(10, 10);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(0, 19);
+            lblTotal.TabIndex = 0;
             // 
             // btnExportarPDF
             // 
-            this.btnExportarPDF.Location = new System.Drawing.Point(350, 20);
-            this.btnExportarPDF.Size = new System.Drawing.Size(120, 40);
-            this.btnExportarPDF.Text = "Exportar PDF";
-            this.btnExportarPDF.Click += new System.EventHandler(this.btnExportarPDF_Click);
+            btnExportarPDF.Location = new Point(350, 20);
+            btnExportarPDF.Name = "btnExportarPDF";
+            btnExportarPDF.Size = new Size(120, 40);
+            btnExportarPDF.TabIndex = 1;
+            btnExportarPDF.Text = "Exportar PDF";
+            btnExportarPDF.Click += btnExportarPDF_Click;
             // 
             // FrmReporteVenta
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 500);
-            this.Controls.Add(this.pnlDetalle);
-            this.Controls.Add(this.pnlEncabezado);
-            this.Controls.Add(this.pnlTotales);
-            this.Text = "Reporte de Venta";
-            this.Load += new System.EventHandler(this.FrmReporteVenta_Load);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(500, 500);
+            Controls.Add(pnlDetalle);
+            Controls.Add(pnlEncabezado);
+            Controls.Add(pnlTotales);
+            Name = "FrmReporteVenta";
+            Text = "Reporte de Venta";
+            Load += FrmReporteVenta_Load;
+            pnlEncabezado.ResumeLayout(false);
+            pnlEncabezado.PerformLayout();
+            pnlTotales.ResumeLayout(false);
+            pnlTotales.PerformLayout();
+            ResumeLayout(false);
         }
     }
 }

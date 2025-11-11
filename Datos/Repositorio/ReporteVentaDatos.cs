@@ -4,9 +4,11 @@ using Microsoft.Data.SqlClient;
 
 namespace Datos.Repositorio
 {
-    public class ReporteDatos
+    public class ReporteVentaDatos
     {
-        // Ventas por fecha
+        // ===============================
+        // REPORTE DE VENTAS POR FECHA
+        // ===============================
         public List<ReporteVenta> ObtenerVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
             var lista = new List<ReporteVenta>();
@@ -15,17 +17,22 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 string query = @"
-                    SELECT 
-                        v.VentaId,
-                        v.Fecha,
-                        c.Nombre AS Cliente,
-                        u.NombreCompleto AS Usuario,
-                        v.Total
-                    FROM Ventas v
-                    INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
-                    INNER JOIN Usuarios u ON v.UserId = u.UserId
-                    WHERE CAST(v.Fecha AS DATE) BETWEEN @fechaInicio AND @fechaFin
-                    ORDER BY v.Fecha DESC";
+            SELECT 
+                v.VentaId,
+                v.Fecha,
+                c.Nombre AS Cliente,
+                u.NombreCompleto AS Usuario,
+                p.Nombre AS Producto,
+                d.Cantidad AS CantidadVendida,
+                (d.Cantidad * d.PrecioUnitario) AS Total,
+                v.Total AS TotalRecaudado
+            FROM Ventas v
+            INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
+            INNER JOIN Usuarios u ON v.UserId = u.UserId
+            INNER JOIN DetalleVenta d ON v.VentaId = d.VentaId
+            INNER JOIN Productos p ON d.ProductoId = p.ProductoId
+            WHERE CAST(v.Fecha AS DATE) BETWEEN @fechaInicio AND @fechaFin
+            ORDER BY v.Fecha DESC";
 
                 using (var cmd = new SqlCommand(query, conn))
                 {
@@ -38,11 +45,14 @@ namespace Datos.Repositorio
                         {
                             lista.Add(new ReporteVenta
                             {
-                                VentaId = dr["VentaId"] != DBNull.Value ? Convert.ToInt32(dr["VentaId"]) : 0,
-                                Fecha = dr["Fecha"] != DBNull.Value ? Convert.ToDateTime(dr["Fecha"]) : DateTime.MinValue,
+                                VentaId = Convert.ToInt32(dr["VentaId"]),
+                                Fecha = Convert.ToDateTime(dr["Fecha"]),
                                 Cliente = dr["Cliente"]?.ToString() ?? string.Empty,
                                 Usuario = dr["Usuario"]?.ToString() ?? string.Empty,
-                                Total = dr["Total"] != DBNull.Value ? Convert.ToDecimal(dr["Total"]) : 0m
+                                Producto = dr["Producto"]?.ToString() ?? string.Empty,
+                                CantidadVendida = Convert.ToInt32(dr["CantidadVendida"]),
+                                Total = Convert.ToDecimal(dr["Total"]),
+                                TotalRecaudado = Convert.ToDecimal(dr["TotalRecaudado"])
                             });
                         }
                     }
@@ -52,7 +62,9 @@ namespace Datos.Repositorio
             return lista;
         }
 
-        // Productos más vendidos
+        // ===============================
+        // PRODUCTOS MÁS VENDIDOS
+        // ===============================
         public List<ReporteVenta> ObtenerProductosMasVendidos(DateTime fechaInicio, DateTime fechaFin)
         {
             var lista = new List<ReporteVenta>();
@@ -84,8 +96,8 @@ namespace Datos.Repositorio
                             lista.Add(new ReporteVenta
                             {
                                 Producto = dr["Producto"]?.ToString() ?? string.Empty,
-                                CantidadVendida = dr["TotalVendido"] != DBNull.Value ? Convert.ToInt32(dr["TotalVendido"]) : 0,
-                                TotalRecaudado = dr["TotalRecaudado"] != DBNull.Value ? Convert.ToDecimal(dr["TotalRecaudado"]) : 0m
+                                CantidadVendida = Convert.ToInt32(dr["TotalVendido"]),
+                                TotalRecaudado = Convert.ToDecimal(dr["TotalRecaudado"])
                             });
                         }
                     }
@@ -95,7 +107,9 @@ namespace Datos.Repositorio
             return lista;
         }
 
-        // Total ventas por usuario
+        // ===============================
+        // TOTAL DE VENTAS POR USUARIO
+        // ===============================
         public List<ReporteVenta> ObtenerTotalVentasPorUsuario(DateTime fechaInicio, DateTime fechaFin)
         {
             var lista = new List<ReporteVenta>();
@@ -126,8 +140,8 @@ namespace Datos.Repositorio
                             lista.Add(new ReporteVenta
                             {
                                 Usuario = dr["Usuario"]?.ToString() ?? string.Empty,
-                                TotalVentas = dr["TotalVentas"] != DBNull.Value ? Convert.ToInt32(dr["TotalVentas"]) : 0,
-                                TotalRecaudado = dr["TotalRecaudado"] != DBNull.Value ? Convert.ToDecimal(dr["TotalRecaudado"]) : 0m
+                                TotalVentas = Convert.ToInt32(dr["TotalVentas"]),
+                                TotalRecaudado = Convert.ToDecimal(dr["TotalRecaudado"])
                             });
                         }
                     }
@@ -136,6 +150,10 @@ namespace Datos.Repositorio
 
             return lista;
         }
+
+        // ===============================
+        // DETALLE DE UNA VENTA
+        // ===============================
         public List<DetalleVenta> ObtenerDetalleVenta(int ventaId)
         {
             var lista = new List<DetalleVenta>();
@@ -144,21 +162,21 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 using (var cmd = new SqlCommand(@"
-            SELECT 
-                d.DetalleId,
-                d.VentaId,
-                d.ProductoId,
-                p.Nombre AS ProductoNombre,
-                d.Cantidad,
-                d.PrecioUnitario,
-                v.Fecha AS FechaVenta,
-                c.Nombre AS ClienteNombre,
-                v.Total AS TotalVenta
-            FROM DetalleVenta d
-            INNER JOIN Productos p ON d.ProductoId = p.ProductoId
-            INNER JOIN Ventas v ON d.VentaId = v.VentaId
-            INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
-            WHERE d.VentaId = @ventaId", conn))
+                    SELECT 
+                        d.DetalleId,
+                        d.VentaId,
+                        d.ProductoId,
+                        p.Nombre AS ProductoNombre,
+                        d.Cantidad,
+                        d.PrecioUnitario,
+                        v.Fecha AS FechaVenta,
+                        c.Nombre AS ClienteNombre,
+                        v.Total AS TotalVenta
+                    FROM DetalleVenta d
+                    INNER JOIN Productos p ON d.ProductoId = p.ProductoId
+                    INNER JOIN Ventas v ON d.VentaId = v.VentaId
+                    INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
+                    WHERE d.VentaId = @ventaId", conn))
                 {
                     cmd.Parameters.AddWithValue("@ventaId", ventaId);
 

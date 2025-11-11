@@ -11,6 +11,8 @@
         private System.Windows.Forms.Button btnGestionVendedores;
         private System.Windows.Forms.Button btnGestionProductos;
         private System.Windows.Forms.Button btnVerReportes;
+        private System.Windows.Forms.Button btnEditarPerfil;
+        private System.Windows.Forms.Button btnCerrarSesion;
         private System.Windows.Forms.GroupBox groupBoxAdmin;
         private System.Windows.Forms.GroupBox groupBoxGestion;
         private System.Windows.Forms.DataGridView dgvVentas;
@@ -24,122 +26,169 @@
 
         private void InitializeComponent()
         {
-            this.groupBoxAdmin = new System.Windows.Forms.GroupBox();
-            this.pbAdminFoto = new System.Windows.Forms.PictureBox();
-            this.txtAdminNombre = new System.Windows.Forms.TextBox();
-            this.lblAdminNombre = new System.Windows.Forms.Label();
-
-            this.groupBoxGestion = new System.Windows.Forms.GroupBox();
-            this.btnGestionClientes = new System.Windows.Forms.Button();
-            this.btnGestionVendedores = new System.Windows.Forms.Button();
-            this.btnGestionProductos = new System.Windows.Forms.Button();
-            this.btnVerReportes = new System.Windows.Forms.Button();
-
-            this.lblVentas = new System.Windows.Forms.Label();
-            this.dgvVentas = new System.Windows.Forms.DataGridView();
-
+            groupBoxAdmin = new GroupBox();
+            pbAdminFoto = new PictureBox();
+            txtAdminNombre = new TextBox();
+            lblAdminNombre = new Label();
+            btnEditarPerfil = new Button();
+            btnCerrarSesion = new Button();
+            groupBoxGestion = new GroupBox();
+            btnGestionClientes = new Button();
+            btnGestionVendedores = new Button();
+            btnGestionProductos = new Button();
+            btnVerReportes = new Button();
+            lblVentas = new Label();
+            dgvVentas = new DataGridView();
+            groupBoxAdmin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbAdminFoto).BeginInit();
+            groupBoxGestion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
+            SuspendLayout();
             // 
             // groupBoxAdmin
             // 
-            this.groupBoxAdmin.Controls.Add(this.pbAdminFoto);
-            this.groupBoxAdmin.Controls.Add(this.txtAdminNombre);
-            this.groupBoxAdmin.Controls.Add(this.lblAdminNombre);
-            this.groupBoxAdmin.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxAdmin.Height = 150;
-            this.groupBoxAdmin.Text = "Datos del Administrador";
-
-            // 
-            // lblAdminNombre
-            // 
-            this.lblAdminNombre.Location = new System.Drawing.Point(20, 40);
-            this.lblAdminNombre.Size = new System.Drawing.Size(100, 20);
-            this.lblAdminNombre.Text = "Nombre:";
-
-            // 
-            // txtAdminNombre
-            // 
-            this.txtAdminNombre.Location = new System.Drawing.Point(130, 37);
-            this.txtAdminNombre.Size = new System.Drawing.Size(200, 22);
-            this.txtAdminNombre.ReadOnly = true;
-
+            groupBoxAdmin.Controls.Add(pbAdminFoto);
+            groupBoxAdmin.Controls.Add(txtAdminNombre);
+            groupBoxAdmin.Controls.Add(lblAdminNombre);
+            groupBoxAdmin.Controls.Add(btnEditarPerfil);
+            groupBoxAdmin.Controls.Add(btnCerrarSesion);
+            groupBoxAdmin.Dock = DockStyle.Top;
+            groupBoxAdmin.Location = new Point(0, 0);
+            groupBoxAdmin.Name = "groupBoxAdmin";
+            groupBoxAdmin.Size = new Size(800, 150);
+            groupBoxAdmin.TabIndex = 3;
+            groupBoxAdmin.TabStop = false;
+            groupBoxAdmin.Text = "Datos del Administrador";
             // 
             // pbAdminFoto
             // 
-            this.pbAdminFoto.Location = new System.Drawing.Point(360, 20);
-            this.pbAdminFoto.Size = new System.Drawing.Size(100, 100);
-            this.pbAdminFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbAdminFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-
+            pbAdminFoto.BorderStyle = BorderStyle.FixedSingle;
+            pbAdminFoto.Location = new Point(360, 20);
+            pbAdminFoto.Name = "pbAdminFoto";
+            pbAdminFoto.Size = new Size(100, 100);
+            pbAdminFoto.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbAdminFoto.TabIndex = 0;
+            pbAdminFoto.TabStop = false;
+            // 
+            // txtAdminNombre
+            // 
+            txtAdminNombre.Location = new Point(130, 37);
+            txtAdminNombre.Name = "txtAdminNombre";
+            txtAdminNombre.ReadOnly = true;
+            txtAdminNombre.Size = new Size(200, 23);
+            txtAdminNombre.TabIndex = 1;
+            // 
+            // lblAdminNombre
+            // 
+            lblAdminNombre.Location = new Point(20, 40);
+            lblAdminNombre.Name = "lblAdminNombre";
+            lblAdminNombre.Size = new Size(100, 20);
+            lblAdminNombre.TabIndex = 2;
+            lblAdminNombre.Text = "Nombre:";
+            // 
+            // btnEditarPerfil
+            // 
+            btnEditarPerfil.Location = new Point(130, 70);
+            btnEditarPerfil.Name = "btnEditarPerfil";
+            btnEditarPerfil.Size = new Size(150, 30);
+            btnEditarPerfil.TabIndex = 3;
+            btnEditarPerfil.Text = "Gestionar Perfil";
+            btnEditarPerfil.Click += btnEditarPerfil_Click;
+            // 
+            // btnCerrarSesion
+            // 
+            btnCerrarSesion.Location = new Point(644, 20);
+            btnCerrarSesion.Name = "btnCerrarSesion";
+            btnCerrarSesion.Size = new Size(150, 30);
+            btnCerrarSesion.TabIndex = 4;
+            btnCerrarSesion.Text = "Cerrar Sesión";
+            btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
             // groupBoxGestion
             // 
-            this.groupBoxGestion.Controls.Add(this.btnGestionClientes);
-            this.groupBoxGestion.Controls.Add(this.btnGestionVendedores);
-            this.groupBoxGestion.Controls.Add(this.btnGestionProductos);
-            this.groupBoxGestion.Controls.Add(this.btnVerReportes);
-            this.groupBoxGestion.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxGestion.Height = 100;
-            this.groupBoxGestion.Text = "Gestión";
-
+            groupBoxGestion.Controls.Add(btnGestionClientes);
+            groupBoxGestion.Controls.Add(btnGestionVendedores);
+            groupBoxGestion.Controls.Add(btnGestionProductos);
+            groupBoxGestion.Controls.Add(btnVerReportes);
+            groupBoxGestion.Dock = DockStyle.Top;
+            groupBoxGestion.Location = new Point(0, 150);
+            groupBoxGestion.Name = "groupBoxGestion";
+            groupBoxGestion.Size = new Size(800, 100);
+            groupBoxGestion.TabIndex = 2;
+            groupBoxGestion.TabStop = false;
+            groupBoxGestion.Text = "Gestión";
             // 
             // btnGestionClientes
             // 
-            this.btnGestionClientes.Location = new System.Drawing.Point(20, 30);
-            this.btnGestionClientes.Size = new System.Drawing.Size(150, 40);
-            this.btnGestionClientes.Text = "Gestionar Clientes";
-            this.btnGestionClientes.Click += new System.EventHandler(this.btnGestionClientes_Click);
-
+            btnGestionClientes.Location = new Point(20, 30);
+            btnGestionClientes.Name = "btnGestionClientes";
+            btnGestionClientes.Size = new Size(150, 40);
+            btnGestionClientes.TabIndex = 0;
+            btnGestionClientes.Text = "Gestionar Clientes";
+            btnGestionClientes.Click += btnGestionClientes_Click;
             // 
             // btnGestionVendedores
             // 
-            this.btnGestionVendedores.Location = new System.Drawing.Point(200, 30);
-            this.btnGestionVendedores.Size = new System.Drawing.Size(150, 40);
-            this.btnGestionVendedores.Text = "Gestionar Vendedores";
-            this.btnGestionVendedores.Click += new System.EventHandler(this.btnGestionVendedores_Click);
-
+            btnGestionVendedores.Location = new Point(200, 30);
+            btnGestionVendedores.Name = "btnGestionVendedores";
+            btnGestionVendedores.Size = new Size(150, 40);
+            btnGestionVendedores.TabIndex = 1;
+            btnGestionVendedores.Text = "Gestionar Vendedores";
+            btnGestionVendedores.Click += btnGestionVendedores_Click;
             // 
             // btnGestionProductos
             // 
-            this.btnGestionProductos.Location = new System.Drawing.Point(380, 30);
-            this.btnGestionProductos.Size = new System.Drawing.Size(150, 40);
-            this.btnGestionProductos.Text = "Gestionar Productos";
-            this.btnGestionProductos.Click += new System.EventHandler(this.btnGestionProductos_Click);
-
+            btnGestionProductos.Location = new Point(380, 30);
+            btnGestionProductos.Name = "btnGestionProductos";
+            btnGestionProductos.Size = new Size(150, 40);
+            btnGestionProductos.TabIndex = 2;
+            btnGestionProductos.Text = "Gestionar Productos";
+            btnGestionProductos.Click += btnGestionProductos_Click;
             // 
             // btnVerReportes
             // 
-            this.btnVerReportes.Location = new System.Drawing.Point(560, 30);
-            this.btnVerReportes.Size = new System.Drawing.Size(150, 40);
-            this.btnVerReportes.Text = "Ver Reporte Seleccionado";
-            this.btnVerReportes.Click += new System.EventHandler(this.btnVerReportes_Click);
-
+            btnVerReportes.Location = new Point(560, 30);
+            btnVerReportes.Name = "btnVerReportes";
+            btnVerReportes.Size = new Size(150, 40);
+            btnVerReportes.TabIndex = 3;
+            btnVerReportes.Text = "Ver Reporte Seleccionado";
+            btnVerReportes.Click += btnVerReportes_Click;
             // 
             // lblVentas
             // 
-            this.lblVentas.Location = new System.Drawing.Point(20, 260);
-            this.lblVentas.Size = new System.Drawing.Size(150, 20);
-            this.lblVentas.Text = "Ventas registradas:";
-
+            lblVentas.Location = new Point(20, 260);
+            lblVentas.Name = "lblVentas";
+            lblVentas.Size = new Size(150, 20);
+            lblVentas.TabIndex = 1;
+            lblVentas.Text = "Ventas registradas:";
             // 
             // dgvVentas
             // 
-            this.dgvVentas.Location = new System.Drawing.Point(20, 285);
-            this.dgvVentas.Size = new System.Drawing.Size(740, 200);
-            this.dgvVentas.ReadOnly = true;
-            this.dgvVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVentas.MultiSelect = false;
-            this.dgvVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-
+            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVentas.Location = new Point(20, 285);
+            dgvVentas.MultiSelect = false;
+            dgvVentas.Name = "dgvVentas";
+            dgvVentas.ReadOnly = true;
+            dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvVentas.Size = new Size(740, 200);
+            dgvVentas.TabIndex = 0;
             // 
             // FrmAdmin
             // 
-            this.ClientSize = new System.Drawing.Size(800, 500);
-            this.Controls.Add(this.dgvVentas);
-            this.Controls.Add(this.lblVentas);
-            this.Controls.Add(this.groupBoxGestion);
-            this.Controls.Add(this.groupBoxAdmin);
-            this.Text = "Panel de Administración";
-            this.Load += new System.EventHandler(this.FrmAdmin_Load);
+            ClientSize = new Size(800, 500);
+            Controls.Add(dgvVentas);
+            Controls.Add(lblVentas);
+            Controls.Add(groupBoxGestion);
+            Controls.Add(groupBoxAdmin);
+            Name = "FrmAdmin";
+            Text = "Panel de Administración";
+            Load += FrmAdmin_Load;
+            groupBoxAdmin.ResumeLayout(false);
+            groupBoxAdmin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbAdminFoto).EndInit();
+            groupBoxGestion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
+            ResumeLayout(false);
         }
     }
 }

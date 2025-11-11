@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-using Negocio.Servicios;
-using PdfSharpCore.Pdf;
+﻿using Negocio.Servicios;
 using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
 
 namespace Presentacion.Forms
 {
@@ -148,6 +143,11 @@ namespace Presentacion.Forms
             {
                 MessageBox.Show("Error al exportar PDF: " + ex.Message, "Error");
             }
+        }
+
+        private void pnlEncabezado_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

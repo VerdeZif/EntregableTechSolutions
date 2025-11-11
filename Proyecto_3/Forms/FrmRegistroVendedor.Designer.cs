@@ -6,13 +6,9 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.Label lblCorreo;
-        private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.TextBox txtCorreo;
-        private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.PictureBox pbFoto;
         private System.Windows.Forms.Button btnSeleccionarFoto;
         private System.Windows.Forms.Button btnAgregar;
@@ -33,13 +29,9 @@
             this.groupBoxDatos = new System.Windows.Forms.GroupBox();
             this.pbFoto = new System.Windows.Forms.PictureBox();
             this.btnSeleccionarFoto = new System.Windows.Forms.Button();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtCorreo = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.lblTelefono = new System.Windows.Forms.Label();
-            this.lblCorreo = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
@@ -52,13 +44,9 @@
             // groupBoxDatos
             this.groupBoxDatos.Controls.Add(this.pbFoto);
             this.groupBoxDatos.Controls.Add(this.btnSeleccionarFoto);
-            this.groupBoxDatos.Controls.Add(this.txtTelefono);
-            this.groupBoxDatos.Controls.Add(this.txtCorreo);
             this.groupBoxDatos.Controls.Add(this.txtPassword);
             this.groupBoxDatos.Controls.Add(this.txtUsuario);
             this.groupBoxDatos.Controls.Add(this.txtNombre);
-            this.groupBoxDatos.Controls.Add(this.lblTelefono);
-            this.groupBoxDatos.Controls.Add(this.lblCorreo);
             this.groupBoxDatos.Controls.Add(this.lblPassword);
             this.groupBoxDatos.Controls.Add(this.lblUsuario);
             this.groupBoxDatos.Controls.Add(this.lblNombre);
@@ -66,7 +54,7 @@
             this.groupBoxDatos.Controls.Add(this.btnEditar);
             this.groupBoxDatos.Controls.Add(this.btnEliminar);
             this.groupBoxDatos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxDatos.Height = 200;
+            this.groupBoxDatos.Height = 180;
             this.groupBoxDatos.Text = "Datos del Vendedor";
 
             // lblNombre
@@ -90,20 +78,6 @@
             this.txtPassword.Location = new System.Drawing.Point(110, 87);
             this.txtPassword.Size = new System.Drawing.Size(200, 22);
             this.txtPassword.UseSystemPasswordChar = true;
-
-            // lblCorreo
-            this.lblCorreo.Location = new System.Drawing.Point(350, 30);
-            this.lblCorreo.Size = new System.Drawing.Size(80, 20);
-            this.lblCorreo.Text = "Correo:";
-            this.txtCorreo.Location = new System.Drawing.Point(440, 27);
-            this.txtCorreo.Size = new System.Drawing.Size(200, 22);
-
-            // lblTelefono
-            this.lblTelefono.Location = new System.Drawing.Point(350, 60);
-            this.lblTelefono.Size = new System.Drawing.Size(80, 20);
-            this.lblTelefono.Text = "Teléfono:";
-            this.txtTelefono.Location = new System.Drawing.Point(440, 57);
-            this.txtTelefono.Size = new System.Drawing.Size(200, 22);
 
             // pbFoto
             this.pbFoto.Location = new System.Drawing.Point(680, 27);
@@ -145,7 +119,7 @@
             this.dgvVendedores.ReadOnly = true;
             this.dgvVendedores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.dgvVendedores.MultiSelect = false;
-            this.dgvVendedores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvVendedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvVendedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedores_CellClick);
 
             // FrmRegistroVendedor

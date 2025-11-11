@@ -1,9 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using Entidad.Models;
+﻿using Entidad.Models;
 using Negocio.Servicios;
 
 namespace Presentacion.Forms
@@ -35,18 +30,18 @@ namespace Presentacion.Forms
 
                 if (dgvVendedores.Columns.Contains("FotoPerfil"))
                     dgvVendedores.Columns["FotoPerfil"].Visible = false;
+
+                // Ocultar columnas eliminadas
+                if (dgvVendedores.Columns.Contains("Correo"))
+                    dgvVendedores.Columns["Correo"].Visible = false;
+
+                if (dgvVendedores.Columns.Contains("Telefono"))
+                    dgvVendedores.Columns["Telefono"].Visible = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar vendedores: " + ex.Message);
             }
-        }
-
-        private bool EsCorreoValido(string correo)
-        {
-            if (string.IsNullOrWhiteSpace(correo)) return false;
-            string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return Regex.IsMatch(correo, patron);
         }
 
         private byte[]? ObtenerFotoBytes()
@@ -79,9 +74,7 @@ namespace Presentacion.Forms
             {
                 NombreCompleto = txtNombre.Text.Trim(),
                 Username = txtUsuario.Text.Trim(),
-                Correo = txtCorreo.Text.Trim(),
-                Telefono = txtTelefono.Text.Trim(),
-                RoleId = 2, // Vendedor
+                RoleId = 2,
                 FotoPerfil = ObtenerFotoBytes()
             };
 
@@ -104,8 +97,6 @@ namespace Presentacion.Forms
             {
                 txtNombre.Text = dgvVendedores.Rows[e.RowIndex].Cells["NombreCompleto"].Value?.ToString();
                 txtUsuario.Text = dgvVendedores.Rows[e.RowIndex].Cells["Username"].Value?.ToString();
-                txtCorreo.Text = dgvVendedores.Rows[e.RowIndex].Cells["Correo"].Value?.ToString();
-                txtTelefono.Text = dgvVendedores.Rows[e.RowIndex].Cells["Telefono"].Value?.ToString();
 
                 var foto = dgvVendedores.Rows[e.RowIndex].Cells["FotoPerfil"].Value;
                 if (foto != DBNull.Value && foto is byte[] bytes)
@@ -130,8 +121,6 @@ namespace Presentacion.Forms
                 UserId = userId,
                 NombreCompleto = txtNombre.Text.Trim(),
                 Username = txtUsuario.Text.Trim(),
-                Correo = txtCorreo.Text.Trim(),
-                Telefono = txtTelefono.Text.Trim(),
                 RoleId = 2,
                 FotoPerfil = ObtenerFotoBytes()
             };
@@ -179,8 +168,6 @@ namespace Presentacion.Forms
             txtNombre.Clear();
             txtUsuario.Clear();
             txtPassword.Clear();
-            txtCorreo.Clear();
-            txtTelefono.Clear();
             pbFoto.Image = null;
         }
     }

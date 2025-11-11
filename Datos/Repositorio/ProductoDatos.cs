@@ -1,9 +1,6 @@
-﻿using Entidad.Models;
+﻿using Datos.Database;
+using Entidad.Models;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using Datos.Database;
 
 namespace Datos.Repositorio
 {

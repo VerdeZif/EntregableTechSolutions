@@ -1,8 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-using Entidad.Models;
+﻿using Entidad.Models;
 using Negocio.Servicios;
 
 namespace Presentacion.Forms
@@ -85,15 +81,46 @@ namespace Presentacion.Forms
 
         private void btnVerReportes_Click(object sender, EventArgs e)
         {
-            if (dgvVentas.CurrentRow == null)
+            try
             {
-                MessageBox.Show("Seleccione una venta para ver el reporte.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                using var frm = new FrmReportes(); // Abre el formulario general de reportes
+                frm.ShowDialog(); // Muestra el formulario de forma modal
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el formulario de reportes: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-            int ventaId = Convert.ToInt32(dgvVentas.CurrentRow.Cells["IdVenta"].Value);
-            using var frm = new FrmReporteVenta(ventaId);
-            frm.ShowDialog();
+        private void btnEditarPerfil_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Abrir el formulario de edición del administrador
+                using var frm = new FrmEditarPerfilAdmin(_admin.UserId);
+                frm.ShowDialog();
+
+                // Recargar datos del admin en caso de que se hayan actualizado
+                CargarDatosAdmin(_admin.UserId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el formulario de edición: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            // Ocultar este formulario
+            this.Hide();
+
+            // Abrir FrmLogin
+            using var frmLogin = new FrmLogin();
+            frmLogin.ShowDialog();
+
+            // Cerrar este formulario después de cerrar sesión
+            this.Close();
         }
     }
 }
