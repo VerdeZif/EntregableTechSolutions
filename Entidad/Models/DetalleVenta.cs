@@ -11,6 +11,7 @@
     // Propiedades adicionales para el reporte (no requieren cambios en DB)
     public DateTime FechaVenta { get; set; }
     public string NombreCliente { get; set; } = string.Empty;
+    public string NombreUsuario { get; set; } = string.Empty;
     public decimal TotalVenta { get; set; }
 
     public string? Descripcion { get; set; }

@@ -83,7 +83,7 @@ namespace Presentacion.Forms
         {
             try
             {
-                using var frm = new FrmReportes(); // Abre el formulario general de reportes
+                using var frm = new FrmReporte(); // Abre el formulario general de reportes
                 frm.ShowDialog(); // Muestra el formulario de forma modal
             }
             catch (Exception ex)
@@ -121,6 +121,11 @@ namespace Presentacion.Forms
 
             // Cerrar este formulario después de cerrar sesión
             this.Close();
+        }
+
+        private void groupBoxGestion_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

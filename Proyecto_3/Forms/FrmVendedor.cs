@@ -103,6 +103,31 @@ namespace Presentacion.Forms
             }
         }
 
+        private void groupBoxAcciones_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvVentas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                try
+                {
+                    // Obtiene el ID de la venta seleccionada
+                    int ventaId = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["VentaId"].Value);
+
+                    // Abre el reporte individual con el ID de la venta
+                    FrmReporteVentaIndividual frm = new FrmReporteVentaIndividual(ventaId);
+                    frm.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al abrir el detalle: " + ex.Message,
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
 
     }
 }

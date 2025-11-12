@@ -117,6 +117,7 @@
             groupBoxGestion.TabIndex = 2;
             groupBoxGestion.TabStop = false;
             groupBoxGestion.Text = "Gestión";
+            groupBoxGestion.Enter += groupBoxGestion_Enter;
             // 
             // btnGestionClientes
             // 
@@ -129,7 +130,7 @@
             // 
             // btnGestionVendedores
             // 
-            btnGestionVendedores.Location = new Point(200, 30);
+            btnGestionVendedores.Location = new Point(230, 30);
             btnGestionVendedores.Name = "btnGestionVendedores";
             btnGestionVendedores.Size = new Size(150, 40);
             btnGestionVendedores.TabIndex = 1;
@@ -138,7 +139,7 @@
             // 
             // btnGestionProductos
             // 
-            btnGestionProductos.Location = new Point(380, 30);
+            btnGestionProductos.Location = new Point(432, 30);
             btnGestionProductos.Name = "btnGestionProductos";
             btnGestionProductos.Size = new Size(150, 40);
             btnGestionProductos.TabIndex = 2;
@@ -147,11 +148,11 @@
             // 
             // btnVerReportes
             // 
-            btnVerReportes.Location = new Point(560, 30);
+            btnVerReportes.Location = new Point(638, 30);
             btnVerReportes.Name = "btnVerReportes";
             btnVerReportes.Size = new Size(150, 40);
             btnVerReportes.TabIndex = 3;
-            btnVerReportes.Text = "Ver Reporte Seleccionado";
+            btnVerReportes.Text = "Ver Reportes";
             btnVerReportes.Click += btnVerReportes_Click;
             // 
             // lblVentas

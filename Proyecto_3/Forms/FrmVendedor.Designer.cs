@@ -100,6 +100,7 @@
             groupBoxAcciones.TabIndex = 1;
             groupBoxAcciones.TabStop = false;
             groupBoxAcciones.Text = "Acciones";
+            groupBoxAcciones.Enter += groupBoxAcciones_Enter;
             // 
             // btnEditarPerfil
             // 
@@ -112,7 +113,7 @@
             // 
             // btnGestionarClientes
             // 
-            btnGestionarClientes.Location = new Point(160, 25);
+            btnGestionarClientes.Location = new Point(188, 25);
             btnGestionarClientes.Name = "btnGestionarClientes";
             btnGestionarClientes.Size = new Size(120, 30);
             btnGestionarClientes.TabIndex = 1;
@@ -121,16 +122,16 @@
             // 
             // btnGestionarProductos
             // 
-            btnGestionarProductos.Location = new Point(300, 25);
+            btnGestionarProductos.Location = new Point(350, 25);
             btnGestionarProductos.Name = "btnGestionarProductos";
-            btnGestionarProductos.Size = new Size(120, 30);
+            btnGestionarProductos.Size = new Size(145, 30);
             btnGestionarProductos.TabIndex = 2;
             btnGestionarProductos.Text = "Gestionar Productos";
             btnGestionarProductos.Click += btnGestionarProductos_Click;
             // 
             // btnGestionarVenta
             // 
-            btnGestionarVenta.Location = new Point(440, 25);
+            btnGestionarVenta.Location = new Point(526, 25);
             btnGestionarVenta.Name = "btnGestionarVenta";
             btnGestionarVenta.Size = new Size(120, 30);
             btnGestionarVenta.TabIndex = 3;
@@ -139,7 +140,7 @@
             // 
             // btnCerrarSesion
             // 
-            btnCerrarSesion.Location = new Point(580, 25);
+            btnCerrarSesion.Location = new Point(674, 25);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Size = new Size(120, 30);
             btnCerrarSesion.TabIndex = 4;
@@ -168,6 +169,7 @@
             dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvVentas.Size = new Size(794, 288);
             dgvVentas.TabIndex = 0;
+            dgvVentas.CellDoubleClick += dgvVentas_CellDoubleClick;
             // 
             // FrmVendedor
             // 
