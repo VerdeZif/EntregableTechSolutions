@@ -35,6 +35,12 @@ namespace Negocio.Servicios
             if (string.IsNullOrWhiteSpace(cliente.Nombre))
                 throw new ArgumentException("El nombre del cliente es obligatorio.");
 
+            if (string.IsNullOrWhiteSpace(cliente.Username))
+                throw new ArgumentException("El nombre de usuario es obligatorio.");
+
+            if (string.IsNullOrWhiteSpace(cliente.PasswordHash))
+                throw new ArgumentException("La contraseña es obligatoria.");
+
             return _clienteDatos.Registrar(cliente);
         }
 

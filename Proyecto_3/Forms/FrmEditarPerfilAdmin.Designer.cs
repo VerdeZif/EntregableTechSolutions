@@ -79,6 +79,7 @@
             txtPassword.TabIndex = 9;
 
             // pbFoto
+            pbFoto.BorderStyle = BorderStyle.FixedSingle;
             pbFoto.Location = new System.Drawing.Point(24, 120);
             pbFoto.Name = "pbFoto";
             pbFoto.Size = new System.Drawing.Size(120, 120);

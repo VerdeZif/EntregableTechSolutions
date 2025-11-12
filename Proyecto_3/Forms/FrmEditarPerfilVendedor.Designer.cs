@@ -90,6 +90,7 @@
             // 
             // pbFoto
             // 
+            pbFoto.BorderStyle = BorderStyle.FixedSingle;
             pbFoto.Location = new Point(24, 120);
             pbFoto.Name = "pbFoto";
             pbFoto.Size = new Size(120, 120);

@@ -1,444 +1,232 @@
 ﻿namespace Presentacion.Forms
-
 {
-
     partial class FrmRegistroClientes
-
     {
-
         private System.ComponentModel.IContainer components = null;
-
-        private Label lblTitulo;
-
-        private Label lblNombre;
-
-        private Label lblCorreo;
-
-        private Label lblTelefono;
-
-        private Label lblDireccion;
-
-        private TextBox txtNombre;
-
-        private TextBox txtCorreo;
-
-        private TextBox txtTelefono;
-
-        private TextBox txtDireccion;
-
-        private Button btnAgregar;
-
-        private Button btnEditar;
-
-        private Button btnEliminar;
-
-        private Button btnSeleccionarFoto;
-
-        private PictureBox pbFoto;
-
-        private DataGridView dgvClientes;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtCorreo;
+        private System.Windows.Forms.TextBox txtTelefono;
+        private System.Windows.Forms.TextBox txtDireccion;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.PictureBox pbFoto;
+        private System.Windows.Forms.Button btnSeleccionarFoto;
+        private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.DataGridView dgvClientes;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Label lblCorreo;
+        private System.Windows.Forms.Label lblTelefono;
+        private System.Windows.Forms.Label lblDireccion;
+        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.Label lblPassword;
 
         protected override void Dispose(bool disposing)
-
         {
-
             if (disposing && (components != null))
-
                 components.Dispose();
-
             base.Dispose(disposing);
-
         }
-
-        #region Windows Form Designer generated code
 
         private void InitializeComponent()
-
         {
-
-            lblTitulo = new Label();
-
-            lblNombre = new Label();
-
-            lblCorreo = new Label();
-
-            lblTelefono = new Label();
-
-            lblDireccion = new Label();
-
             txtNombre = new TextBox();
-
             txtCorreo = new TextBox();
-
             txtTelefono = new TextBox();
-
             txtDireccion = new TextBox();
-
-            btnAgregar = new Button();
-
-            btnEditar = new Button();
-
-            btnEliminar = new Button();
-
-            btnSeleccionarFoto = new Button();
-
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
             pbFoto = new PictureBox();
-
+            btnSeleccionarFoto = new Button();
+            btnAgregar = new Button();
+            btnEditar = new Button();
+            btnEliminar = new Button();
             dgvClientes = new DataGridView();
-
+            lblNombre = new Label();
+            lblCorreo = new Label();
+            lblTelefono = new Label();
+            lblDireccion = new Label();
+            lblUsername = new Label();
+            lblPassword = new Label();
             ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
-
             ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
-
             SuspendLayout();
-
             // 
-
-            // lblTitulo
-
-            // 
-
-            lblTitulo.AutoSize = true;
-
-            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-
-            lblTitulo.Location = new Point(175, 15);
-
-            lblTitulo.Name = "lblTitulo";
-
-            lblTitulo.Size = new Size(212, 30);
-
-            lblTitulo.TabIndex = 0;
-
-            lblTitulo.Text = "Gestión de Clientes";
-
-            // 
-
-            // lblNombre
-
-            // 
-
-            lblNombre.AutoSize = true;
-
-            lblNombre.Location = new Point(35, 60);
-
-            lblNombre.Name = "lblNombre";
-
-            lblNombre.Size = new Size(54, 15);
-
-            lblNombre.TabIndex = 1;
-
-            lblNombre.Text = "Nombre:";
-
-            // 
-
-            // lblCorreo
-
-            // 
-
-            lblCorreo.AutoSize = true;
-
-            lblCorreo.Location = new Point(35, 90);
-
-            lblCorreo.Name = "lblCorreo";
-
-            lblCorreo.Size = new Size(46, 15);
-
-            lblCorreo.TabIndex = 3;
-
-            lblCorreo.Text = "Correo:";
-
-            // 
-
-            // lblTelefono
-
-            // 
-
-            lblTelefono.AutoSize = true;
-
-            lblTelefono.Location = new Point(35, 120);
-
-            lblTelefono.Name = "lblTelefono";
-
-            lblTelefono.Size = new Size(55, 15);
-
-            lblTelefono.TabIndex = 5;
-
-            lblTelefono.Text = "Teléfono:";
-
-            // 
-
-            // lblDireccion
-
-            // 
-
-            lblDireccion.AutoSize = true;
-
-            lblDireccion.Location = new Point(35, 150);
-
-            lblDireccion.Name = "lblDireccion";
-
-            lblDireccion.Size = new Size(60, 15);
-
-            lblDireccion.TabIndex = 7;
-
-            lblDireccion.Text = "Dirección:";
-
-            // 
-
             // txtNombre
-
             // 
-
-            txtNombre.Location = new Point(122, 56);
-
-            txtNombre.Margin = new Padding(3, 2, 3, 2);
-
+            txtNombre.Location = new Point(120, 20);
             txtNombre.Name = "txtNombre";
-
-            txtNombre.Size = new Size(219, 23);
-
-            txtNombre.TabIndex = 2;
-
+            txtNombre.Size = new Size(200, 23);
+            txtNombre.TabIndex = 1;
             // 
-
             // txtCorreo
-
             // 
-
-            txtCorreo.Location = new Point(122, 86);
-
-            txtCorreo.Margin = new Padding(3, 2, 3, 2);
-
+            txtCorreo.Location = new Point(120, 60);
             txtCorreo.Name = "txtCorreo";
-
-            txtCorreo.Size = new Size(219, 23);
-
-            txtCorreo.TabIndex = 4;
-
+            txtCorreo.Size = new Size(200, 23);
+            txtCorreo.TabIndex = 3;
             // 
-
             // txtTelefono
-
             // 
-
-            txtTelefono.Location = new Point(122, 116);
-
-            txtTelefono.Margin = new Padding(3, 2, 3, 2);
-
+            txtTelefono.Location = new Point(120, 100);
             txtTelefono.Name = "txtTelefono";
-
-            txtTelefono.Size = new Size(219, 23);
-
-            txtTelefono.TabIndex = 6;
-
+            txtTelefono.Size = new Size(200, 23);
+            txtTelefono.TabIndex = 5;
             // 
-
             // txtDireccion
-
             // 
-
-            txtDireccion.Location = new Point(122, 146);
-
-            txtDireccion.Margin = new Padding(3, 2, 3, 2);
-
+            txtDireccion.Location = new Point(120, 140);
             txtDireccion.Name = "txtDireccion";
-
-            txtDireccion.Size = new Size(219, 23);
-
-            txtDireccion.TabIndex = 8;
-
+            txtDireccion.Size = new Size(200, 23);
+            txtDireccion.TabIndex = 7;
             // 
-
-            // btnAgregar
-
+            // txtUsername
             // 
-
-            btnAgregar.Location = new Point(368, 60);
-
-            btnAgregar.Margin = new Padding(3, 2, 3, 2);
-
-            btnAgregar.Name = "btnAgregar";
-
-            btnAgregar.Size = new Size(66, 23);
-
-            btnAgregar.TabIndex = 9;
-
-            btnAgregar.Text = "Agregar";
-
-            btnAgregar.Click += btnAgregar_Click;
-
+            txtUsername.Location = new Point(120, 180);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(200, 23);
+            txtUsername.TabIndex = 9;
             // 
-
-            // btnEditar
-
+            // txtPassword
             // 
-
-            btnEditar.Location = new Point(368, 101);
-
-            btnEditar.Margin = new Padding(3, 2, 3, 2);
-
-            btnEditar.Name = "btnEditar";
-
-            btnEditar.Size = new Size(66, 23);
-
-            btnEditar.TabIndex = 10;
-
-            btnEditar.Text = "Editar";
-
-            btnEditar.Click += btnEditar_Click;
-
+            txtPassword.Location = new Point(120, 220);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(200, 23);
+            txtPassword.TabIndex = 11;
+            txtPassword.UseSystemPasswordChar = true;
             // 
-
-            // btnEliminar
-
-            // 
-
-            btnEliminar.Location = new Point(368, 142);
-
-            btnEliminar.Margin = new Padding(3, 2, 3, 2);
-
-            btnEliminar.Name = "btnEliminar";
-
-            btnEliminar.Size = new Size(66, 23);
-
-            btnEliminar.TabIndex = 11;
-
-            btnEliminar.Text = "Eliminar";
-
-            btnEliminar.Click += btnEliminar_Click;
-
-            // 
-
-            // btnSeleccionarFoto
-
-            // 
-
-            btnSeleccionarFoto.Location = new Point(512, 146);
-
-            btnSeleccionarFoto.Margin = new Padding(3, 2, 3, 2);
-
-            btnSeleccionarFoto.Name = "btnSeleccionarFoto";
-
-            btnSeleccionarFoto.Size = new Size(66, 23);
-
-            btnSeleccionarFoto.TabIndex = 12;
-
-            btnSeleccionarFoto.Text = "Seleccionar Foto";
-
-            btnSeleccionarFoto.Click += btnSeleccionarFoto_Click;
-
-            // 
-
             // pbFoto
-
             // 
-
             pbFoto.BorderStyle = BorderStyle.FixedSingle;
-
-            pbFoto.Location = new Point(492, 45);
-
-            pbFoto.Margin = new Padding(3, 2, 3, 2);
-
+            pbFoto.Location = new Point(497, 35);
             pbFoto.Name = "pbFoto";
-
-            pbFoto.Size = new Size(105, 90);
-
-            pbFoto.SizeMode = PictureBoxSizeMode.StretchImage;
-
-            pbFoto.TabIndex = 13;
-
+            pbFoto.Size = new Size(141, 148);
+            pbFoto.SizeMode = PictureBoxSizeMode.Zoom;
+            pbFoto.TabIndex = 12;
             pbFoto.TabStop = false;
-
+            pbFoto.Click += pbFoto_Click;
             // 
-
+            // btnSeleccionarFoto
+            // 
+            btnSeleccionarFoto.Location = new Point(528, 206);
+            btnSeleccionarFoto.Name = "btnSeleccionarFoto";
+            btnSeleccionarFoto.Size = new Size(75, 23);
+            btnSeleccionarFoto.TabIndex = 13;
+            btnSeleccionarFoto.Text = "Seleccionar Foto";
+            btnSeleccionarFoto.Click += btnSeleccionarFoto_Click;
+            // 
+            // btnAgregar
+            // 
+            btnAgregar.Location = new Point(373, 29);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(75, 23);
+            btnAgregar.TabIndex = 14;
+            btnAgregar.Text = "Agregar";
+            btnAgregar.Click += btnAgregar_Click;
+            // 
+            // btnEditar
+            // 
+            btnEditar.Location = new Point(373, 87);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(75, 23);
+            btnEditar.TabIndex = 15;
+            btnEditar.Text = "Editar";
+            btnEditar.Click += btnEditar_Click;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Location = new Point(373, 136);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(75, 23);
+            btnEliminar.TabIndex = 16;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.Click += btnEliminar_Click;
+            // 
             // dgvClientes
-
             // 
-
-            dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            dgvClientes.Location = new Point(35, 188);
-
-            dgvClientes.Margin = new Padding(3, 2, 3, 2);
-
+            dgvClientes.Location = new Point(12, 266);
             dgvClientes.Name = "dgvClientes";
-
-            dgvClientes.ReadOnly = true;
-
-            dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-            dgvClientes.Size = new Size(595, 150);
-
-            dgvClientes.TabIndex = 14;
-
+            dgvClientes.Size = new Size(626, 272);
+            dgvClientes.TabIndex = 17;
             dgvClientes.CellClick += dgvClientes_CellClick;
-
             // 
-
-            // FrmClientes
-
+            // lblNombre
             // 
-
-            AutoScaleDimensions = new SizeF(7F, 15F);
-
-            AutoScaleMode = AutoScaleMode.Font;
-
-            ClientSize = new Size(700, 360);
-
-            Controls.Add(lblTitulo);
-
+            lblNombre.Location = new Point(20, 20);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(100, 23);
+            lblNombre.TabIndex = 0;
+            lblNombre.Text = "Nombre:";
+            // 
+            // lblCorreo
+            // 
+            lblCorreo.Location = new Point(20, 60);
+            lblCorreo.Name = "lblCorreo";
+            lblCorreo.Size = new Size(100, 23);
+            lblCorreo.TabIndex = 2;
+            lblCorreo.Text = "Correo:";
+            // 
+            // lblTelefono
+            // 
+            lblTelefono.Location = new Point(20, 100);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(100, 23);
+            lblTelefono.TabIndex = 4;
+            lblTelefono.Text = "Teléfono:";
+            // 
+            // lblDireccion
+            // 
+            lblDireccion.Location = new Point(20, 140);
+            lblDireccion.Name = "lblDireccion";
+            lblDireccion.Size = new Size(100, 23);
+            lblDireccion.TabIndex = 6;
+            lblDireccion.Text = "Dirección:";
+            // 
+            // lblUsername
+            // 
+            lblUsername.Location = new Point(20, 180);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(100, 23);
+            lblUsername.TabIndex = 8;
+            lblUsername.Text = "Usuario:";
+            // 
+            // lblPassword
+            // 
+            lblPassword.Location = new Point(20, 220);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(100, 23);
+            lblPassword.TabIndex = 10;
+            lblPassword.Text = "Contraseña:";
+            // 
+            // FrmRegistroClientes
+            // 
+            ClientSize = new Size(650, 550);
             Controls.Add(lblNombre);
-
             Controls.Add(txtNombre);
-
             Controls.Add(lblCorreo);
-
             Controls.Add(txtCorreo);
-
             Controls.Add(lblTelefono);
-
             Controls.Add(txtTelefono);
-
             Controls.Add(lblDireccion);
-
             Controls.Add(txtDireccion);
-
-            Controls.Add(btnAgregar);
-
-            Controls.Add(btnEditar);
-
-            Controls.Add(btnEliminar);
-
-            Controls.Add(btnSeleccionarFoto);
-
+            Controls.Add(lblUsername);
+            Controls.Add(txtUsername);
+            Controls.Add(lblPassword);
+            Controls.Add(txtPassword);
             Controls.Add(pbFoto);
-
+            Controls.Add(btnSeleccionarFoto);
+            Controls.Add(btnAgregar);
+            Controls.Add(btnEditar);
+            Controls.Add(btnEliminar);
             Controls.Add(dgvClientes);
-
-            Margin = new Padding(3, 2, 3, 2);
-
-            Name = "FrmClientes";
-
-            StartPosition = FormStartPosition.CenterScreen;
-
-            Text = "Gestión de Clientes";
-
+            Name = "FrmRegistroClientes";
+            Text = "Registro de Clientes";
             Load += FrmRegistroClientes_Load;
-
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
-
             ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();
-
             ResumeLayout(false);
-
             PerformLayout();
-
         }
-
-        #endregion
-
     }
-
 }
-

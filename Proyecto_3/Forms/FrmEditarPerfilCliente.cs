@@ -51,7 +51,7 @@ namespace Presentacion.Forms
             }
 
             // Obtener usuario (para Username y Password)
-            _usuario = _usuarioNegocio.ObtenerPorId(_cliente.UsuarioId);
+            _usuario = _usuarioNegocio.ObtenerPorId(_cliente.UserId);
             if (_usuario != null)
             {
                 txtUsername.Text = _usuario.Username;

@@ -1,6 +1,7 @@
 ﻿using Datos.Database;
 using Entidad.Models;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace Datos.Repositorio
 {
@@ -87,7 +88,8 @@ namespace Datos.Repositorio
                     cmd.Parameters.AddWithValue("@descripcion", (object?)producto.Descripcion ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@precio", producto.Precio);
                     cmd.Parameters.AddWithValue("@stock", producto.Stock);
-                    cmd.Parameters.AddWithValue("@imagen", (object?)producto.Imagen ?? DBNull.Value);
+                    var paramImagen = cmd.Parameters.Add("@imagen", SqlDbType.VarBinary, -1);
+                    paramImagen.Value = (object?)producto.Imagen ?? DBNull.Value;
 
                     return cmd.ExecuteNonQuery() > 0;
                 }
@@ -114,7 +116,8 @@ namespace Datos.Repositorio
                     cmd.Parameters.AddWithValue("@descripcion", (object?)producto.Descripcion ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@precio", producto.Precio);
                     cmd.Parameters.AddWithValue("@stock", producto.Stock);
-                    cmd.Parameters.AddWithValue("@imagen", (object?)producto.Imagen ?? DBNull.Value);
+                    var paramImagen = cmd.Parameters.Add("@imagen", SqlDbType.VarBinary, -1);
+                    paramImagen.Value = (object?)producto.Imagen ?? DBNull.Value;
                     cmd.Parameters.AddWithValue("@id", producto.ProductoId);
 
                     return cmd.ExecuteNonQuery() > 0;

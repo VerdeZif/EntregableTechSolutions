@@ -67,7 +67,8 @@ namespace Presentacion.Forms
 
         private void btnGestionarClientes_Click(object sender, EventArgs e)
         {
-            new FrmRegistroClientes().ShowDialog();
+            using var frm = new FrmRegistroClientes(); // ✅ Se pasa el id del usuario logueado
+            frm.ShowDialog();
         }
 
         private void btnGestionarProductos_Click(object sender, EventArgs e)
