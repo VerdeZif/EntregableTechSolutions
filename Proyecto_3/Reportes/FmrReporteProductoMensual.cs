@@ -21,6 +21,14 @@ namespace Presentacion.Forms
         public FrmReporteProductoMensual()
         {
             InitializeComponent();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         public FrmReporteProductoMensual(int mes, int anio) : this()
@@ -248,6 +256,11 @@ namespace Presentacion.Forms
             {
                 MessageBox.Show("Simulación de impresión del reporte.");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

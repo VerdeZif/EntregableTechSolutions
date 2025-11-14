@@ -20,6 +20,14 @@ namespace Presentacion.Forms
         {
             InitializeComponent();
             _usuario = usuario;
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmVentas_Load(object sender, EventArgs e)
@@ -244,6 +252,11 @@ namespace Presentacion.Forms
             });
 
             dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

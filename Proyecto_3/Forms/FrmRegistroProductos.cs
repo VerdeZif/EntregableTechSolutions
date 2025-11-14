@@ -10,6 +10,14 @@ namespace Presentacion.Forms
         public FrmRegistroProductos()
         {
             InitializeComponent();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmProductos_Load(object sender, EventArgs e)
@@ -188,6 +196,11 @@ namespace Presentacion.Forms
             txtPrecio.Clear();
             numStock.Value = 0;
             pbImagen.Image = null;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

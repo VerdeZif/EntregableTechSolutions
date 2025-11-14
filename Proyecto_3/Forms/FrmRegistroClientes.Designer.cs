@@ -49,6 +49,7 @@
             lblDireccion = new Label();
             lblUsername = new Label();
             lblPassword = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             SuspendLayout();
@@ -124,7 +125,7 @@
             btnAgregar.BackColor = Color.Thistle;
             btnAgregar.Location = new Point(367, 35);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(75, 35);
+            btnAgregar.Size = new Size(90, 35);
             btnAgregar.TabIndex = 14;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = false;
@@ -135,7 +136,7 @@
             btnEditar.BackColor = Color.Aquamarine;
             btnEditar.Location = new Point(367, 96);
             btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(75, 35);
+            btnEditar.Size = new Size(90, 35);
             btnEditar.TabIndex = 15;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = false;
@@ -146,7 +147,7 @@
             btnEliminar.BackColor = Color.MistyRose;
             btnEliminar.Location = new Point(367, 151);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(75, 35);
+            btnEliminar.Size = new Size(90, 35);
             btnEliminar.TabIndex = 16;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
@@ -208,10 +209,23 @@
             lblPassword.TabIndex = 10;
             lblPassword.Text = "CONTRASEÑA:";
             // 
+            // button1
+            // 
+            button1.BackColor = Color.Red;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(367, 208);
+            button1.Name = "button1";
+            button1.Size = new Size(90, 35);
+            button1.TabIndex = 18;
+            button1.Text = "Regresar";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // FrmRegistroClientes
             // 
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(650, 550);
+            ClientSize = new Size(650, 644);
+            Controls.Add(button1);
             Controls.Add(lblNombre);
             Controls.Add(txtNombre);
             Controls.Add(lblCorreo);
@@ -239,5 +253,6 @@
             ResumeLayout(false);
             PerformLayout();
         }
+        private Button button1;
     }
 }

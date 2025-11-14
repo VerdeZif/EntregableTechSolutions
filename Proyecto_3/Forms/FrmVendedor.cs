@@ -14,6 +14,14 @@ namespace Presentacion.Forms
             _vendedorId = vendedorId;
             _usuarioNegocio = new UsuarioNegocio();
             _ventaNegocio = new VentaNegocio();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmVendedor_Load(object sender, EventArgs e)

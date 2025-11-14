@@ -33,6 +33,7 @@
             lblMes = new Label();
             lblAnio = new Label();
             btnGenerar = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvReporte).BeginInit();
             SuspendLayout();
             // 
@@ -60,23 +61,27 @@
             // btnImprimir
             // 
             btnImprimir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnImprimir.Location = new Point(755, 23);
+            btnImprimir.BackColor = Color.FromArgb(0, 192, 0);
+            btnImprimir.ForeColor = Color.White;
+            btnImprimir.Location = new Point(774, 15);
             btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(100, 23);
+            btnImprimir.Size = new Size(100, 31);
             btnImprimir.TabIndex = 8;
             btnImprimir.Text = "Imprimir";
-            btnImprimir.UseVisualStyleBackColor = true;
+            btnImprimir.UseVisualStyleBackColor = false;
             btnImprimir.Click += btnImprimir_Click;
             // 
             // btnExportarPDF
             // 
             btnExportarPDF.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnExportarPDF.Location = new Point(611, 23);
+            btnExportarPDF.BackColor = Color.Blue;
+            btnExportarPDF.ForeColor = Color.White;
+            btnExportarPDF.Location = new Point(668, 15);
             btnExportarPDF.Name = "btnExportarPDF";
-            btnExportarPDF.Size = new Size(100, 23);
+            btnExportarPDF.Size = new Size(100, 31);
             btnExportarPDF.TabIndex = 7;
             btnExportarPDF.Text = "Exportar PDF";
-            btnExportarPDF.UseVisualStyleBackColor = true;
+            btnExportarPDF.UseVisualStyleBackColor = false;
             btnExportarPDF.Click += btnExportarPDF_Click;
             // 
             // cbMes
@@ -123,9 +128,23 @@
             btnGenerar.UseVisualStyleBackColor = true;
             btnGenerar.Click += btnGenerar_Click;
             // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.BackColor = Color.Red;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(880, 15);
+            button1.Name = "button1";
+            button1.Size = new Size(100, 31);
+            button1.TabIndex = 9;
+            button1.Text = "Regresar";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // FrmReporteVendedorMensual
             // 
             ClientSize = new Size(1000, 580);
+            Controls.Add(button1);
             Controls.Add(btnImprimir);
             Controls.Add(btnGenerar);
             Controls.Add(btnExportarPDF);
@@ -142,5 +161,6 @@
             ResumeLayout(false);
             PerformLayout();
         }
+        private Button button1;
     }
 }

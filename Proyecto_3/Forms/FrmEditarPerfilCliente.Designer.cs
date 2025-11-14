@@ -244,7 +244,7 @@
             // FrmEditarPerfilCliente
             // 
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(600, 400);
+            ClientSize = new Size(600, 423);
             Controls.Add(pbFoto);
             Controls.Add(btnSeleccionarFoto);
             Controls.Add(txtNombre);

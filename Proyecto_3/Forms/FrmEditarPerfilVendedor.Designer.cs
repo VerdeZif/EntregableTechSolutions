@@ -188,7 +188,7 @@
             // FrmEditarPerfilVendedor
             // 
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(587, 291);
+            ClientSize = new Size(587, 324);
             Controls.Add(lblNombreTitulo);
             Controls.Add(txtNombre);
             Controls.Add(lblUsername);

@@ -14,6 +14,14 @@ namespace Presentacion.Forms
             _clienteId = clienteId;
             _clienteNegocio = new ClienteNegocio();
             _ventaNegocio = new VentaNegocio();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmClientes_Load(object sender, EventArgs e)

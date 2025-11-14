@@ -46,7 +46,7 @@
             lblNombre.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblNombre.Location = new Point(194, 30);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(450, 25);
+            lblNombre.Size = new Size(377, 25);
             lblNombre.TabIndex = 1;
             lblNombre.Text = "NOMBRE DEL CLIENTE";
             // 
@@ -55,7 +55,7 @@
             lblCorreo.Font = new Font("Segoe UI", 10F);
             lblCorreo.Location = new Point(194, 60);
             lblCorreo.Name = "lblCorreo";
-            lblCorreo.Size = new Size(450, 25);
+            lblCorreo.Size = new Size(377, 25);
             lblCorreo.TabIndex = 2;
             lblCorreo.Text = "CORREO:";
             lblCorreo.Click += lblCorreo_Click;
@@ -65,7 +65,7 @@
             lblTelefono.Font = new Font("Segoe UI", 10F);
             lblTelefono.Location = new Point(194, 90);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(450, 25);
+            lblTelefono.Size = new Size(377, 25);
             lblTelefono.TabIndex = 3;
             lblTelefono.Text = "TELEFONO:";
             // 
@@ -74,7 +74,7 @@
             lblDireccion.Font = new Font("Segoe UI", 10F);
             lblDireccion.Location = new Point(194, 120);
             lblDireccion.Name = "lblDireccion";
-            lblDireccion.Size = new Size(450, 25);
+            lblDireccion.Size = new Size(377, 25);
             lblDireccion.TabIndex = 4;
             lblDireccion.Text = "DIRECCION:";
             lblDireccion.Click += lblDireccion_Click;
@@ -127,7 +127,7 @@
             // FrmClientes
             // 
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(800, 500);
+            ClientSize = new Size(800, 544);
             Controls.Add(lblTituloHistorial);
             Controls.Add(dgvCompras);
             Controls.Add(btnCerrarSesion);

@@ -40,6 +40,7 @@
             btnEliminar = new Button();
             groupBoxLista = new GroupBox();
             dgvVendedores = new DataGridView();
+            button1 = new Button();
             groupBoxDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
             groupBoxLista.SuspendLayout();
@@ -49,6 +50,7 @@
             // groupBoxDatos
             // 
             groupBoxDatos.BackColor = SystemColors.GradientActiveCaption;
+            groupBoxDatos.Controls.Add(button1);
             groupBoxDatos.Controls.Add(pbFoto);
             groupBoxDatos.Controls.Add(btnSeleccionarFoto);
             groupBoxDatos.Controls.Add(txtPassword);
@@ -140,9 +142,9 @@
             // btnAgregar
             // 
             btnAgregar.BackColor = Color.Thistle;
-            btnAgregar.Location = new Point(20, 130);
+            btnAgregar.Location = new Point(433, 20);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(90, 30);
+            btnAgregar.Size = new Size(100, 30);
             btnAgregar.TabIndex = 8;
             btnAgregar.Text = "AGREGAR";
             btnAgregar.UseVisualStyleBackColor = false;
@@ -151,7 +153,7 @@
             // btnEditar
             // 
             btnEditar.BackColor = Color.Aquamarine;
-            btnEditar.Location = new Point(151, 130);
+            btnEditar.Location = new Point(433, 57);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(100, 30);
             btnEditar.TabIndex = 9;
@@ -162,7 +164,7 @@
             // btnEliminar
             // 
             btnEliminar.BackColor = Color.MistyRose;
-            btnEliminar.Location = new Point(290, 130);
+            btnEliminar.Location = new Point(433, 93);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(96, 30);
             btnEliminar.TabIndex = 10;
@@ -197,6 +199,18 @@
             dgvVendedores.TabIndex = 0;
             dgvVendedores.CellClick += dgvVendedores_CellClick;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.Red;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(433, 129);
+            button1.Name = "button1";
+            button1.Size = new Size(96, 30);
+            button1.TabIndex = 11;
+            button1.Text = "REGRESAR";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // FrmRegistroVendedor
             // 
             ClientSize = new Size(800, 450);
@@ -212,5 +226,6 @@
             ((System.ComponentModel.ISupportInitialize)dgvVendedores).EndInit();
             ResumeLayout(false);
         }
+        private Button button1;
     }
 }

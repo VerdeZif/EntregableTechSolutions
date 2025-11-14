@@ -23,6 +23,14 @@ namespace Presentacion.Forms
         public FrmReporteVendedorMensual()
         {
             InitializeComponent();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         public FrmReporteVendedorMensual(int mes, int anio) : this()
@@ -153,7 +161,7 @@ namespace Presentacion.Forms
 
             // Total general
             int totalVentas = (int)(lista.Sum(r => r.TotalVentas) ?? 0);
-            decimal totalRecaudado =(decimal)(lista.Sum(r => r.TotalRecaudado) ?? 0);
+            decimal totalRecaudado = (decimal)(lista.Sum(r => r.TotalRecaudado) ?? 0);
 
             Label lblTotal = new Label
             {
@@ -264,6 +272,11 @@ namespace Presentacion.Forms
             {
                 MessageBox.Show("Simulación de impresión del reporte.");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

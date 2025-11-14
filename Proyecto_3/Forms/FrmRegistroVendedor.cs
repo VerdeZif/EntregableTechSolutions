@@ -10,6 +10,14 @@ namespace Presentacion.Forms
         public FrmRegistroVendedor()
         {
             InitializeComponent();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmRegistroVendedor_Load(object sender, EventArgs e)
@@ -169,6 +177,11 @@ namespace Presentacion.Forms
             txtUsuario.Clear();
             txtPassword.Clear();
             pbFoto.Image = null;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

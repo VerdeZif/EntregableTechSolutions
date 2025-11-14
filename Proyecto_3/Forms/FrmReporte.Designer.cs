@@ -49,6 +49,7 @@
             btnReporteVendedorMensual = new Button();
             btnReporteClienteMensual = new Button();
             btnReporteProductoMensual = new Button();
+            btnEliminar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -161,9 +162,9 @@
             // 
             btnBuscar.BackColor = Color.Lavender;
             btnBuscar.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            btnBuscar.Location = new Point(664, 55);
+            btnBuscar.Location = new Point(685, 49);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(75, 33);
+            btnBuscar.Size = new Size(96, 33);
             btnBuscar.TabIndex = 12;
             btnBuscar.Text = "BUSCAR";
             btnBuscar.UseVisualStyleBackColor = false;
@@ -173,9 +174,9 @@
             // 
             btnLimpiar.BackColor = Color.PaleTurquoise;
             btnLimpiar.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLimpiar.Location = new Point(664, 94);
+            btnLimpiar.Location = new Point(685, 88);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(75, 34);
+            btnLimpiar.Size = new Size(96, 34);
             btnLimpiar.TabIndex = 13;
             btnLimpiar.Text = "LIMPIAR";
             btnLimpiar.UseVisualStyleBackColor = false;
@@ -202,7 +203,7 @@
             dgvVentas.Name = "dgvVentas";
             dgvVentas.ReadOnly = true;
             dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvVentas.Size = new Size(700, 300);
+            dgvVentas.Size = new Size(752, 300);
             dgvVentas.TabIndex = 16;
             dgvVentas.CellDoubleClick += dgvVentas_CellDoubleClick;
             // 
@@ -210,7 +211,7 @@
             // 
             btnReporteVendedorMensual.BackColor = Color.LemonChiffon;
             btnReporteVendedorMensual.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            btnReporteVendedorMensual.Location = new Point(195, 489);
+            btnReporteVendedorMensual.Location = new Point(187, 489);
             btnReporteVendedorMensual.Name = "btnReporteVendedorMensual";
             btnReporteVendedorMensual.Size = new Size(191, 35);
             btnReporteVendedorMensual.TabIndex = 17;
@@ -222,7 +223,7 @@
             // 
             btnReporteClienteMensual.BackColor = Color.LemonChiffon;
             btnReporteClienteMensual.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            btnReporteClienteMensual.Location = new Point(392, 489);
+            btnReporteClienteMensual.Location = new Point(410, 489);
             btnReporteClienteMensual.Name = "btnReporteClienteMensual";
             btnReporteClienteMensual.Size = new Size(164, 35);
             btnReporteClienteMensual.TabIndex = 18;
@@ -234,7 +235,7 @@
             // 
             btnReporteProductoMensual.BackColor = Color.LemonChiffon;
             btnReporteProductoMensual.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            btnReporteProductoMensual.Location = new Point(562, 489);
+            btnReporteProductoMensual.Location = new Point(614, 489);
             btnReporteProductoMensual.Name = "btnReporteProductoMensual";
             btnReporteProductoMensual.Size = new Size(167, 35);
             btnReporteProductoMensual.TabIndex = 19;
@@ -242,10 +243,23 @@
             btnReporteProductoMensual.UseVisualStyleBackColor = false;
             btnReporteProductoMensual.Click += btnReporteProductoMensual_Click;
             // 
+            // btnEliminar
+            // 
+            btnEliminar.BackColor = Color.Red;
+            btnEliminar.ForeColor = Color.White;
+            btnEliminar.Location = new Point(685, 125);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(96, 31);
+            btnEliminar.TabIndex = 20;
+            btnEliminar.Text = "REGRESAR";
+            btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
+            // 
             // FrmReporte
             // 
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(760, 550);
+            ClientSize = new Size(804, 587);
+            Controls.Add(btnEliminar);
             Controls.Add(btnReporteProductoMensual);
             Controls.Add(btnReporteClienteMensual);
             Controls.Add(btnReporteVendedorMensual);
@@ -275,5 +289,6 @@
         private Button btnReporteVendedorMensual;
         private Button btnReporteClienteMensual;
         private Button btnReporteProductoMensual;
+        private Button btnEliminar;
     }
 }

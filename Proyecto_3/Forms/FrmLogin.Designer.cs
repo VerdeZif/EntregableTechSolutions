@@ -38,6 +38,7 @@
             // 
             // lblTitulo
             // 
+            lblTitulo.BackColor = Color.Transparent;
             lblTitulo.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitulo.Location = new Point(139, 86);
             lblTitulo.Name = "lblTitulo";
@@ -52,7 +53,7 @@
             lblUsuario.AutoSize = true;
             lblUsuario.BackColor = Color.LightCyan;
             lblUsuario.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblUsuario.Location = new Point(73, 157);
+            lblUsuario.Location = new Point(69, 157);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(69, 21);
             lblUsuario.TabIndex = 1;
@@ -89,13 +90,15 @@
             // chkVerContra
             // 
             chkVerContra.AutoSize = true;
+            chkVerContra.BackColor = Color.Transparent;
             chkVerContra.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            chkVerContra.ForeColor = Color.White;
             chkVerContra.Location = new Point(171, 238);
             chkVerContra.Name = "chkVerContra";
             chkVerContra.Size = new Size(171, 25);
             chkVerContra.TabIndex = 5;
             chkVerContra.Text = "Mostrar contraseña";
-            chkVerContra.UseVisualStyleBackColor = true;
+            chkVerContra.UseVisualStyleBackColor = false;
             chkVerContra.CheckedChanged += chkVerContra_CheckedChanged;
             // 
             // btnLogin
@@ -104,7 +107,7 @@
             btnLogin.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.Location = new Point(171, 282);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(200, 30);
+            btnLogin.Size = new Size(171, 30);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "INICIAR SESION";
             btnLogin.UseVisualStyleBackColor = false;
@@ -112,9 +115,10 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = Color.Transparent;
             pictureBox1.ErrorImage = null;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(-10, 18);
+            pictureBox1.Location = new Point(0, 18);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(152, 117);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -123,13 +127,15 @@
             // 
             // pictureBox2
             // 
+            pictureBox2.BackColor = Color.Transparent;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(123, 12);
+            pictureBox2.Location = new Point(139, 18);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(292, 55);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 8;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // FrmLogin
             // 

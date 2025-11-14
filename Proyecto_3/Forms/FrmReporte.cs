@@ -16,6 +16,14 @@ namespace Presentacion.Forms
         public FrmReporte()
         {
             InitializeComponent();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmReporte_Load(object sender, EventArgs e)
@@ -203,6 +211,11 @@ namespace Presentacion.Forms
         {
             var frmVendedor = new FrmReporteProductoMensual();
             frmVendedor.ShowDialog();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

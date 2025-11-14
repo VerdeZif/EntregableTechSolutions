@@ -24,6 +24,14 @@ namespace Presentacion.Forms
             InitializeComponent();
             _adminId = adminId;
             _usuarioNegocio = new UsuarioNegocio();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmEditarPerfilAdmin_Load(object sender, EventArgs e)

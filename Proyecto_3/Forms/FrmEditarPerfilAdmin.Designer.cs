@@ -178,7 +178,7 @@
             // FrmEditarPerfilAdmin
             // 
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(620, 303);
+            ClientSize = new Size(620, 338);
             Controls.Add(lblNombreTitulo);
             Controls.Add(txtNombre);
             Controls.Add(lblUsername);

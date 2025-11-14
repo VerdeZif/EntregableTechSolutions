@@ -26,91 +26,162 @@
 
         private void InitializeComponent()
         {
-            this.pbImagen = new System.Windows.Forms.PictureBox();
-            this.btnSeleccionarImagen = new System.Windows.Forms.Button();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.txtDescripcion = new System.Windows.Forms.TextBox();
-            this.txtPrecio = new System.Windows.Forms.TextBox();
-            this.numStock = new System.Windows.Forms.NumericUpDown();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.lblDescripcion = new System.Windows.Forms.Label();
-            this.lblPrecio = new System.Windows.Forms.Label();
-            this.lblStock = new System.Windows.Forms.Label();
-            this.lblImagen = new System.Windows.Forms.Label();
-
-            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numStock)).BeginInit();
-            this.SuspendLayout();
-
+            pbImagen = new PictureBox();
+            btnSeleccionarImagen = new Button();
+            txtNombre = new TextBox();
+            txtDescripcion = new TextBox();
+            txtPrecio = new TextBox();
+            numStock = new NumericUpDown();
+            btnGuardar = new Button();
+            btnCancelar = new Button();
+            btnEditar = new Button();
+            lblNombre = new Label();
+            lblDescripcion = new Label();
+            lblPrecio = new Label();
+            lblStock = new Label();
+            lblImagen = new Label();
+            ((System.ComponentModel.ISupportInitialize)pbImagen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numStock).BeginInit();
+            SuspendLayout();
+            // 
             // pbImagen
-            this.pbImagen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImagen.Location = new System.Drawing.Point(20, 30);
-            this.pbImagen.Size = new System.Drawing.Size(120, 120);
-            this.pbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-
+            // 
+            pbImagen.BorderStyle = BorderStyle.FixedSingle;
+            pbImagen.Location = new Point(20, 30);
+            pbImagen.Name = "pbImagen";
+            pbImagen.Size = new Size(120, 120);
+            pbImagen.SizeMode = PictureBoxSizeMode.Zoom;
+            pbImagen.TabIndex = 0;
+            pbImagen.TabStop = false;
+            // 
             // btnSeleccionarImagen
-            this.btnSeleccionarImagen.Text = "Seleccionar Imagen";
-            this.btnSeleccionarImagen.Location = new System.Drawing.Point(20, 160);
-            this.btnSeleccionarImagen.Click += new System.EventHandler(this.btnSeleccionarImagen_Click);
-
-            // Labels de detalle
-            this.lblNombre.Text = "Nombre:";
-            this.lblNombre.Location = new System.Drawing.Point(160, 30);
-            this.lblDescripcion.Text = "Descripción:";
-            this.lblDescripcion.Location = new System.Drawing.Point(160, 70);
-            this.lblPrecio.Text = "Precio:";
-            this.lblPrecio.Location = new System.Drawing.Point(160, 110);
-            this.lblStock.Text = "Stock:";
-            this.lblStock.Location = new System.Drawing.Point(160, 150);
-            this.lblImagen.Text = "Imagen:";
-            this.lblImagen.Location = new System.Drawing.Point(20, 10);
-
-            // TextBoxes
-            this.txtNombre.Location = new System.Drawing.Point(250, 30);
-            this.txtDescripcion.Location = new System.Drawing.Point(250, 70);
-            this.txtPrecio.Location = new System.Drawing.Point(250, 110);
-            this.numStock.Location = new System.Drawing.Point(250, 150);
-
-            // Botones
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.Location = new System.Drawing.Point(250, 200);
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.Location = new System.Drawing.Point(350, 200);
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.Location = new System.Drawing.Point(450, 30);
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-
-            // Form
-            this.ClientSize = new System.Drawing.Size(550, 250);
-            this.Controls.Add(this.pbImagen);
-            this.Controls.Add(this.btnSeleccionarImagen);
-            this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.txtDescripcion);
-            this.Controls.Add(this.txtPrecio);
-            this.Controls.Add(this.numStock);
-            this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.lblDescripcion);
-            this.Controls.Add(this.lblPrecio);
-            this.Controls.Add(this.lblStock);
-            this.Controls.Add(this.lblImagen);
-            this.Name = "FrmProducto";
-            this.Text = "Detalle Producto";
-            this.Load += new System.EventHandler(this.FrmProducto_Load);
-
-            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numStock)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            btnSeleccionarImagen.Location = new Point(20, 160);
+            btnSeleccionarImagen.Name = "btnSeleccionarImagen";
+            btnSeleccionarImagen.Size = new Size(75, 23);
+            btnSeleccionarImagen.TabIndex = 1;
+            btnSeleccionarImagen.Text = "Seleccionar Imagen";
+            btnSeleccionarImagen.Click += btnSeleccionarImagen_Click;
+            // 
+            // txtNombre
+            // 
+            txtNombre.Location = new Point(250, 30);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(100, 23);
+            txtNombre.TabIndex = 2;
+            // 
+            // txtDescripcion
+            // 
+            txtDescripcion.Location = new Point(250, 70);
+            txtDescripcion.Name = "txtDescripcion";
+            txtDescripcion.Size = new Size(100, 23);
+            txtDescripcion.TabIndex = 3;
+            // 
+            // txtPrecio
+            // 
+            txtPrecio.Location = new Point(250, 110);
+            txtPrecio.Name = "txtPrecio";
+            txtPrecio.Size = new Size(100, 23);
+            txtPrecio.TabIndex = 4;
+            // 
+            // numStock
+            // 
+            numStock.Location = new Point(250, 150);
+            numStock.Name = "numStock";
+            numStock.Size = new Size(120, 23);
+            numStock.TabIndex = 5;
+            // 
+            // btnGuardar
+            // 
+            btnGuardar.Location = new Point(250, 200);
+            btnGuardar.Name = "btnGuardar";
+            btnGuardar.Size = new Size(75, 23);
+            btnGuardar.TabIndex = 6;
+            btnGuardar.Text = "Guardar";
+            btnGuardar.Click += btnGuardar_Click;
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.Location = new Point(350, 200);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(75, 23);
+            btnCancelar.TabIndex = 7;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.Click += btnCancelar_Click;
+            // 
+            // btnEditar
+            // 
+            btnEditar.Location = new Point(450, 30);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(75, 23);
+            btnEditar.TabIndex = 8;
+            btnEditar.Text = "Editar";
+            btnEditar.Click += btnEditar_Click;
+            // 
+            // lblNombre
+            // 
+            lblNombre.Location = new Point(160, 30);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(100, 23);
+            lblNombre.TabIndex = 9;
+            lblNombre.Text = "Nombre:";
+            // 
+            // lblDescripcion
+            // 
+            lblDescripcion.Location = new Point(160, 70);
+            lblDescripcion.Name = "lblDescripcion";
+            lblDescripcion.Size = new Size(100, 23);
+            lblDescripcion.TabIndex = 10;
+            lblDescripcion.Text = "Descripción:";
+            // 
+            // lblPrecio
+            // 
+            lblPrecio.Location = new Point(160, 110);
+            lblPrecio.Name = "lblPrecio";
+            lblPrecio.Size = new Size(100, 23);
+            lblPrecio.TabIndex = 11;
+            lblPrecio.Text = "Precio:";
+            // 
+            // lblStock
+            // 
+            lblStock.Location = new Point(160, 150);
+            lblStock.Name = "lblStock";
+            lblStock.Size = new Size(100, 23);
+            lblStock.TabIndex = 12;
+            lblStock.Text = "Stock:";
+            // 
+            // lblImagen
+            // 
+            lblImagen.Location = new Point(20, 10);
+            lblImagen.Name = "lblImagen";
+            lblImagen.Size = new Size(100, 23);
+            lblImagen.TabIndex = 13;
+            lblImagen.Text = "Imagen:";
+            // 
+            // FrmProducto
+            // 
+            ClientSize = new Size(550, 272);
+            Controls.Add(pbImagen);
+            Controls.Add(btnSeleccionarImagen);
+            Controls.Add(txtNombre);
+            Controls.Add(txtDescripcion);
+            Controls.Add(txtPrecio);
+            Controls.Add(numStock);
+            Controls.Add(btnGuardar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnEditar);
+            Controls.Add(lblNombre);
+            Controls.Add(lblDescripcion);
+            Controls.Add(lblPrecio);
+            Controls.Add(lblStock);
+            Controls.Add(lblImagen);
+            Name = "FrmProducto";
+            Text = "Detalle Producto";
+            Load += FrmProducto_Load;
+            ((System.ComponentModel.ISupportInitialize)pbImagen).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numStock).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }

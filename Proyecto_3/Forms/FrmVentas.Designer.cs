@@ -42,6 +42,7 @@
             btnRegistrarVenta = new Button();
             dgvDetalles = new DataGridView();
             lblTotal = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvDetalles).BeginInit();
             SuspendLayout();
@@ -177,12 +178,26 @@
             lblTotal.TabIndex = 11;
             lblTotal.Text = "TOTAL: S/ 0.00";
             // 
+            // button1
+            // 
+            button1.BackColor = Color.Red;
+            button1.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(35, 415);
+            button1.Name = "button1";
+            button1.Size = new Size(158, 30);
+            button1.TabIndex = 13;
+            button1.Text = "REGRESAR";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // FrmVentas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(614, 468);
+            ClientSize = new Size(614, 475);
+            Controls.Add(button1);
             Controls.Add(lblTitulo);
             Controls.Add(lblCliente);
             Controls.Add(cmbCliente);
@@ -207,5 +222,7 @@
         }
 
         #endregion
+
+        private Button button1;
     }
 }

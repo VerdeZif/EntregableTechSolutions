@@ -21,6 +21,14 @@ namespace Presentacion.Forms
         {
             InitializeComponent();
             _ventaId = ventaId;
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmReporteVentaIndividual_Load(object sender, EventArgs e)

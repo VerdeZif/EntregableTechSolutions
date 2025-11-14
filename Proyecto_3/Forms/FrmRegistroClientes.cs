@@ -20,6 +20,14 @@ namespace Presentacion.Forms
         {
             InitializeComponent();
             //_rolActual = rolActual;
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmRegistroClientes_Load(object sender, EventArgs e)
@@ -248,6 +256,11 @@ namespace Presentacion.Forms
         private void pbFoto_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

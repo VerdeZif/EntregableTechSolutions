@@ -14,6 +14,14 @@ namespace Presentacion.Forms
             InitializeComponent();
             _productoId = productoId;
             _productoNegocio = new ProductoNegocio();
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+            this.BackgroundImage = Image.FromFile(rutaImagen);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void FrmProducto_Load(object sender, EventArgs e)

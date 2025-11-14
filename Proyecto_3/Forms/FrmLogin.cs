@@ -11,6 +11,16 @@ namespace Presentacion.Forms
         public FrmLogin()
         {
             InitializeComponent();
+
+            string rutaImagen = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Imagen",
+                "fondo.jpg"
+            );
+
+                        this.BackgroundImage = Image.FromFile(rutaImagen);
+                        this.BackgroundImageLayout = ImageLayout.Stretch;
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -78,6 +88,11 @@ namespace Presentacion.Forms
         }
 
         private void lblTitulo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
 
         }

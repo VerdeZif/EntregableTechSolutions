@@ -45,6 +45,7 @@
             btnSeleccionarImagen = new Button();
             pbImagen = new PictureBox();
             dgvProductos = new DataGridView();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)numStock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbImagen).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
@@ -140,7 +141,7 @@
             btnAgregar.Location = new Point(457, 78);
             btnAgregar.Margin = new Padding(4, 3, 4, 3);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(85, 31);
+            btnAgregar.Size = new Size(94, 31);
             btnAgregar.TabIndex = 9;
             btnAgregar.Text = "AGREGAR";
             btnAgregar.UseVisualStyleBackColor = false;
@@ -152,7 +153,7 @@
             btnEditar.Location = new Point(457, 118);
             btnEditar.Margin = new Padding(4, 3, 4, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(85, 31);
+            btnEditar.Size = new Size(94, 31);
             btnEditar.TabIndex = 10;
             btnEditar.Text = "EDITAR";
             btnEditar.UseVisualStyleBackColor = false;
@@ -164,7 +165,7 @@
             btnEliminar.Location = new Point(457, 155);
             btnEliminar.Margin = new Padding(4, 3, 4, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(85, 31);
+            btnEliminar.Size = new Size(94, 31);
             btnEliminar.TabIndex = 11;
             btnEliminar.Text = "ELIMINAR";
             btnEliminar.UseVisualStyleBackColor = false;
@@ -207,12 +208,26 @@
             dgvProductos.TabIndex = 14;
             dgvProductos.CellClick += dgvProductos_CellClick;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.Red;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(457, 195);
+            button1.Margin = new Padding(4, 3, 4, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 31);
+            button1.TabIndex = 15;
+            button1.Text = "REGRESAR";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // FrmRegistroProductos
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(787, 480);
+            ClientSize = new Size(787, 514);
+            Controls.Add(button1);
             Controls.Add(lblTitulo);
             Controls.Add(lblNombre);
             Controls.Add(txtNombre);
@@ -242,5 +257,7 @@
         }
 
         #endregion
+
+        private Button button1;
     }
 }

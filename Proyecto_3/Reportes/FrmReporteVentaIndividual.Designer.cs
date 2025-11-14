@@ -32,7 +32,7 @@
             pictureBoxPreview.BorderStyle = BorderStyle.FixedSingle;
             pictureBoxPreview.Location = new Point(31, 12);
             pictureBoxPreview.Name = "pictureBoxPreview";
-            pictureBoxPreview.Size = new Size(445, 621);
+            pictureBoxPreview.Size = new Size(445, 595);
             pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxPreview.TabIndex = 0;
             pictureBoxPreview.TabStop = false;
@@ -43,7 +43,7 @@
             btnExportarPDF.FlatStyle = FlatStyle.Flat;
             btnExportarPDF.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnExportarPDF.ForeColor = Color.White;
-            btnExportarPDF.Location = new Point(12, 663);
+            btnExportarPDF.Location = new Point(12, 613);
             btnExportarPDF.Name = "btnExportarPDF";
             btnExportarPDF.Size = new Size(150, 35);
             btnExportarPDF.TabIndex = 1;
@@ -57,9 +57,9 @@
             btnImprimir.FlatStyle = FlatStyle.Flat;
             btnImprimir.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnImprimir.ForeColor = Color.White;
-            btnImprimir.Location = new Point(185, 663);
+            btnImprimir.Location = new Point(168, 613);
             btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(150, 35);
+            btnImprimir.Size = new Size(167, 35);
             btnImprimir.TabIndex = 2;
             btnImprimir.Text = "Imprimir";
             btnImprimir.UseVisualStyleBackColor = false;
@@ -71,7 +71,7 @@
             btnCerrar.FlatStyle = FlatStyle.Flat;
             btnCerrar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.White;
-            btnCerrar.Location = new Point(341, 663);
+            btnCerrar.Location = new Point(341, 613);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(150, 35);
             btnCerrar.TabIndex = 3;
@@ -84,7 +84,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(503, 727);
+            ClientSize = new Size(503, 751);
             Controls.Add(btnCerrar);
             Controls.Add(btnImprimir);
             Controls.Add(btnExportarPDF);
