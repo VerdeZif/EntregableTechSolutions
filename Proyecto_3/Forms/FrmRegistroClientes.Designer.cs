@@ -127,7 +127,7 @@
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(373, 87);
+            btnEditar.Location = new Point(373, 75);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(75, 23);
             btnEditar.TabIndex = 15;
@@ -136,7 +136,7 @@
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(373, 136);
+            btnEliminar.Location = new Point(373, 120);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(75, 23);
             btnEliminar.TabIndex = 16;

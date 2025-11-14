@@ -22,6 +22,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             lblTitulo = new Label();
             lblUsuario = new Label();
             lblPassword = new Label();
@@ -29,23 +30,25 @@
             txtPassword = new TextBox();
             chkVerContra = new CheckBox();
             btnLogin = new Button();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // lblTitulo
             // 
             lblTitulo.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            lblTitulo.Location = new Point(12, 20);
+            lblTitulo.Location = new Point(42, 9);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(360, 40);
+            lblTitulo.Size = new Size(432, 40);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Iniciar Sesión";
+            lblTitulo.Text = "Iniciar Sesión En Tech Solutions ";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             lblTitulo.Click += lblTitulo_Click;
             // 
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(40, 90);
+            lblUsuario.Location = new Point(48, 83);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(50, 15);
             lblUsuario.TabIndex = 1;
@@ -54,7 +57,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(40, 130);
+            lblPassword.Location = new Point(48, 123);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(70, 15);
             lblPassword.TabIndex = 3;
@@ -62,14 +65,14 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(120, 87);
+            txtUsuario.Location = new Point(128, 80);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(200, 23);
             txtUsuario.TabIndex = 2;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(120, 127);
+            txtPassword.Location = new Point(128, 120);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(200, 23);
             txtPassword.TabIndex = 4;
@@ -78,7 +81,7 @@
             // chkVerContra
             // 
             chkVerContra.AutoSize = true;
-            chkVerContra.Location = new Point(120, 160);
+            chkVerContra.Location = new Point(128, 153);
             chkVerContra.Name = "chkVerContra";
             chkVerContra.Size = new Size(128, 19);
             chkVerContra.TabIndex = 5;
@@ -88,7 +91,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(120, 200);
+            btnLogin.Location = new Point(128, 193);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(200, 30);
             btnLogin.TabIndex = 6;
@@ -96,9 +99,21 @@
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.ErrorImage = null;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(348, 52);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(180, 175);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 7;
+            pictureBox1.TabStop = false;
+            // 
             // FrmLogin
             // 
-            ClientSize = new Size(384, 261);
+            ClientSize = new Size(530, 256);
+            Controls.Add(pictureBox1);
             Controls.Add(btnLogin);
             Controls.Add(chkVerContra);
             Controls.Add(txtPassword);
@@ -112,8 +127,10 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             Load += FrmLogin_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
+        private PictureBox pictureBox1;
     }
 }

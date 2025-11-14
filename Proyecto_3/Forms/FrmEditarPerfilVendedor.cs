@@ -1,6 +1,9 @@
 ﻿using Entidad.Models;
 using Negocio.Servicios;
+using System;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Presentacion.Forms
 {
@@ -20,6 +23,22 @@ namespace Presentacion.Forms
         private void FrmEditarPerfilVendedor_Load(object sender, EventArgs e)
         {
             CargarDatos();
+
+            // Contraseña actual: siempre enmascarada
+            txtPasswordActual.Text = "********";
+            txtPasswordActual.UseSystemPasswordChar = true;
+            txtPasswordActual.ReadOnly = true;
+            txtPasswordActual.BackColor = SystemColors.Control;
+            txtPasswordActual.TabStop = false;
+
+            // Nueva contraseña: enmascarada inicialmente
+            txtNuevaPassword.UseSystemPasswordChar = true;
+
+            // CheckBox controla solo la nueva contraseña
+            chkMostrarPassword.CheckedChanged += ChkMostrarPassword_CheckedChanged;
+
+            // Mensaje informativo
+            lblInfo.Text = "La contraseña actual no se puede mostrar por seguridad.";
         }
 
         private void CargarDatos()
@@ -44,6 +63,12 @@ namespace Presentacion.Forms
             }
         }
 
+        private void ChkMostrarPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            bool mostrar = chkMostrarPassword.Checked;
+            txtNuevaPassword.UseSystemPasswordChar = !mostrar;
+        }
+
         private void btnSeleccionarFoto_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -58,18 +83,15 @@ namespace Presentacion.Forms
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            // Validar campos
             if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtUsername.Text))
             {
-                MessageBox.Show("Por favor, complete los campos obligatorios (nombre y username).", "Validación");
+                MessageBox.Show("Por favor, complete los campos obligatorios (nombre y username).");
                 return;
             }
 
-            // Actualizar datos
             _vendedor.NombreCompleto = txtNombre.Text.Trim();
             _vendedor.Username = txtUsername.Text.Trim();
 
-            // Actualizar foto si existe
             if (pbFoto.Image != null)
             {
                 using (MemoryStream ms = new MemoryStream())
@@ -79,21 +101,20 @@ namespace Presentacion.Forms
                 }
             }
 
-            // Si se ingresa nueva contraseña
-            string? nuevaPassword = string.IsNullOrWhiteSpace(txtPassword.Text)
+            string? nuevaPassword = string.IsNullOrWhiteSpace(txtNuevaPassword.Text)
                 ? null
-                : txtPassword.Text.Trim();
+                : txtNuevaPassword.Text.Trim();
 
             bool actualizado = _usuarioNegocio.ActualizarUsuario(_vendedor, nuevaPassword);
 
             if (actualizado)
             {
-                MessageBox.Show("Perfil actualizado correctamente.", "Éxito");
+                MessageBox.Show("Perfil actualizado correctamente.");
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Error al actualizar el perfil.", "Error");
+                MessageBox.Show("Error al actualizar el perfil.");
             }
         }
 

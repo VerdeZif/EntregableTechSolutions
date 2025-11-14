@@ -1,6 +1,10 @@
 ﻿using Entidad.Models;
 using Negocio.Servicios;
 using System.Text.RegularExpressions;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Presentacion.Forms
 {
@@ -23,11 +27,26 @@ namespace Presentacion.Forms
         private void FrmEditarPerfilCliente_Load(object sender, EventArgs e)
         {
             CargarDatos();
+
+            // Contraseña nueva enmascarada inicialmente
+            txtPassword.UseSystemPasswordChar = true;
+            txtPassword.PasswordChar = '\0'; // Asegúrate de que no haya otro caracter asignado
+
+            // Contraseña actual: siempre enmascarada
+            txtPasswordActual.Text = "********";
+            txtPasswordActual.ReadOnly = true;
+            txtPasswordActual.BackColor = SystemColors.Control;
+            txtPasswordActual.TabStop = false;
+
+            // CheckBox controla la visibilidad de la contraseña nueva
+            chkMostrarPassword.CheckedChanged += (s, ev) =>
+            {
+                txtPassword.UseSystemPasswordChar = !chkMostrarPassword.Checked;
+            };
         }
 
         private void CargarDatos()
         {
-            // Obtener cliente
             _cliente = _clienteNegocio.ObtenerClientePorId(_clienteId);
             if (_cliente == null)
             {
@@ -36,7 +55,6 @@ namespace Presentacion.Forms
                 return;
             }
 
-            // Cargar datos personales
             txtNombre.Text = _cliente.Nombre;
             txtCorreo.Text = _cliente.Correo;
             txtTelefono.Text = _cliente.Telefono;
@@ -50,14 +68,15 @@ namespace Presentacion.Forms
                 }
             }
 
-            // Obtener usuario (para Username y Password)
+            // Obtener usuario (Username y contraseña)
             _usuario = _usuarioNegocio.ObtenerPorId(_cliente.UserId);
             if (_usuario != null)
             {
                 txtUsername.Text = _usuario.Username;
-                // No mostramos contraseña (por seguridad)
-                txtPassword.Text = string.Empty;
+                txtPassword.Text = string.Empty; // Nunca mostrar la contraseña real
             }
+
+
         }
 
         private void btnSeleccionarFoto_Click(object sender, EventArgs e)
@@ -120,16 +139,15 @@ namespace Presentacion.Forms
             if (_usuario != null)
             {
                 _usuario.Username = txtUsername.Text.Trim();
+                _usuario.NombreCompleto = _cliente.Nombre;
+                _usuario.FotoPerfil = _cliente.Foto;
 
                 string nuevaPassword = txtPassword.Text.Trim();
+
                 if (!string.IsNullOrWhiteSpace(nuevaPassword))
-                {
                     usuarioActualizado = _usuarioNegocio.ActualizarUsuario(_usuario, nuevaPassword);
-                }
                 else
-                {
                     usuarioActualizado = _usuarioNegocio.ActualizarUsuario(_usuario);
-                }
             }
 
             if (clienteActualizado && usuarioActualizado)
@@ -146,6 +164,11 @@ namespace Presentacion.Forms
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void lblPassword_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

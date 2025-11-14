@@ -37,7 +37,7 @@ namespace Presentacion.Forms
             cmbCliente.DataSource = clientes;
             cmbCliente.DisplayMember = "Nombre";
             cmbCliente.ValueMember = "ClienteId";
-            cmbCliente.SelectedIndex = -1; // No seleccionar nada al inicio
+            cmbCliente.SelectedIndex = -1;
         }
 
         private void CargarProductos()
@@ -51,59 +51,61 @@ namespace Presentacion.Forms
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (cmbProducto.SelectedItem == null || numCantidad.Value <= 0)
+            if (cmbProducto.SelectedItem == null)
             {
-                MessageBox.Show("Seleccione un producto y una cantidad válida.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccione un producto.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var producto = (Producto)cmbProducto.SelectedItem;
-            int cantidad = (int)numCantidad.Value;
 
-            if (cantidad > producto.Stock)
+            // Validar stock
+            if (producto.Stock <= 0)
             {
-                MessageBox.Show("No hay suficiente stock para este producto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Este producto no tiene stock disponible.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Verificar si el producto ya está agregado y sumar cantidad
+            int cantidad = (int)numCantidad.Value;
+            if (cantidad <= 0)
+            {
+                MessageBox.Show("Ingrese una cantidad válida.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Verificar si el producto ya está agregado
             var detalleExistente = _detallesVenta.FirstOrDefault(d => d.ProductoId == producto.ProductoId);
+
             if (detalleExistente != null)
             {
                 if (detalleExistente.Cantidad + cantidad > producto.Stock)
                 {
-                    MessageBox.Show("No hay suficiente stock para agregar esta cantidad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"No puede agregar más de {producto.Stock} unidades de este producto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
                 detalleExistente.Cantidad += cantidad;
             }
             else
             {
-                var detalle = new DetalleVenta
+                if (cantidad > producto.Stock)
+                {
+                    MessageBox.Show($"No puede agregar más de {producto.Stock} unidades de este producto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                _detallesVenta.Add(new DetalleVenta
                 {
                     ProductoId = producto.ProductoId,
                     NombreProducto = producto.Nombre,
                     Descripcion = producto.Descripcion,
                     Cantidad = cantidad,
                     PrecioUnitario = producto.Precio
-                };
-                _detallesVenta.Add(detalle);
+                });
             }
 
             CargarDetalles();
             CalcularTotal();
-        }
-
-        private void CargarDetalles()
-        {
-            dgvDetalles.DataSource = null;
-            dgvDetalles.DataSource = _detallesVenta;
-        }
-
-        private void CalcularTotal()
-        {
-            decimal total = _detallesVenta.Sum(d => d.Subtotal);
-            lblTotal.Text = $"Total: S/ {total.ToString("0.00")}";
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -130,6 +132,17 @@ namespace Presentacion.Forms
                 return;
             }
 
+            // Verificar stock antes de registrar
+            foreach (var detalle in _detallesVenta)
+            {
+                var producto = _productoNegocio.ObtenerPorId(detalle.ProductoId);
+                if (producto.Stock < detalle.Cantidad)
+                {
+                    MessageBox.Show($"El producto {detalle.NombreProducto} solo tiene {producto.Stock} unidades disponibles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             int clienteId = Convert.ToInt32(cmbCliente.SelectedValue);
             decimal total = _detallesVenta.Sum(d => d.Subtotal);
 
@@ -146,7 +159,7 @@ namespace Presentacion.Forms
                 {
                     MessageBox.Show($"Venta registrada correctamente. ID: {resultado.ventaId}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Limpiar
+                    // Limpiar formulario
                     _detallesVenta.Clear();
                     CargarDetalles();
                     CalcularTotal();
@@ -163,6 +176,18 @@ namespace Presentacion.Forms
             {
                 MessageBox.Show("Error al registrar venta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void CargarDetalles()
+        {
+            dgvDetalles.DataSource = null;
+            dgvDetalles.DataSource = _detallesVenta;
+        }
+
+        private void CalcularTotal()
+        {
+            decimal total = _detallesVenta.Sum(d => d.Subtotal);
+            lblTotal.Text = $"Total: S/ {total:0.00}";
         }
 
         private void ConfigurarGridDetalles()
@@ -222,3 +247,4 @@ namespace Presentacion.Forms
         }
     }
 }
+

@@ -5,6 +5,12 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
+using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+
+
 namespace Presentacion.Forms
 {
     public partial class FrmEditarPerfilAdmin : Form
@@ -23,6 +29,21 @@ namespace Presentacion.Forms
         private void FrmEditarPerfilAdmin_Load(object sender, EventArgs e)
         {
             CargarDatos();
+
+            // Contraseña nueva: inicialmente oculta
+            txtPassword.UseSystemPasswordChar = true;
+
+            // Contraseña actual: siempre oculta y solo visual
+            txtPasswordActual.Text = "********";
+            txtPasswordActual.ReadOnly = true;
+            txtPasswordActual.BackColor = SystemColors.Control;
+            txtPasswordActual.TabStop = false;
+
+            // CheckBox para mostrar u ocultar nueva contraseña
+            chkMostrarPassword.CheckedChanged += (s, ev) =>
+            {
+                txtPassword.UseSystemPasswordChar = !chkMostrarPassword.Checked;
+            };
         }
 
         private void CargarDatos()
@@ -37,7 +58,7 @@ namespace Presentacion.Forms
 
             txtNombre.Text = _admin.NombreCompleto;
             txtUsername.Text = _admin.Username;
-            txtPassword.Text = string.Empty; // por seguridad
+            txtPassword.Text = string.Empty; // nunca mostrar la contraseña real
 
             if (_admin.FotoPerfil != null && _admin.FotoPerfil.Length > 0)
             {
@@ -67,10 +88,11 @@ namespace Presentacion.Forms
             _admin.NombreCompleto = txtNombre.Text.Trim();
             _admin.Username = txtUsername.Text.Trim();
 
-            if (!string.IsNullOrWhiteSpace(txtPassword.Text))
+            string nuevaPassword = txtPassword.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(nuevaPassword))
             {
-                // si cambió la contraseña
-                _admin.PasswordHash = _usuarioNegocio.GenerarHash(txtPassword.Text.Trim());
+                // Actualizar contraseña
+                _admin.PasswordHash = _usuarioNegocio.GenerarHash(nuevaPassword);
             }
 
             if (pbFoto.Image != null)

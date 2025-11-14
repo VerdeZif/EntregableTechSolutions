@@ -119,7 +119,7 @@ BEGIN
         'Cliente ' + CAST(@i AS NVARCHAR),
         'cliente' + CAST(@i AS NVARCHAR) + '@mail.com',
         '999999999',
-        'Dirección ' + CAST(@i AS NVARCHAR)
+        'Direcciï¿½n ' + CAST(@i AS NVARCHAR)
     );
 
     SET @i += 1;
@@ -133,7 +133,7 @@ WHILE @i <= 50
 BEGIN
     INSERT INTO Productos (Nombre, Descripcion, Precio, Stock)
     VALUES ('Producto ' + CAST(@i AS NVARCHAR),
-            'Descripción Producto ' + CAST(@i AS NVARCHAR),
+            'Descripciï¿½n Producto ' + CAST(@i AS NVARCHAR),
             ROUND((RAND()*50)+5,2),
             40);
     SET @i += 1;
@@ -188,6 +188,14 @@ BEGIN
         INSERT INTO DetalleVenta (VentaId, ProductoId, Cantidad, PrecioUnitario)
         SELECT @VentaId, ProductoId, Cantidad, PrecioUnitario
         FROM @Detalle;
+
+
+        --Esto aumente
+        -- Descontar stock
+        UPDATE P
+        SET P.Stock = P.Stock - D.Cantidad
+        FROM Productos P
+        INNER JOIN @Detalle D ON P.ProductoId = D.ProductoId;
 
         COMMIT TRANSACTION;
 
@@ -292,7 +300,7 @@ BEGIN
         SUM(D.Cantidad) AS CantidadVendida,
         SUM(D.Cantidad * D.PrecioUnitario) AS TotalGenerado
     FROM DetalleVenta D
-    INNER JOIN Ventas V ON D.VentaId = V.VentaId
+    INNER JOIN Ventas V ON D.VentaId = V.VentaIdF
     INNER JOIN Productos P ON D.ProductoId = P.ProductoId
     WHERE MONTH(V.Fecha) = @Mes AND YEAR(V.Fecha) = @Anio
     GROUP BY P.Nombre
@@ -301,6 +309,9 @@ END;
 GO
 
 
-select * from Usuarios Where RoleId=2;
-select * from Clientes;
-
+Select * from Clientes;
+Select * from Roles;
+select * from Usuarios;
+select * from Productos;
+select * from Ventas;
+select * from DetalleVenta;

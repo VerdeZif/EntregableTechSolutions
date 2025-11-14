@@ -52,8 +52,16 @@ namespace Presentacion.Forms
 
                 foreach (var d in detalle)
                 {
-                    string prod = d.NombreProducto.Length > 18 ? d.NombreProducto.Substring(0, 18) : d.NombreProducto.PadRight(18);
-                    ticket += $"{prod}{d.Cantidad,6}{d.PrecioUnitario,9:C2}{d.Subtotal,10:C2}\n";
+                    string prod = d.NombreProducto.Length > 18
+                        ? d.NombreProducto.Substring(0, 18)
+                        : d.NombreProducto.PadRight(18);
+
+                    string cant = d.Cantidad.ToString().PadLeft(4);
+                    string precio = d.PrecioUnitario.ToString("C2", new CultureInfo("es-PE")).PadLeft(10);
+                    string subtotal = d.Subtotal.ToString("C2", new CultureInfo("es-PE")).PadLeft(10);
+
+                    // Construcción MANUAL de columnas fijas
+                    ticket += $"{prod} {cant} {precio} {subtotal}\n";
                 }
 
                 ticket += "----------------------------------------------\n";

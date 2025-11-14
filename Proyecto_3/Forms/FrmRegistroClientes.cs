@@ -14,15 +14,25 @@ namespace Presentacion.Forms
     public partial class FrmRegistroClientes : Form
     {
         private readonly ClienteNegocio _clienteNegocio = new ClienteNegocio();
+        //private readonly int _rolActual;
 
-        public FrmRegistroClientes()
+        public FrmRegistroClientes()//(int rolActual)
         {
             InitializeComponent();
+            //_rolActual = rolActual;
         }
 
         private void FrmRegistroClientes_Load(object sender, EventArgs e)
         {
             CargarClientes();
+
+            // Solo los administradores (RoleId = 1) pueden editar
+            //if (_rolActual != 1)
+            //{
+            //    btnEditar.Enabled = false;
+            //    btnEditar.BackColor = Color.Gray;
+            //    btnEditar.Cursor = Cursors.No;
+            //}
         }
 
         private void CargarClientes()

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             groupBoxDatos = new GroupBox();
+            label2 = new Label();
+            label1 = new Label();
             pbFoto = new PictureBox();
             lblNombre = new Label();
             lblRole = new Label();
@@ -49,6 +51,8 @@
             // 
             // groupBoxDatos
             // 
+            groupBoxDatos.Controls.Add(label2);
+            groupBoxDatos.Controls.Add(label1);
             groupBoxDatos.Controls.Add(pbFoto);
             groupBoxDatos.Controls.Add(lblNombre);
             groupBoxDatos.Controls.Add(lblRole);
@@ -60,27 +64,48 @@
             groupBoxDatos.TabStop = false;
             groupBoxDatos.Text = "Datos del Vendedor";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(47, 63);
+            label2.Name = "label2";
+            label2.Size = new Size(27, 15);
+            label2.TabIndex = 4;
+            label2.Text = "Rol:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(20, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(54, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Nombre:";
+            // 
             // pbFoto
             // 
             pbFoto.BorderStyle = BorderStyle.FixedSingle;
-            pbFoto.Location = new Point(350, 20);
+            pbFoto.Location = new Point(678, 12);
             pbFoto.Name = "pbFoto";
-            pbFoto.Size = new Size(80, 80);
+            pbFoto.Size = new Size(114, 102);
             pbFoto.SizeMode = PictureBoxSizeMode.StretchImage;
             pbFoto.TabIndex = 0;
             pbFoto.TabStop = false;
             // 
             // lblNombre
             // 
-            lblNombre.Location = new Point(20, 30);
+            lblNombre.BackColor = SystemColors.AppWorkspace;
+            lblNombre.Location = new Point(91, 30);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(200, 20);
             lblNombre.TabIndex = 1;
             lblNombre.Text = "Nombre: ";
+            lblNombre.Click += lblNombre_Click;
             // 
             // lblRole
             // 
-            lblRole.Location = new Point(20, 60);
+            lblRole.BackColor = SystemColors.AppWorkspace;
+            lblRole.Location = new Point(91, 63);
             lblRole.Name = "lblRole";
             lblRole.Size = new Size(200, 20);
             lblRole.TabIndex = 2;
@@ -181,11 +206,14 @@
             Text = "Panel Vendedor";
             Load += FrmVendedor_Load;
             groupBoxDatos.ResumeLayout(false);
+            groupBoxDatos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
             groupBoxAcciones.ResumeLayout(false);
             groupBoxHistorial.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
             ResumeLayout(false);
         }
+        private Label label2;
+        private Label label1;
     }
 }

@@ -18,7 +18,7 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnVerDetalle;
-        private System.Windows.Forms.Button btnExportarPDF;
+
         private System.Windows.Forms.DataGridView dgvVentas;
 
         protected override void Dispose(bool disposing)
@@ -45,7 +45,6 @@
             btnBuscar = new Button();
             btnLimpiar = new Button();
             btnVerDetalle = new Button();
-            btnExportarPDF = new Button();
             dgvVentas = new DataGridView();
             btnReporteVendedorMensual = new Button();
             btnReporteClienteMensual = new Button();
@@ -178,15 +177,8 @@
             btnVerDetalle.TabIndex = 14;
             btnVerDetalle.Text = "Ver Ticket";
             btnVerDetalle.Click += btnVerDetalle_Click;
-            // 
-            // btnExportarPDF
-            // 
-            btnExportarPDF.Location = new Point(135, 489);
-            btnExportarPDF.Name = "btnExportarPDF";
-            btnExportarPDF.Size = new Size(108, 23);
-            btnExportarPDF.TabIndex = 15;
-            btnExportarPDF.Text = "Exportar PDF";
-            btnExportarPDF.Click += btnExportarPDF_Click;
+            
+           
             // 
             // dgvVentas
             // 
@@ -249,7 +241,6 @@
             Controls.Add(btnBuscar);
             Controls.Add(btnLimpiar);
             Controls.Add(btnVerDetalle);
-            Controls.Add(btnExportarPDF);
             Controls.Add(dgvVentas);
             Name = "FrmReporte";
             Text = "Reporte de Ventas";

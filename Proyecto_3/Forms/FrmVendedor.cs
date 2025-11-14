@@ -67,7 +67,17 @@ namespace Presentacion.Forms
 
         private void btnGestionarClientes_Click(object sender, EventArgs e)
         {
-            using var frm = new FrmRegistroClientes(); // ✅ Se pasa el id del usuario logueado
+            // Obtener el usuario actual (el vendedor)
+            //var vendedor = _usuarioNegocio.ObtenerPorId(_vendedorId);
+
+            //if (vendedor == null)
+            //{
+            //    MessageBox.Show("No se pudo cargar la información del vendedor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            // Enviar el rol (no el ID)
+            using var frm = new FrmRegistroClientes();// ✅ Se pasa el id del usuario logueado
             frm.ShowDialog();
         }
 
@@ -129,5 +139,9 @@ namespace Presentacion.Forms
             }
         }
 
+        private void lblNombre_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

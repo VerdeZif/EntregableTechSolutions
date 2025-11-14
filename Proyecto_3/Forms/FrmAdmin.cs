@@ -26,11 +26,6 @@ namespace Presentacion.Forms
                     txtAdminNombre.Text = _admin.NombreCompleto;
                     pbAdminFoto.Image = _admin.FotoPerfil != null ?
                         Image.FromStream(new MemoryStream(_admin.FotoPerfil)) : null;
-
-                    MessageBox.Show(
-                        $"Bienvenido, {_admin.NombreCompleto}\nRol: {(_admin.RoleId == 1 ? "Administrador" : "Desconocido")}",
-                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information
-                    );
                 }
             }
             catch (Exception ex)
@@ -63,7 +58,7 @@ namespace Presentacion.Forms
 
         private void btnGestionClientes_Click(object sender, EventArgs e)
         {
-            using var frm = new FrmRegistroClientes();
+            using var frm = new FrmRegistroClientes();//_admin.RoleId
             frm.ShowDialog();
         }
 

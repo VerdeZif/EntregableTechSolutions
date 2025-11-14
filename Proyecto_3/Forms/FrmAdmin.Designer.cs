@@ -65,7 +65,7 @@
             pbAdminFoto.BorderStyle = BorderStyle.FixedSingle;
             pbAdminFoto.Location = new Point(360, 20);
             pbAdminFoto.Name = "pbAdminFoto";
-            pbAdminFoto.Size = new Size(100, 100);
+            pbAdminFoto.Size = new Size(119, 100);
             pbAdminFoto.SizeMode = PictureBoxSizeMode.StretchImage;
             pbAdminFoto.TabIndex = 0;
             pbAdminFoto.TabStop = false;
@@ -176,6 +176,7 @@
             // 
             // FrmAdmin
             // 
+            BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(800, 500);
             Controls.Add(dgvVentas);
             Controls.Add(lblVentas);

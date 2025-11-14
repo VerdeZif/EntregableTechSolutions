@@ -30,9 +30,9 @@
             // 
             pictureBoxPreview.BackColor = Color.White;
             pictureBoxPreview.BorderStyle = BorderStyle.FixedSingle;
-            pictureBoxPreview.Location = new Point(74, 12);
+            pictureBoxPreview.Location = new Point(31, 12);
             pictureBoxPreview.Name = "pictureBoxPreview";
-            pictureBoxPreview.Size = new Size(350, 621);
+            pictureBoxPreview.Size = new Size(445, 621);
             pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxPreview.TabIndex = 0;
             pictureBoxPreview.TabStop = false;

@@ -157,54 +157,6 @@ namespace Presentacion.Forms
             }
         }
 
-        private void btnExportarPDF_Click(object sender, EventArgs e)
-        {
-            if (dgvVentas.Rows.Count == 0)
-            {
-                MessageBox.Show("No hay datos para exportar.", "Aviso");
-                return;
-            }
-
-            try
-            {
-                using (var pdf = new PdfDocument())
-                {
-                    var page = pdf.AddPage();
-                    var gfx = XGraphics.FromPdfPage(page);
-                    var font = new XFont("Arial", 10);
-
-                    gfx.DrawString("Reporte de Ventas", new XFont("Arial", 14, XFontStyle.Bold),
-                        XBrushes.Black, new XRect(0, 20, page.Width, 20), XStringFormats.TopCenter);
-
-                    int y = 60;
-                    gfx.DrawString("Fecha de generación: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"),
-                        font, XBrushes.Black, new XRect(40, y, page.Width, 20));
-
-                    y += 20;
-                    foreach (DataGridViewRow row in dgvVentas.Rows)
-                    {
-                        string linea = $"Venta #{row.Cells["VentaId"].Value} | Cliente: {row.Cells["Cliente"].Value} | Total: S/ {row.Cells["Total"].Value}";
-                        gfx.DrawString(linea, font, XBrushes.Black, new XRect(40, y, page.Width - 80, 20));
-                        y += 18;
-
-                        if (y > page.Height - 40)
-                        {
-                            page = pdf.AddPage();
-                            gfx = XGraphics.FromPdfPage(page);
-                            y = 40;
-                        }
-                    }
-
-                    string ruta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ReporteVentas.pdf");
-                    pdf.Save(ruta);
-                    MessageBox.Show($"PDF exportado correctamente en:\n{ruta}", "Éxito");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al exportar PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
@@ -254,3 +206,4 @@ namespace Presentacion.Forms
         }
     }
 }
+

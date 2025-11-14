@@ -21,10 +21,6 @@ namespace Presentacion.Forms
             CargarDatosCliente();
             CargarHistorialCompras();
 
-            if (!string.IsNullOrEmpty(lblNombre.Text))
-            {
-                MessageBox.Show($"¡Bienvenido, {lblNombre.Text}!", "Bienvenida");
-            }
         }
 
         private void CargarDatosCliente()
