@@ -31,59 +31,68 @@
             chkVerContra = new CheckBox();
             btnLogin = new Button();
             pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // lblTitulo
             // 
-            lblTitulo.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            lblTitulo.Location = new Point(42, 9);
+            lblTitulo.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.Location = new Point(139, 86);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(432, 40);
+            lblTitulo.Size = new Size(267, 40);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Iniciar Sesión En Tech Solutions ";
+            lblTitulo.Text = "INICIO DE SESION";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             lblTitulo.Click += lblTitulo_Click;
             // 
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(48, 83);
+            lblUsuario.BackColor = Color.LightCyan;
+            lblUsuario.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUsuario.Location = new Point(73, 157);
             lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(50, 15);
+            lblUsuario.Size = new Size(69, 21);
             lblUsuario.TabIndex = 1;
             lblUsuario.Text = "Usuario:";
             // 
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(48, 123);
+            lblPassword.BackColor = Color.LightCyan;
+            lblPassword.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblPassword.Location = new Point(69, 196);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(70, 15);
+            lblPassword.Size = new Size(96, 21);
             lblPassword.TabIndex = 3;
             lblPassword.Text = "Contraseña:";
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(128, 80);
+            txtUsuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUsuario.Location = new Point(171, 154);
             txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(200, 23);
+            txtUsuario.Size = new Size(200, 29);
             txtUsuario.TabIndex = 2;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(128, 120);
+            txtPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPassword.Location = new Point(171, 194);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(200, 23);
+            txtPassword.Size = new Size(200, 29);
             txtPassword.TabIndex = 4;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // chkVerContra
             // 
             chkVerContra.AutoSize = true;
-            chkVerContra.Location = new Point(128, 153);
+            chkVerContra.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            chkVerContra.Location = new Point(171, 238);
             chkVerContra.Name = "chkVerContra";
-            chkVerContra.Size = new Size(128, 19);
+            chkVerContra.Size = new Size(171, 25);
             chkVerContra.TabIndex = 5;
             chkVerContra.Text = "Mostrar contraseña";
             chkVerContra.UseVisualStyleBackColor = true;
@@ -91,28 +100,42 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(128, 193);
+            btnLogin.BackColor = SystemColors.ControlLightLight;
+            btnLogin.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogin.Location = new Point(171, 282);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(200, 30);
             btnLogin.TabIndex = 6;
-            btnLogin.Text = "Iniciar Sesión";
-            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Text = "INICIAR SESION";
+            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // pictureBox1
             // 
             pictureBox1.ErrorImage = null;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(348, 52);
+            pictureBox1.Location = new Point(-10, 18);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(180, 175);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.Size = new Size(152, 117);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
             // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(123, 12);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(292, 55);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 8;
+            pictureBox2.TabStop = false;
+            // 
             // FrmLogin
             // 
-            ClientSize = new Size(530, 256);
+            BackColor = Color.LightGray;
+            ClientSize = new Size(487, 335);
+            Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(btnLogin);
             Controls.Add(chkVerContra);
@@ -128,9 +151,11 @@
             Text = "Login";
             Load += FrmLogin_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
         private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }

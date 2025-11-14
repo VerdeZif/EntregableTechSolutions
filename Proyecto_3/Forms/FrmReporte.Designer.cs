@@ -54,17 +54,19 @@
             // 
             // lblTitulo
             // 
+            lblTitulo.BackColor = SystemColors.Control;
             lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblTitulo.Location = new Point(12, 9);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(300, 30);
+            lblTitulo.Size = new Size(203, 30);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Reporte de Ventas";
+            lblTitulo.Text = "REPORTE DE VENTAS";
             // 
             // chkRangoFechas
             // 
             chkRangoFechas.AutoSize = true;
-            chkRangoFechas.Location = new Point(20, 55);
+            chkRangoFechas.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            chkRangoFechas.Location = new Point(11, 53);
             chkRangoFechas.Name = "chkRangoFechas";
             chkRangoFechas.Size = new Size(109, 19);
             chkRangoFechas.TabIndex = 1;
@@ -75,7 +77,7 @@
             // 
             dtpInicio.Enabled = false;
             dtpInicio.Format = DateTimePickerFormat.Short;
-            dtpInicio.Location = new Point(150, 53);
+            dtpInicio.Location = new Point(126, 53);
             dtpInicio.Name = "dtpInicio";
             dtpInicio.Size = new Size(200, 23);
             dtpInicio.TabIndex = 2;
@@ -84,7 +86,7 @@
             // 
             dtpFin.Enabled = false;
             dtpFin.Format = DateTimePickerFormat.Short;
-            dtpFin.Location = new Point(389, 53);
+            dtpFin.Location = new Point(445, 55);
             dtpFin.Name = "dtpFin";
             dtpFin.Size = new Size(200, 23);
             dtpFin.TabIndex = 3;
@@ -92,7 +94,7 @@
             // cbCliente
             // 
             cbCliente.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCliente.Location = new Point(80, 90);
+            cbCliente.Location = new Point(126, 94);
             cbCliente.Name = "cbCliente";
             cbCliente.Size = new Size(200, 23);
             cbCliente.TabIndex = 4;
@@ -100,85 +102,96 @@
             // cbVendedor
             // 
             cbVendedor.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbVendedor.Location = new Point(370, 90);
+            cbVendedor.Location = new Point(445, 93);
             cbVendedor.Name = "cbVendedor";
             cbVendedor.Size = new Size(200, 23);
             cbVendedor.TabIndex = 5;
             // 
             // txtTotalMin
             // 
-            txtTotalMin.Location = new Point(100, 130);
+            txtTotalMin.Location = new Point(126, 130);
             txtTotalMin.Name = "txtTotalMin";
-            txtTotalMin.Size = new Size(100, 23);
+            txtTotalMin.Size = new Size(200, 23);
             txtTotalMin.TabIndex = 6;
             // 
             // txtTotalMax
             // 
-            txtTotalMax.Location = new Point(270, 130);
+            txtTotalMax.Location = new Point(445, 130);
             txtTotalMax.Name = "txtTotalMax";
-            txtTotalMax.Size = new Size(100, 23);
+            txtTotalMax.Size = new Size(200, 23);
             txtTotalMax.TabIndex = 7;
             // 
             // lblCliente
             // 
-            lblCliente.Location = new Point(20, 93);
+            lblCliente.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            lblCliente.Location = new Point(29, 93);
             lblCliente.Name = "lblCliente";
-            lblCliente.Size = new Size(100, 23);
+            lblCliente.Size = new Size(73, 23);
             lblCliente.TabIndex = 8;
-            lblCliente.Text = "Cliente:";
+            lblCliente.Text = "CLIENTE:";
             // 
             // lblVendedor
             // 
-            lblVendedor.Location = new Point(300, 93);
+            lblVendedor.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblVendedor.Location = new Point(347, 93);
             lblVendedor.Name = "lblVendedor";
             lblVendedor.Size = new Size(100, 23);
             lblVendedor.TabIndex = 9;
-            lblVendedor.Text = "Vendedor:";
+            lblVendedor.Text = "VENDEDOR:";
             // 
             // lblTotalMin
             // 
-            lblTotalMin.Location = new Point(20, 133);
+            lblTotalMin.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalMin.Location = new Point(29, 133);
             lblTotalMin.Name = "lblTotalMin";
             lblTotalMin.Size = new Size(100, 23);
             lblTotalMin.TabIndex = 10;
-            lblTotalMin.Text = "Total Min:";
+            lblTotalMin.Text = "TOTAL MIN:";
             // 
             // lblTotalMax
             // 
-            lblTotalMax.Location = new Point(210, 133);
+            lblTotalMax.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalMax.Location = new Point(347, 130);
             lblTotalMax.Name = "lblTotalMax";
-            lblTotalMax.Size = new Size(100, 23);
+            lblTotalMax.Size = new Size(92, 23);
             lblTotalMax.TabIndex = 11;
-            lblTotalMax.Text = "Total Max:";
+            lblTotalMax.Text = "TOTAL MAX:";
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(640, 55);
+            btnBuscar.BackColor = Color.Lavender;
+            btnBuscar.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnBuscar.Location = new Point(664, 55);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(75, 23);
+            btnBuscar.Size = new Size(75, 33);
             btnBuscar.TabIndex = 12;
-            btnBuscar.Text = "Buscar";
+            btnBuscar.Text = "BUSCAR";
+            btnBuscar.UseVisualStyleBackColor = false;
             btnBuscar.Click += btnBuscar_Click;
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(640, 93);
+            btnLimpiar.BackColor = Color.PaleTurquoise;
+            btnLimpiar.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLimpiar.Location = new Point(664, 94);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(75, 23);
+            btnLimpiar.Size = new Size(75, 34);
             btnLimpiar.TabIndex = 13;
-            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.Text = "LIMPIAR";
+            btnLimpiar.UseVisualStyleBackColor = false;
             btnLimpiar.Click += btnLimpiar_Click;
             // 
             // btnVerDetalle
             // 
+            btnVerDetalle.BackColor = Color.GreenYellow;
+            btnVerDetalle.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
             btnVerDetalle.Location = new Point(29, 489);
             btnVerDetalle.Name = "btnVerDetalle";
-            btnVerDetalle.Size = new Size(100, 23);
+            btnVerDetalle.Size = new Size(115, 35);
             btnVerDetalle.TabIndex = 14;
-            btnVerDetalle.Text = "Ver Ticket";
+            btnVerDetalle.Text = "VER TICKET";
+            btnVerDetalle.UseVisualStyleBackColor = false;
             btnVerDetalle.Click += btnVerDetalle_Click;
-            
-           
             // 
             // dgvVentas
             // 
@@ -195,33 +208,43 @@
             // 
             // btnReporteVendedorMensual
             // 
-            btnReporteVendedorMensual.Location = new Point(387, 489);
+            btnReporteVendedorMensual.BackColor = Color.LemonChiffon;
+            btnReporteVendedorMensual.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnReporteVendedorMensual.Location = new Point(195, 489);
             btnReporteVendedorMensual.Name = "btnReporteVendedorMensual";
-            btnReporteVendedorMensual.Size = new Size(110, 23);
+            btnReporteVendedorMensual.Size = new Size(191, 35);
             btnReporteVendedorMensual.TabIndex = 17;
-            btnReporteVendedorMensual.Text = "Reporte Vendedor";
+            btnReporteVendedorMensual.Text = "REPORTE VENDEDOR";
+            btnReporteVendedorMensual.UseVisualStyleBackColor = false;
             btnReporteVendedorMensual.Click += btnReporteVendedorMensual_Click_1;
             // 
             // btnReporteClienteMensual
             // 
-            btnReporteClienteMensual.Location = new Point(503, 489);
+            btnReporteClienteMensual.BackColor = Color.LemonChiffon;
+            btnReporteClienteMensual.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnReporteClienteMensual.Location = new Point(392, 489);
             btnReporteClienteMensual.Name = "btnReporteClienteMensual";
-            btnReporteClienteMensual.Size = new Size(110, 23);
+            btnReporteClienteMensual.Size = new Size(164, 35);
             btnReporteClienteMensual.TabIndex = 18;
-            btnReporteClienteMensual.Text = "Reporte Cliente";
+            btnReporteClienteMensual.Text = "REPORTE CLIENTE";
+            btnReporteClienteMensual.UseVisualStyleBackColor = false;
             btnReporteClienteMensual.Click += btnReporteClienteMensual_Click;
             // 
             // btnReporteProductoMensual
             // 
-            btnReporteProductoMensual.Location = new Point(619, 489);
+            btnReporteProductoMensual.BackColor = Color.LemonChiffon;
+            btnReporteProductoMensual.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnReporteProductoMensual.Location = new Point(562, 489);
             btnReporteProductoMensual.Name = "btnReporteProductoMensual";
-            btnReporteProductoMensual.Size = new Size(110, 23);
+            btnReporteProductoMensual.Size = new Size(167, 35);
             btnReporteProductoMensual.TabIndex = 19;
-            btnReporteProductoMensual.Text = "Reporte Producto";
+            btnReporteProductoMensual.Text = "REPORTE PRODUCTO";
+            btnReporteProductoMensual.UseVisualStyleBackColor = false;
             btnReporteProductoMensual.Click += btnReporteProductoMensual_Click;
             // 
             // FrmReporte
             // 
+            BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(760, 550);
             Controls.Add(btnReporteProductoMensual);
             Controls.Add(btnReporteClienteMensual);
@@ -243,7 +266,7 @@
             Controls.Add(btnVerDetalle);
             Controls.Add(dgvVentas);
             Name = "FrmReporte";
-            Text = "Reporte de Ventas";
+            Text = "REPORTE DE VENTAS";
             Load += FrmReporte_Load;
             ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
             ResumeLayout(false);

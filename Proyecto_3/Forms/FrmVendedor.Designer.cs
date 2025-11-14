@@ -51,43 +51,46 @@
             // 
             // groupBoxDatos
             // 
+            groupBoxDatos.BackColor = SystemColors.GradientActiveCaption;
             groupBoxDatos.Controls.Add(label2);
             groupBoxDatos.Controls.Add(label1);
             groupBoxDatos.Controls.Add(pbFoto);
             groupBoxDatos.Controls.Add(lblNombre);
             groupBoxDatos.Controls.Add(lblRole);
             groupBoxDatos.Dock = DockStyle.Top;
+            groupBoxDatos.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxDatos.Location = new Point(0, 0);
             groupBoxDatos.Name = "groupBoxDatos";
             groupBoxDatos.Size = new Size(800, 120);
             groupBoxDatos.TabIndex = 2;
             groupBoxDatos.TabStop = false;
-            groupBoxDatos.Text = "Datos del Vendedor";
+            groupBoxDatos.Text = "DATOS DEL VENDEDOR";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(47, 63);
             label2.Name = "label2";
-            label2.Size = new Size(27, 15);
+            label2.Size = new Size(40, 20);
             label2.TabIndex = 4;
-            label2.Text = "Rol:";
+            label2.Text = "ROL:";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Location = new Point(20, 30);
             label1.Name = "label1";
-            label1.Size = new Size(54, 15);
+            label1.Size = new Size(76, 20);
             label1.TabIndex = 3;
-            label1.Text = "Nombre:";
+            label1.Text = "NOMBRE:";
             // 
             // pbFoto
             // 
+            pbFoto.BackColor = SystemColors.Control;
             pbFoto.BorderStyle = BorderStyle.FixedSingle;
-            pbFoto.Location = new Point(678, 12);
+            pbFoto.Location = new Point(627, 12);
             pbFoto.Name = "pbFoto";
-            pbFoto.Size = new Size(114, 102);
+            pbFoto.Size = new Size(167, 102);
             pbFoto.SizeMode = PictureBoxSizeMode.StretchImage;
             pbFoto.TabIndex = 0;
             pbFoto.TabStop = false;
@@ -95,7 +98,7 @@
             // lblNombre
             // 
             lblNombre.BackColor = SystemColors.AppWorkspace;
-            lblNombre.Location = new Point(91, 30);
+            lblNombre.Location = new Point(102, 30);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(200, 20);
             lblNombre.TabIndex = 1;
@@ -105,7 +108,7 @@
             // lblRole
             // 
             lblRole.BackColor = SystemColors.AppWorkspace;
-            lblRole.Location = new Point(91, 63);
+            lblRole.Location = new Point(102, 63);
             lblRole.Name = "lblRole";
             lblRole.Size = new Size(200, 20);
             lblRole.TabIndex = 2;
@@ -113,86 +116,106 @@
             // 
             // groupBoxAcciones
             // 
+            groupBoxAcciones.BackColor = SystemColors.InactiveBorder;
             groupBoxAcciones.Controls.Add(btnEditarPerfil);
             groupBoxAcciones.Controls.Add(btnGestionarClientes);
             groupBoxAcciones.Controls.Add(btnGestionarProductos);
             groupBoxAcciones.Controls.Add(btnGestionarVenta);
             groupBoxAcciones.Controls.Add(btnCerrarSesion);
             groupBoxAcciones.Dock = DockStyle.Top;
+            groupBoxAcciones.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxAcciones.Location = new Point(0, 120);
             groupBoxAcciones.Name = "groupBoxAcciones";
-            groupBoxAcciones.Size = new Size(800, 70);
+            groupBoxAcciones.Size = new Size(800, 85);
             groupBoxAcciones.TabIndex = 1;
             groupBoxAcciones.TabStop = false;
-            groupBoxAcciones.Text = "Acciones";
+            groupBoxAcciones.Text = "ACCIONES";
             groupBoxAcciones.Enter += groupBoxAcciones_Enter;
             // 
             // btnEditarPerfil
             // 
-            btnEditarPerfil.Location = new Point(20, 25);
+            btnEditarPerfil.BackColor = SystemColors.Control;
+            btnEditarPerfil.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEditarPerfil.Location = new Point(47, 22);
             btnEditarPerfil.Name = "btnEditarPerfil";
-            btnEditarPerfil.Size = new Size(120, 30);
+            btnEditarPerfil.Size = new Size(111, 52);
             btnEditarPerfil.TabIndex = 0;
-            btnEditarPerfil.Text = "Gestionar Perfil";
+            btnEditarPerfil.Text = "GESTIONAR PERFIL";
+            btnEditarPerfil.UseVisualStyleBackColor = false;
             btnEditarPerfil.Click += btnEditarPerfil_Click;
             // 
             // btnGestionarClientes
             // 
-            btnGestionarClientes.Location = new Point(188, 25);
+            btnGestionarClientes.BackColor = SystemColors.Control;
+            btnGestionarClientes.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGestionarClientes.Location = new Point(191, 22);
             btnGestionarClientes.Name = "btnGestionarClientes";
-            btnGestionarClientes.Size = new Size(120, 30);
+            btnGestionarClientes.Size = new Size(111, 52);
             btnGestionarClientes.TabIndex = 1;
-            btnGestionarClientes.Text = "Gestionar Clientes";
+            btnGestionarClientes.Text = "GESTIONAR CLIENTES";
+            btnGestionarClientes.UseVisualStyleBackColor = false;
             btnGestionarClientes.Click += btnGestionarClientes_Click;
             // 
             // btnGestionarProductos
             // 
-            btnGestionarProductos.Location = new Point(350, 25);
+            btnGestionarProductos.BackColor = SystemColors.Control;
+            btnGestionarProductos.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGestionarProductos.Location = new Point(350, 22);
             btnGestionarProductos.Name = "btnGestionarProductos";
-            btnGestionarProductos.Size = new Size(145, 30);
+            btnGestionarProductos.Size = new Size(111, 52);
             btnGestionarProductos.TabIndex = 2;
-            btnGestionarProductos.Text = "Gestionar Productos";
+            btnGestionarProductos.Text = "GESTIONAR PRODUCTOS";
+            btnGestionarProductos.UseVisualStyleBackColor = false;
             btnGestionarProductos.Click += btnGestionarProductos_Click;
             // 
             // btnGestionarVenta
             // 
-            btnGestionarVenta.Location = new Point(526, 25);
+            btnGestionarVenta.BackColor = SystemColors.Control;
+            btnGestionarVenta.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGestionarVenta.Location = new Point(498, 22);
             btnGestionarVenta.Name = "btnGestionarVenta";
-            btnGestionarVenta.Size = new Size(120, 30);
+            btnGestionarVenta.Size = new Size(111, 52);
             btnGestionarVenta.TabIndex = 3;
-            btnGestionarVenta.Text = "Registrar Venta";
+            btnGestionarVenta.Text = "REGISTRAR VENTA";
+            btnGestionarVenta.UseVisualStyleBackColor = false;
             btnGestionarVenta.Click += btnGestionarVenta_Click;
             // 
             // btnCerrarSesion
             // 
-            btnCerrarSesion.Location = new Point(674, 25);
+            btnCerrarSesion.BackColor = Color.MistyRose;
+            btnCerrarSesion.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCerrarSesion.Location = new Point(644, 22);
             btnCerrarSesion.Name = "btnCerrarSesion";
-            btnCerrarSesion.Size = new Size(120, 30);
+            btnCerrarSesion.Size = new Size(111, 52);
             btnCerrarSesion.TabIndex = 4;
-            btnCerrarSesion.Text = "Cerrar Sesión";
+            btnCerrarSesion.Text = "CERRAR SESION";
+            btnCerrarSesion.UseVisualStyleBackColor = false;
             btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
             // groupBoxHistorial
             // 
+            groupBoxHistorial.BackColor = SystemColors.GradientInactiveCaption;
             groupBoxHistorial.Controls.Add(dgvVentas);
             groupBoxHistorial.Dock = DockStyle.Fill;
-            groupBoxHistorial.Location = new Point(0, 190);
+            groupBoxHistorial.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxHistorial.Location = new Point(0, 205);
             groupBoxHistorial.Name = "groupBoxHistorial";
-            groupBoxHistorial.Size = new Size(800, 310);
+            groupBoxHistorial.Size = new Size(800, 295);
             groupBoxHistorial.TabIndex = 0;
             groupBoxHistorial.TabStop = false;
-            groupBoxHistorial.Text = "Historial de Ventas";
+            groupBoxHistorial.Text = "HISTORIAL DE VENTAS";
             // 
             // dgvVentas
             // 
             dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVentas.ColumnHeadersHeight = 25;
             dgvVentas.Dock = DockStyle.Fill;
-            dgvVentas.Location = new Point(3, 19);
+            dgvVentas.Location = new Point(3, 23);
             dgvVentas.MultiSelect = false;
             dgvVentas.Name = "dgvVentas";
             dgvVentas.ReadOnly = true;
             dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvVentas.Size = new Size(794, 288);
+            dgvVentas.Size = new Size(794, 269);
             dgvVentas.TabIndex = 0;
             dgvVentas.CellDoubleClick += dgvVentas_CellDoubleClick;
             // 
@@ -203,7 +226,7 @@
             Controls.Add(groupBoxAcciones);
             Controls.Add(groupBoxDatos);
             Name = "FrmVendedor";
-            Text = "Panel Vendedor";
+            Text = "PANEL DEL VENDEDOR";
             Load += FrmVendedor_Load;
             groupBoxDatos.ResumeLayout(false);
             groupBoxDatos.PerformLayout();

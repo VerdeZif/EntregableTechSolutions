@@ -122,5 +122,10 @@ namespace Presentacion.Forms
         {
             this.Close();
         }
+
+        private void lblInfo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

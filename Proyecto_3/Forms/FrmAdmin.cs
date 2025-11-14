@@ -122,5 +122,10 @@ namespace Presentacion.Forms
         {
 
         }
+
+        private void lblAdminNombre_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

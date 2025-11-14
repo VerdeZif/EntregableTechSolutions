@@ -47,121 +47,145 @@
             // 
             // groupBoxAdmin
             // 
+            groupBoxAdmin.BackColor = SystemColors.GradientActiveCaption;
             groupBoxAdmin.Controls.Add(pbAdminFoto);
             groupBoxAdmin.Controls.Add(txtAdminNombre);
             groupBoxAdmin.Controls.Add(lblAdminNombre);
             groupBoxAdmin.Controls.Add(btnEditarPerfil);
             groupBoxAdmin.Controls.Add(btnCerrarSesion);
             groupBoxAdmin.Dock = DockStyle.Top;
+            groupBoxAdmin.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold);
             groupBoxAdmin.Location = new Point(0, 0);
             groupBoxAdmin.Name = "groupBoxAdmin";
             groupBoxAdmin.Size = new Size(800, 150);
             groupBoxAdmin.TabIndex = 3;
             groupBoxAdmin.TabStop = false;
-            groupBoxAdmin.Text = "Datos del Administrador";
+            groupBoxAdmin.Text = "DATOS DEL ADMINISTRADOR";
             // 
             // pbAdminFoto
             // 
+            pbAdminFoto.BackColor = SystemColors.Control;
             pbAdminFoto.BorderStyle = BorderStyle.FixedSingle;
-            pbAdminFoto.Location = new Point(360, 20);
+            pbAdminFoto.Location = new Point(396, 17);
             pbAdminFoto.Name = "pbAdminFoto";
-            pbAdminFoto.Size = new Size(119, 100);
+            pbAdminFoto.Size = new Size(174, 125);
             pbAdminFoto.SizeMode = PictureBoxSizeMode.StretchImage;
             pbAdminFoto.TabIndex = 0;
             pbAdminFoto.TabStop = false;
             // 
             // txtAdminNombre
             // 
-            txtAdminNombre.Location = new Point(130, 37);
+            txtAdminNombre.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtAdminNombre.Location = new Point(129, 41);
             txtAdminNombre.Name = "txtAdminNombre";
             txtAdminNombre.ReadOnly = true;
-            txtAdminNombre.Size = new Size(200, 23);
+            txtAdminNombre.Size = new Size(200, 29);
             txtAdminNombre.TabIndex = 1;
             // 
             // lblAdminNombre
             // 
-            lblAdminNombre.Location = new Point(20, 40);
+            lblAdminNombre.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAdminNombre.Location = new Point(37, 46);
             lblAdminNombre.Name = "lblAdminNombre";
-            lblAdminNombre.Size = new Size(100, 20);
+            lblAdminNombre.Size = new Size(87, 20);
             lblAdminNombre.TabIndex = 2;
             lblAdminNombre.Text = "Nombre:";
+            lblAdminNombre.Click += lblAdminNombre_Click;
             // 
             // btnEditarPerfil
             // 
-            btnEditarPerfil.Location = new Point(130, 70);
+            btnEditarPerfil.BackColor = SystemColors.Info;
+            btnEditarPerfil.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnEditarPerfil.Location = new Point(130, 90);
             btnEditarPerfil.Name = "btnEditarPerfil";
             btnEditarPerfil.Size = new Size(150, 30);
             btnEditarPerfil.TabIndex = 3;
-            btnEditarPerfil.Text = "Gestionar Perfil";
+            btnEditarPerfil.Text = "GESTIONAR PERFIL";
+            btnEditarPerfil.UseVisualStyleBackColor = false;
             btnEditarPerfil.Click += btnEditarPerfil_Click;
             // 
             // btnCerrarSesion
             // 
-            btnCerrarSesion.Location = new Point(644, 20);
+            btnCerrarSesion.BackColor = Color.MistyRose;
+            btnCerrarSesion.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnCerrarSesion.Location = new Point(650, 0);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Size = new Size(150, 30);
             btnCerrarSesion.TabIndex = 4;
-            btnCerrarSesion.Text = "Cerrar Sesión";
+            btnCerrarSesion.Text = "CERRAR SESION";
+            btnCerrarSesion.UseVisualStyleBackColor = false;
             btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
             // groupBoxGestion
             // 
+            groupBoxGestion.BackColor = SystemColors.InactiveBorder;
             groupBoxGestion.Controls.Add(btnGestionClientes);
             groupBoxGestion.Controls.Add(btnGestionVendedores);
             groupBoxGestion.Controls.Add(btnGestionProductos);
             groupBoxGestion.Controls.Add(btnVerReportes);
             groupBoxGestion.Dock = DockStyle.Top;
+            groupBoxGestion.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxGestion.Location = new Point(0, 150);
             groupBoxGestion.Name = "groupBoxGestion";
             groupBoxGestion.Size = new Size(800, 100);
             groupBoxGestion.TabIndex = 2;
             groupBoxGestion.TabStop = false;
-            groupBoxGestion.Text = "Gestión";
+            groupBoxGestion.Text = "GESTION";
             groupBoxGestion.Enter += groupBoxGestion_Enter;
             // 
             // btnGestionClientes
             // 
+            btnGestionClientes.BackColor = SystemColors.ControlLight;
+            btnGestionClientes.ForeColor = SystemColors.ControlText;
             btnGestionClientes.Location = new Point(20, 30);
             btnGestionClientes.Name = "btnGestionClientes";
-            btnGestionClientes.Size = new Size(150, 40);
+            btnGestionClientes.Size = new Size(150, 50);
             btnGestionClientes.TabIndex = 0;
-            btnGestionClientes.Text = "Gestionar Clientes";
+            btnGestionClientes.Text = "GESTIONAR CLIENTES";
+            btnGestionClientes.UseVisualStyleBackColor = false;
             btnGestionClientes.Click += btnGestionClientes_Click;
             // 
             // btnGestionVendedores
             // 
-            btnGestionVendedores.Location = new Point(230, 30);
+            btnGestionVendedores.BackColor = SystemColors.ControlLight;
+            btnGestionVendedores.Location = new Point(203, 30);
             btnGestionVendedores.Name = "btnGestionVendedores";
-            btnGestionVendedores.Size = new Size(150, 40);
+            btnGestionVendedores.Size = new Size(177, 50);
             btnGestionVendedores.TabIndex = 1;
-            btnGestionVendedores.Text = "Gestionar Vendedores";
+            btnGestionVendedores.Text = "GESTIONAR VENDEDORES";
+            btnGestionVendedores.UseVisualStyleBackColor = false;
             btnGestionVendedores.Click += btnGestionVendedores_Click;
             // 
             // btnGestionProductos
             // 
-            btnGestionProductos.Location = new Point(432, 30);
+            btnGestionProductos.BackColor = SystemColors.ControlLight;
+            btnGestionProductos.Location = new Point(412, 30);
             btnGestionProductos.Name = "btnGestionProductos";
-            btnGestionProductos.Size = new Size(150, 40);
+            btnGestionProductos.Size = new Size(170, 50);
             btnGestionProductos.TabIndex = 2;
-            btnGestionProductos.Text = "Gestionar Productos";
+            btnGestionProductos.Text = "GESTIONAR PRODUCTOS";
+            btnGestionProductos.UseVisualStyleBackColor = false;
             btnGestionProductos.Click += btnGestionProductos_Click;
             // 
             // btnVerReportes
             // 
-            btnVerReportes.Location = new Point(638, 30);
+            btnVerReportes.BackColor = SystemColors.ControlLight;
+            btnVerReportes.Location = new Point(619, 30);
             btnVerReportes.Name = "btnVerReportes";
-            btnVerReportes.Size = new Size(150, 40);
+            btnVerReportes.Size = new Size(150, 50);
             btnVerReportes.TabIndex = 3;
-            btnVerReportes.Text = "Ver Reportes";
+            btnVerReportes.Text = "VER REPORTES";
+            btnVerReportes.UseVisualStyleBackColor = false;
             btnVerReportes.Click += btnVerReportes_Click;
             // 
             // lblVentas
             // 
+            lblVentas.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblVentas.Location = new Point(20, 260);
             lblVentas.Name = "lblVentas";
-            lblVentas.Size = new Size(150, 20);
+            lblVentas.Size = new Size(179, 20);
             lblVentas.TabIndex = 1;
-            lblVentas.Text = "Ventas registradas:";
+            lblVentas.Text = "VENTAS REGISTRADAS";
             // 
             // dgvVentas
             // 
@@ -176,14 +200,14 @@
             // 
             // FrmAdmin
             // 
-            BackColor = SystemColors.ButtonFace;
+            BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(800, 500);
             Controls.Add(dgvVentas);
             Controls.Add(lblVentas);
             Controls.Add(groupBoxGestion);
             Controls.Add(groupBoxAdmin);
             Name = "FrmAdmin";
-            Text = "Panel de Administración";
+            Text = "PANEL DE ADMINISTRACION";
             Load += FrmAdmin_Load;
             groupBoxAdmin.ResumeLayout(false);
             groupBoxAdmin.PerformLayout();

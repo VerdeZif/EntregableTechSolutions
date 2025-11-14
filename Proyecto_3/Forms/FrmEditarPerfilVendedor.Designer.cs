@@ -39,90 +39,156 @@
             txtNombre = new TextBox();
             lblUsername = new Label();
             txtUsername = new TextBox();
-
             lblPasswordActual = new Label();
             txtPasswordActual = new TextBox();
-
             lblNuevaPassword = new Label();
             txtNuevaPassword = new TextBox();
-
             chkMostrarPassword = new CheckBox();
             lblInfo = new Label();
-
             pbFoto = new PictureBox();
             btnSeleccionarFoto = new Button();
             btnGuardar = new Button();
             btnCancelar = new Button();
-
             ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
             SuspendLayout();
-
-            // lblNombre
+            // 
+            // lblNombreTitulo
+            // 
             lblNombreTitulo.AutoSize = true;
             lblNombreTitulo.Location = new Point(20, 20);
-            lblNombreTitulo.Text = "Nombre completo:";
-            txtNombre.Location = new Point(160, 17);
-            txtNombre.Size = new Size(220, 23);
-
-            // Username
+            lblNombreTitulo.Name = "lblNombreTitulo";
+            lblNombreTitulo.Size = new Size(156, 20);
+            lblNombreTitulo.TabIndex = 0;
+            lblNombreTitulo.Text = "NOMBRE COMPLETO:";
+            // 
+            // txtNombre
+            // 
+            txtNombre.Location = new Point(197, 17);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(220, 27);
+            txtNombre.TabIndex = 1;
+            // 
+            // lblUsername
+            // 
             lblUsername.AutoSize = true;
             lblUsername.Location = new Point(20, 55);
-            lblUsername.Text = "Username:";
-            txtUsername.Location = new Point(160, 52);
-            txtUsername.Size = new Size(220, 23);
-
-            // Contraseña actual
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(77, 20);
+            lblUsername.TabIndex = 2;
+            lblUsername.Text = "USUARIO:";
+            // 
+            // txtUsername
+            // 
+            txtUsername.Location = new Point(197, 52);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(220, 27);
+            txtUsername.TabIndex = 3;
+            // 
+            // lblPasswordActual
+            // 
             lblPasswordActual.AutoSize = true;
             lblPasswordActual.Location = new Point(20, 90);
-            lblPasswordActual.Text = "Contraseña actual:";
-            txtPasswordActual.Location = new Point(160, 87);
-            txtPasswordActual.Size = new Size(220, 23);
-            txtPasswordActual.UseSystemPasswordChar = true;
-            txtPasswordActual.ReadOnly = true;
+            lblPasswordActual.Name = "lblPasswordActual";
+            lblPasswordActual.Size = new Size(169, 20);
+            lblPasswordActual.TabIndex = 4;
+            lblPasswordActual.Text = "CONTRASEÑA ACTUAL:";
+            // 
+            // txtPasswordActual
+            // 
             txtPasswordActual.BackColor = SystemColors.Control;
+            txtPasswordActual.Location = new Point(197, 87);
+            txtPasswordActual.Name = "txtPasswordActual";
+            txtPasswordActual.ReadOnly = true;
+            txtPasswordActual.Size = new Size(220, 27);
+            txtPasswordActual.TabIndex = 5;
             txtPasswordActual.TabStop = false;
-
-            // Nueva contraseña
+            txtPasswordActual.UseSystemPasswordChar = true;
+            // 
+            // lblNuevaPassword
+            // 
             lblNuevaPassword.AutoSize = true;
-            lblNuevaPassword.Location = new Point(20, 125);
-            lblNuevaPassword.Text = "Nueva contraseña:";
-            txtNuevaPassword.Location = new Point(160, 122);
-            txtNuevaPassword.Size = new Size(220, 23);
+            lblNuevaPassword.Location = new Point(20, 155);
+            lblNuevaPassword.Name = "lblNuevaPassword";
+            lblNuevaPassword.Size = new Size(164, 20);
+            lblNuevaPassword.TabIndex = 6;
+            lblNuevaPassword.Text = "NUEVA CONTRASEÑA:";
+            // 
+            // txtNuevaPassword
+            // 
+            txtNuevaPassword.Location = new Point(197, 152);
+            txtNuevaPassword.Name = "txtNuevaPassword";
+            txtNuevaPassword.Size = new Size(220, 27);
+            txtNuevaPassword.TabIndex = 7;
             txtNuevaPassword.UseSystemPasswordChar = true;
-
-            // CheckBox mostrar nueva contraseña
-            chkMostrarPassword.Location = new Point(160, 155);
+            // 
+            // chkMostrarPassword
+            // 
+            chkMostrarPassword.Location = new Point(197, 185);
+            chkMostrarPassword.Name = "chkMostrarPassword";
+            chkMostrarPassword.Size = new Size(104, 24);
+            chkMostrarPassword.TabIndex = 8;
             chkMostrarPassword.Text = "Mostrar nueva contraseña";
-
-            // Mensaje informativo
-            lblInfo.Location = new Point(160, 180);
-            lblInfo.Size = new Size(220, 35);
-            lblInfo.Text = "La contraseña actual no se puede mostrar por seguridad.";
+            // 
+            // lblInfo
+            // 
+            lblInfo.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             lblInfo.ForeColor = Color.Gray;
-
-            // Imagen
+            lblInfo.Location = new Point(197, 117);
+            lblInfo.Name = "lblInfo";
+            lblInfo.Size = new Size(220, 32);
+            lblInfo.TabIndex = 9;
+            lblInfo.Text = "La contraseña actual no se puede mostrar por seguridad.";
+            lblInfo.Click += lblInfo_Click;
+            // 
+            // pbFoto
+            // 
+            pbFoto.BackColor = SystemColors.Control;
             pbFoto.BorderStyle = BorderStyle.FixedSingle;
-            pbFoto.Location = new Point(20, 220);
+            pbFoto.Location = new Point(453, 17);
+            pbFoto.Name = "pbFoto";
             pbFoto.Size = new Size(120, 120);
             pbFoto.SizeMode = PictureBoxSizeMode.Zoom;
-
-            btnSeleccionarFoto.Location = new Point(20, 350);
+            pbFoto.TabIndex = 10;
+            pbFoto.TabStop = false;
+            // 
+            // btnSeleccionarFoto
+            // 
+            btnSeleccionarFoto.BackColor = Color.LemonChiffon;
+            btnSeleccionarFoto.Location = new Point(453, 147);
+            btnSeleccionarFoto.Name = "btnSeleccionarFoto";
             btnSeleccionarFoto.Size = new Size(120, 30);
-            btnSeleccionarFoto.Text = "Seleccionar Foto";
+            btnSeleccionarFoto.TabIndex = 11;
+            btnSeleccionarFoto.Text = "SELECCIONAR";
+            btnSeleccionarFoto.UseVisualStyleBackColor = false;
             btnSeleccionarFoto.Click += btnSeleccionarFoto_Click;
-
-            btnGuardar.Location = new Point(260, 220);
+            // 
+            // btnGuardar
+            // 
+            btnGuardar.BackColor = Color.Aquamarine;
+            btnGuardar.ForeColor = SystemColors.ControlText;
+            btnGuardar.Location = new Point(20, 235);
+            btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(120, 35);
-            btnGuardar.Text = "Guardar";
+            btnGuardar.TabIndex = 12;
+            btnGuardar.Text = "GUARDAR";
+            btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
-
-            btnCancelar.Location = new Point(260, 265);
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.BackColor = Color.MistyRose;
+            btnCancelar.Location = new Point(453, 235);
+            btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(120, 35);
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.TabIndex = 13;
+            btnCancelar.Text = "CANCELAR";
+            btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
-
-            // Form
-            ClientSize = new Size(420, 400);
+            // 
+            // FrmEditarPerfilVendedor
+            // 
+            BackColor = SystemColors.GradientInactiveCaption;
+            ClientSize = new Size(587, 291);
             Controls.Add(lblNombreTitulo);
             Controls.Add(txtNombre);
             Controls.Add(lblUsername);
@@ -137,10 +203,10 @@
             Controls.Add(btnSeleccionarFoto);
             Controls.Add(btnGuardar);
             Controls.Add(btnCancelar);
-
-            Text = "Editar Perfil del Vendedor";
+            Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Name = "FrmEditarPerfilVendedor";
+            Text = "EDITAR PERFIL DEL VENDEDOR";
             Load += FrmEditarPerfilVendedor_Load;
-
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
             ResumeLayout(false);
             PerformLayout();

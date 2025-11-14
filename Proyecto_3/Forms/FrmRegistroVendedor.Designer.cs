@@ -26,108 +26,191 @@
 
         private void InitializeComponent()
         {
-            this.groupBoxDatos = new System.Windows.Forms.GroupBox();
-            this.pbFoto = new System.Windows.Forms.PictureBox();
-            this.btnSeleccionarFoto = new System.Windows.Forms.Button();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.lblUsuario = new System.Windows.Forms.Label();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.btnAgregar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.groupBoxLista = new System.Windows.Forms.GroupBox();
-            this.dgvVendedores = new System.Windows.Forms.DataGridView();
-
+            groupBoxDatos = new GroupBox();
+            pbFoto = new PictureBox();
+            btnSeleccionarFoto = new Button();
+            txtPassword = new TextBox();
+            txtUsuario = new TextBox();
+            txtNombre = new TextBox();
+            lblPassword = new Label();
+            lblUsuario = new Label();
+            lblNombre = new Label();
+            btnAgregar = new Button();
+            btnEditar = new Button();
+            btnEliminar = new Button();
+            groupBoxLista = new GroupBox();
+            dgvVendedores = new DataGridView();
+            groupBoxDatos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
+            groupBoxLista.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvVendedores).BeginInit();
+            SuspendLayout();
+            // 
             // groupBoxDatos
-            this.groupBoxDatos.Controls.Add(this.pbFoto);
-            this.groupBoxDatos.Controls.Add(this.btnSeleccionarFoto);
-            this.groupBoxDatos.Controls.Add(this.txtPassword);
-            this.groupBoxDatos.Controls.Add(this.txtUsuario);
-            this.groupBoxDatos.Controls.Add(this.txtNombre);
-            this.groupBoxDatos.Controls.Add(this.lblPassword);
-            this.groupBoxDatos.Controls.Add(this.lblUsuario);
-            this.groupBoxDatos.Controls.Add(this.lblNombre);
-            this.groupBoxDatos.Controls.Add(this.btnAgregar);
-            this.groupBoxDatos.Controls.Add(this.btnEditar);
-            this.groupBoxDatos.Controls.Add(this.btnEliminar);
-            this.groupBoxDatos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxDatos.Height = 180;
-            this.groupBoxDatos.Text = "Datos del Vendedor";
-
-            // lblNombre
-            this.lblNombre.Location = new System.Drawing.Point(20, 30);
-            this.lblNombre.Size = new System.Drawing.Size(80, 20);
-            this.lblNombre.Text = "Nombre:";
-            this.txtNombre.Location = new System.Drawing.Point(110, 27);
-            this.txtNombre.Size = new System.Drawing.Size(200, 22);
-
-            // lblUsuario
-            this.lblUsuario.Location = new System.Drawing.Point(20, 60);
-            this.lblUsuario.Size = new System.Drawing.Size(80, 20);
-            this.lblUsuario.Text = "Usuario:";
-            this.txtUsuario.Location = new System.Drawing.Point(110, 57);
-            this.txtUsuario.Size = new System.Drawing.Size(200, 22);
-
-            // lblPassword
-            this.lblPassword.Location = new System.Drawing.Point(20, 90);
-            this.lblPassword.Size = new System.Drawing.Size(80, 20);
-            this.lblPassword.Text = "Contraseña:";
-            this.txtPassword.Location = new System.Drawing.Point(110, 87);
-            this.txtPassword.Size = new System.Drawing.Size(200, 22);
-            this.txtPassword.UseSystemPasswordChar = true;
-
+            // 
+            groupBoxDatos.BackColor = SystemColors.GradientActiveCaption;
+            groupBoxDatos.Controls.Add(pbFoto);
+            groupBoxDatos.Controls.Add(btnSeleccionarFoto);
+            groupBoxDatos.Controls.Add(txtPassword);
+            groupBoxDatos.Controls.Add(txtUsuario);
+            groupBoxDatos.Controls.Add(txtNombre);
+            groupBoxDatos.Controls.Add(lblPassword);
+            groupBoxDatos.Controls.Add(lblUsuario);
+            groupBoxDatos.Controls.Add(lblNombre);
+            groupBoxDatos.Controls.Add(btnAgregar);
+            groupBoxDatos.Controls.Add(btnEditar);
+            groupBoxDatos.Controls.Add(btnEliminar);
+            groupBoxDatos.Dock = DockStyle.Top;
+            groupBoxDatos.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxDatos.Location = new Point(0, 0);
+            groupBoxDatos.Name = "groupBoxDatos";
+            groupBoxDatos.Size = new Size(800, 180);
+            groupBoxDatos.TabIndex = 1;
+            groupBoxDatos.TabStop = false;
+            groupBoxDatos.Text = "DATOS DEL VENDEDOR";
+            // 
             // pbFoto
-            this.pbFoto.Location = new System.Drawing.Point(680, 27);
-            this.pbFoto.Size = new System.Drawing.Size(100, 100);
-            this.pbFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-
+            // 
+            pbFoto.BackColor = SystemColors.Control;
+            pbFoto.BorderStyle = BorderStyle.FixedSingle;
+            pbFoto.Location = new Point(637, 15);
+            pbFoto.Name = "pbFoto";
+            pbFoto.Size = new Size(151, 126);
+            pbFoto.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbFoto.TabIndex = 0;
+            pbFoto.TabStop = false;
+            // 
             // btnSeleccionarFoto
-            this.btnSeleccionarFoto.Location = new System.Drawing.Point(680, 135);
-            this.btnSeleccionarFoto.Size = new System.Drawing.Size(100, 30);
-            this.btnSeleccionarFoto.Text = "Seleccionar Foto";
-            this.btnSeleccionarFoto.Click += new System.EventHandler(this.btnSeleccionarFoto_Click);
-
+            // 
+            btnSeleccionarFoto.BackColor = Color.LemonChiffon;
+            btnSeleccionarFoto.Location = new Point(657, 150);
+            btnSeleccionarFoto.Name = "btnSeleccionarFoto";
+            btnSeleccionarFoto.Size = new Size(115, 30);
+            btnSeleccionarFoto.TabIndex = 1;
+            btnSeleccionarFoto.Text = "SELECCIONAR";
+            btnSeleccionarFoto.UseVisualStyleBackColor = false;
+            btnSeleccionarFoto.Click += btnSeleccionarFoto_Click;
+            // 
+            // txtPassword
+            // 
+            txtPassword.Location = new Point(141, 87);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(245, 27);
+            txtPassword.TabIndex = 2;
+            txtPassword.UseSystemPasswordChar = true;
+            // 
+            // txtUsuario
+            // 
+            txtUsuario.Location = new Point(141, 57);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(245, 27);
+            txtUsuario.TabIndex = 3;
+            // 
+            // txtNombre
+            // 
+            txtNombre.Location = new Point(141, 27);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(245, 27);
+            txtNombre.TabIndex = 4;
+            // 
+            // lblPassword
+            // 
+            lblPassword.Location = new Point(20, 90);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(115, 20);
+            lblPassword.TabIndex = 5;
+            lblPassword.Text = "CONTRASEÑA:";
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.Location = new Point(20, 60);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(80, 20);
+            lblUsuario.TabIndex = 6;
+            lblUsuario.Text = "USUARIO:";
+            // 
+            // lblNombre
+            // 
+            lblNombre.Location = new Point(20, 30);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(80, 20);
+            lblNombre.TabIndex = 7;
+            lblNombre.Text = "NOMBRE:";
+            // 
             // btnAgregar
-            this.btnAgregar.Location = new System.Drawing.Point(20, 130);
-            this.btnAgregar.Size = new System.Drawing.Size(90, 30);
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-
+            // 
+            btnAgregar.BackColor = Color.Thistle;
+            btnAgregar.Location = new Point(20, 130);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(90, 30);
+            btnAgregar.TabIndex = 8;
+            btnAgregar.Text = "AGREGAR";
+            btnAgregar.UseVisualStyleBackColor = false;
+            btnAgregar.Click += btnAgregar_Click;
+            // 
             // btnEditar
-            this.btnEditar.Location = new System.Drawing.Point(130, 130);
-            this.btnEditar.Size = new System.Drawing.Size(90, 30);
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-
+            // 
+            btnEditar.BackColor = Color.Aquamarine;
+            btnEditar.Location = new Point(151, 130);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(100, 30);
+            btnEditar.TabIndex = 9;
+            btnEditar.Text = "EDITAR";
+            btnEditar.UseVisualStyleBackColor = false;
+            btnEditar.Click += btnEditar_Click;
+            // 
             // btnEliminar
-            this.btnEliminar.Location = new System.Drawing.Point(240, 130);
-            this.btnEliminar.Size = new System.Drawing.Size(90, 30);
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-
+            // 
+            btnEliminar.BackColor = Color.MistyRose;
+            btnEliminar.Location = new Point(290, 130);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(96, 30);
+            btnEliminar.TabIndex = 10;
+            btnEliminar.Text = "ELIMINAR";
+            btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
+            // 
             // groupBoxLista
-            this.groupBoxLista.Controls.Add(this.dgvVendedores);
-            this.groupBoxLista.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxLista.Text = "Lista de Vendedores";
-
+            // 
+            groupBoxLista.BackColor = SystemColors.GradientInactiveCaption;
+            groupBoxLista.Controls.Add(dgvVendedores);
+            groupBoxLista.Dock = DockStyle.Fill;
+            groupBoxLista.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxLista.Location = new Point(0, 180);
+            groupBoxLista.Name = "groupBoxLista";
+            groupBoxLista.Size = new Size(800, 270);
+            groupBoxLista.TabIndex = 0;
+            groupBoxLista.TabStop = false;
+            groupBoxLista.Text = "LISTA DE VENDEDORES";
+            // 
             // dgvVendedores
-            this.dgvVendedores.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvVendedores.ReadOnly = true;
-            this.dgvVendedores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVendedores.MultiSelect = false;
-            this.dgvVendedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvVendedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendedores_CellClick);
-
+            // 
+            dgvVendedores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVendedores.ColumnHeadersHeight = 25;
+            dgvVendedores.Dock = DockStyle.Fill;
+            dgvVendedores.Location = new Point(3, 23);
+            dgvVendedores.MultiSelect = false;
+            dgvVendedores.Name = "dgvVendedores";
+            dgvVendedores.ReadOnly = true;
+            dgvVendedores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvVendedores.Size = new Size(794, 244);
+            dgvVendedores.TabIndex = 0;
+            dgvVendedores.CellClick += dgvVendedores_CellClick;
+            // 
             // FrmRegistroVendedor
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.groupBoxLista);
-            this.Controls.Add(this.groupBoxDatos);
-            this.Text = "Registro de Vendedores";
-            this.Load += new System.EventHandler(this.FrmRegistroVendedor_Load);
+            // 
+            ClientSize = new Size(800, 450);
+            Controls.Add(groupBoxLista);
+            Controls.Add(groupBoxDatos);
+            Name = "FrmRegistroVendedor";
+            Text = "REGISTRO DE VENDEDORES";
+            Load += FrmRegistroVendedor_Load;
+            groupBoxDatos.ResumeLayout(false);
+            groupBoxDatos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
+            groupBoxLista.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvVendedores).EndInit();
+            ResumeLayout(false);
         }
     }
 }

@@ -55,53 +55,54 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(120, 20);
+            txtNombre.Location = new Point(141, 20);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(200, 23);
+            txtNombre.Size = new Size(200, 27);
             txtNombre.TabIndex = 1;
             // 
             // txtCorreo
             // 
-            txtCorreo.Location = new Point(120, 60);
+            txtCorreo.Location = new Point(141, 60);
             txtCorreo.Name = "txtCorreo";
-            txtCorreo.Size = new Size(200, 23);
+            txtCorreo.Size = new Size(200, 27);
             txtCorreo.TabIndex = 3;
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(120, 100);
+            txtTelefono.Location = new Point(141, 100);
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(200, 23);
+            txtTelefono.Size = new Size(200, 27);
             txtTelefono.TabIndex = 5;
             // 
             // txtDireccion
             // 
-            txtDireccion.Location = new Point(120, 140);
+            txtDireccion.Location = new Point(141, 140);
             txtDireccion.Name = "txtDireccion";
-            txtDireccion.Size = new Size(200, 23);
+            txtDireccion.Size = new Size(200, 27);
             txtDireccion.TabIndex = 7;
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(120, 180);
+            txtUsername.Location = new Point(141, 180);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(200, 23);
+            txtUsername.Size = new Size(200, 27);
             txtUsername.TabIndex = 9;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(120, 220);
+            txtPassword.Location = new Point(141, 217);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(200, 23);
+            txtPassword.Size = new Size(200, 27);
             txtPassword.TabIndex = 11;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // pbFoto
             // 
+            pbFoto.BackColor = SystemColors.Control;
             pbFoto.BorderStyle = BorderStyle.FixedSingle;
-            pbFoto.Location = new Point(497, 35);
+            pbFoto.Location = new Point(474, 35);
             pbFoto.Name = "pbFoto";
-            pbFoto.Size = new Size(141, 148);
+            pbFoto.Size = new Size(164, 168);
             pbFoto.SizeMode = PictureBoxSizeMode.Zoom;
             pbFoto.TabIndex = 12;
             pbFoto.TabStop = false;
@@ -109,38 +110,46 @@
             // 
             // btnSeleccionarFoto
             // 
-            btnSeleccionarFoto.Location = new Point(528, 206);
+            btnSeleccionarFoto.BackColor = Color.LemonChiffon;
+            btnSeleccionarFoto.Location = new Point(501, 213);
             btnSeleccionarFoto.Name = "btnSeleccionarFoto";
-            btnSeleccionarFoto.Size = new Size(75, 23);
+            btnSeleccionarFoto.Size = new Size(113, 30);
             btnSeleccionarFoto.TabIndex = 13;
-            btnSeleccionarFoto.Text = "Seleccionar Foto";
+            btnSeleccionarFoto.Text = "SELECCIONAR";
+            btnSeleccionarFoto.UseVisualStyleBackColor = false;
             btnSeleccionarFoto.Click += btnSeleccionarFoto_Click;
             // 
             // btnAgregar
             // 
-            btnAgregar.Location = new Point(373, 29);
+            btnAgregar.BackColor = Color.Thistle;
+            btnAgregar.Location = new Point(367, 35);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(75, 23);
+            btnAgregar.Size = new Size(75, 35);
             btnAgregar.TabIndex = 14;
             btnAgregar.Text = "Agregar";
+            btnAgregar.UseVisualStyleBackColor = false;
             btnAgregar.Click += btnAgregar_Click;
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(373, 75);
+            btnEditar.BackColor = Color.Aquamarine;
+            btnEditar.Location = new Point(367, 96);
             btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(75, 23);
+            btnEditar.Size = new Size(75, 35);
             btnEditar.TabIndex = 15;
             btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = false;
             btnEditar.Click += btnEditar_Click;
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(373, 120);
+            btnEliminar.BackColor = Color.MistyRose;
+            btnEliminar.Location = new Point(367, 151);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(75, 23);
+            btnEliminar.Size = new Size(75, 35);
             btnEliminar.TabIndex = 16;
             btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = false;
             btnEliminar.Click += btnEliminar_Click;
             // 
             // dgvClientes
@@ -157,7 +166,7 @@
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(100, 23);
             lblNombre.TabIndex = 0;
-            lblNombre.Text = "Nombre:";
+            lblNombre.Text = "NOMBRE:";
             // 
             // lblCorreo
             // 
@@ -165,7 +174,7 @@
             lblCorreo.Name = "lblCorreo";
             lblCorreo.Size = new Size(100, 23);
             lblCorreo.TabIndex = 2;
-            lblCorreo.Text = "Correo:";
+            lblCorreo.Text = "CORREO;";
             // 
             // lblTelefono
             // 
@@ -173,7 +182,7 @@
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(100, 23);
             lblTelefono.TabIndex = 4;
-            lblTelefono.Text = "Teléfono:";
+            lblTelefono.Text = "TELEFONO:";
             // 
             // lblDireccion
             // 
@@ -181,7 +190,7 @@
             lblDireccion.Name = "lblDireccion";
             lblDireccion.Size = new Size(100, 23);
             lblDireccion.TabIndex = 6;
-            lblDireccion.Text = "Dirección:";
+            lblDireccion.Text = "DIRECCION:";
             // 
             // lblUsername
             // 
@@ -189,18 +198,19 @@
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(100, 23);
             lblUsername.TabIndex = 8;
-            lblUsername.Text = "Usuario:";
+            lblUsername.Text = "USUARIO:";
             // 
             // lblPassword
             // 
             lblPassword.Location = new Point(20, 220);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(100, 23);
+            lblPassword.Size = new Size(115, 23);
             lblPassword.TabIndex = 10;
-            lblPassword.Text = "Contraseña:";
+            lblPassword.Text = "CONTRASEÑA:";
             // 
             // FrmRegistroClientes
             // 
+            BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(650, 550);
             Controls.Add(lblNombre);
             Controls.Add(txtNombre);
@@ -220,8 +230,9 @@
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
             Controls.Add(dgvClientes);
+            Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Name = "FrmRegistroClientes";
-            Text = "Registro de Clientes";
+            Text = "REGISTRO DE CLIENTES";
             Load += FrmRegistroClientes_Load;
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();
