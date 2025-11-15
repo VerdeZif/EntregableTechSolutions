@@ -1,19 +1,22 @@
-﻿using Datos.Database;
-using Entidad.Models;
-using Microsoft.Data.SqlClient;
+﻿using Datos.Database; // Conexión a la base de datos (Singleton)
+using Entidad.Models; // Modelos: ReporteVenta, DetalleVenta, Cliente, Usuario
+using Microsoft.Data.SqlClient; // SQL Server
 
 namespace Datos.Repositorio
 {
+    // Clase para manejar todas las operaciones de reportes
     public class ReporteDatos
     {
-        // Ventas por fecha
+        // =============================
+        // VENTAS POR FECHA
+        // =============================
         public List<ReporteVenta> ObtenerVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
-            var lista = new List<ReporteVenta>();
+            var lista = new List<ReporteVenta>(); // Lista donde se guardarán las ventas obtenidas
 
-            using (var conn = ConexionBD.Instance.GetConnection())
+            using (var conn = ConexionBD.Instance.GetConnection()) // Obtener conexión
             {
-                conn.Open();
+                conn.Open(); // Abrir conexión
                 string query = @"
                     SELECT 
                         v.VentaId,
@@ -29,13 +32,15 @@ namespace Datos.Repositorio
 
                 using (var cmd = new SqlCommand(query, conn))
                 {
+                    // Asignamos valores a los parámetros de la consulta
                     cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
                     cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
 
-                    using (var dr = cmd.ExecuteReader())
+                    using (var dr = cmd.ExecuteReader()) // Ejecutamos la consulta
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Leer cada fila del resultado
                         {
+                            // Mapear los datos de la fila a un objeto ReporteVenta
                             lista.Add(new ReporteVenta
                             {
                                 VentaId = dr["VentaId"] != DBNull.Value ? Convert.ToInt32(dr["VentaId"]) : 0,
@@ -49,13 +54,15 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Devolver la lista completa de ventas
         }
 
-        // Productos más vendidos
+        // =============================
+        // PRODUCTOS MÁS VENDIDOS
+        // =============================
         public List<ReporteVenta> ObtenerProductosMasVendidos(DateTime fechaInicio, DateTime fechaFin)
         {
-            var lista = new List<ReporteVenta>();
+            var lista = new List<ReporteVenta>(); // Lista donde se guardarán los productos y cantidades
 
             using (var conn = ConexionBD.Instance.GetConnection())
             {
@@ -79,7 +86,7 @@ namespace Datos.Repositorio
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Mapear cada fila a ReporteVenta
                         {
                             lista.Add(new ReporteVenta
                             {
@@ -92,13 +99,15 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Devolver productos más vendidos
         }
 
-        // Total ventas por usuario
+        // =============================
+        // TOTAL VENTAS POR USUARIO
+        // =============================
         public List<ReporteVenta> ObtenerTotalVentasPorUsuario(DateTime fechaInicio, DateTime fechaFin)
         {
-            var lista = new List<ReporteVenta>();
+            var lista = new List<ReporteVenta>(); // Lista para acumular ventas por cada usuario
 
             using (var conn = ConexionBD.Instance.GetConnection())
             {
@@ -121,7 +130,7 @@ namespace Datos.Repositorio
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Mapear cada usuario y su total de ventas
                         {
                             lista.Add(new ReporteVenta
                             {
@@ -134,39 +143,43 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Retorna la lista con ventas por usuario
         }
+
+        // =============================
+        // DETALLE DE UNA VENTA
+        // =============================
         public List<DetalleVenta> ObtenerDetalleVenta(int ventaId)
         {
-            var lista = new List<DetalleVenta>();
+            var lista = new List<DetalleVenta>(); // Lista para almacenar el detalle de los productos de la venta
 
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
                 using (var cmd = new SqlCommand(@"
-            SELECT 
-                d.DetalleId,
-                d.VentaId,
-                d.ProductoId,
-                p.Nombre AS ProductoNombre,
-                d.Cantidad,
-                d.PrecioUnitario,
-                v.Fecha AS FechaVenta,
-                c.Nombre AS ClienteNombre,
-                v.Total AS TotalVenta,
-                u.NombreCompleto AS NombreUsuario
-            FROM DetalleVenta d
-            INNER JOIN Productos p ON d.ProductoId = p.ProductoId
-            INNER JOIN Ventas v ON d.VentaId = v.VentaId
-            INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
-            INNER JOIN Usuarios u ON v.UserId = u.UserId   -- ✅ unión con la tabla de usuarios
-            WHERE d.VentaId = @ventaId", conn))
+                    SELECT 
+                        d.DetalleId,
+                        d.VentaId,
+                        d.ProductoId,
+                        p.Nombre AS ProductoNombre,
+                        d.Cantidad,
+                        d.PrecioUnitario,
+                        v.Fecha AS FechaVenta,
+                        c.Nombre AS ClienteNombre,
+                        v.Total AS TotalVenta,
+                        u.NombreCompleto AS NombreUsuario
+                    FROM DetalleVenta d
+                    INNER JOIN Productos p ON d.ProductoId = p.ProductoId
+                    INNER JOIN Ventas v ON d.VentaId = v.VentaId
+                    INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
+                    INNER JOIN Usuarios u ON v.UserId = u.UserId
+                    WHERE d.VentaId = @ventaId", conn))
                 {
                     cmd.Parameters.AddWithValue("@ventaId", ventaId);
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Mapear cada detalle de producto a DetalleVenta
                         {
                             lista.Add(new DetalleVenta
                             {
@@ -174,7 +187,7 @@ namespace Datos.Repositorio
                                 VentaId = Convert.ToInt32(dr["VentaId"]),
                                 ProductoId = Convert.ToInt32(dr["ProductoId"]),
                                 NombreProducto = dr["ProductoNombre"]?.ToString(),
-                                NombreUsuario = dr["NombreUsuario"]?.ToString(),  // ✅ ahora sí existe
+                                NombreUsuario = dr["NombreUsuario"]?.ToString(),
                                 Cantidad = Convert.ToInt32(dr["Cantidad"]),
                                 PrecioUnitario = Convert.ToDecimal(dr["PrecioUnitario"]),
                                 FechaVenta = Convert.ToDateTime(dr["FechaVenta"]),
@@ -186,10 +199,12 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Devuelve todos los productos de la venta
         }
 
-        // 🔹 Listar clientes para filtros de reportes
+        // =============================
+        // LISTAR CLIENTES PARA FILTROS
+        // =============================
         public List<Cliente> ObtenerClientes()
         {
             var lista = new List<Cliente>();
@@ -202,7 +217,7 @@ namespace Datos.Repositorio
                 using (var cmd = new SqlCommand(query, conn))
                 using (var dr = cmd.ExecuteReader())
                 {
-                    while (dr.Read())
+                    while (dr.Read()) // Mapear cada cliente a la lista
                     {
                         lista.Add(new Cliente
                         {
@@ -213,10 +228,12 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Retorna la lista de clientes
         }
 
-        // 🔹 Listar vendedores para filtros de reportes
+        // =============================
+        // LISTAR VENDEDORES PARA FILTROS
+        // =============================
         public List<Usuario> ObtenerVendedores()
         {
             var lista = new List<Usuario>();
@@ -224,19 +241,17 @@ namespace Datos.Repositorio
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
-
-                
                 string query = @"
-            SELECT u.UserId, u.NombreCompleto 
-            FROM Usuarios u
-            INNER JOIN Roles r ON u.RoleId = r.RoleId
-            WHERE r.Nombre = 'Vendedor'
-            ORDER BY u.NombreCompleto";
+                    SELECT u.UserId, u.NombreCompleto 
+                    FROM Usuarios u
+                    INNER JOIN Roles r ON u.RoleId = r.RoleId
+                    WHERE r.Nombre = 'Vendedor'
+                    ORDER BY u.NombreCompleto";
 
                 using (var cmd = new SqlCommand(query, conn))
                 using (var dr = cmd.ExecuteReader())
                 {
-                    while (dr.Read())
+                    while (dr.Read()) // Mapear cada vendedor a Usuario
                     {
                         lista.Add(new Usuario
                         {
@@ -247,12 +262,12 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Retorna la lista de vendedores
         }
 
-
-        // 🔹 Obtener ventas filtradas por fecha, cliente y vendedor
-        // 🔹 Obtener ventas filtradas por fecha, cliente y vendedor
+        // =============================
+        // OBTENER VENTAS FILTRADAS POR VARIOS CRITERIOS
+        // =============================
         public List<ReporteVenta> ObtenerVentasFiltradas(
             DateTime? fechaInicio,
             DateTime? fechaFin,
@@ -267,27 +282,27 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 string query = @"
-            SELECT 
-                v.VentaId, 
-                v.Fecha, 
-                c.Nombre AS Cliente, 
-                u.NombreCompleto AS Vendedor, 
-                v.Total
-            FROM Ventas v
-            INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
-            INNER JOIN Usuarios u ON v.UserId = u.UserId
-            WHERE 
-                (@fechaInicio IS NULL OR v.Fecha >= @fechaInicio)
-                AND (@fechaFin IS NULL OR v.Fecha <= @fechaFin)
-                AND (@clienteId IS NULL OR v.ClienteId = @clienteId)
-                AND (@vendedorId IS NULL OR v.UserId = @vendedorId)
-                AND (@totalMin IS NULL OR v.Total >= @totalMin)
-                AND (@totalMax IS NULL OR v.Total <= @totalMax)
-            ORDER BY v.Fecha DESC";
+                    SELECT 
+                        v.VentaId, 
+                        v.Fecha, 
+                        c.Nombre AS Cliente, 
+                        u.NombreCompleto AS Vendedor, 
+                        v.Total
+                    FROM Ventas v
+                    INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
+                    INNER JOIN Usuarios u ON v.UserId = u.UserId
+                    WHERE 
+                        (@fechaInicio IS NULL OR v.Fecha >= @fechaInicio)
+                        AND (@fechaFin IS NULL OR v.Fecha <= @fechaFin)
+                        AND (@clienteId IS NULL OR v.ClienteId = @clienteId)
+                        AND (@vendedorId IS NULL OR v.UserId = @vendedorId)
+                        AND (@totalMin IS NULL OR v.Total >= @totalMin)
+                        AND (@totalMax IS NULL OR v.Total <= @totalMax)
+                    ORDER BY v.Fecha DESC";
 
                 using (var cmd = new SqlCommand(query, conn))
                 {
-                    // 🔧 Aquí está el cambio importante:
+                    // Asignamos parámetros con posibilidad de ser nulos
                     cmd.Parameters.AddWithValue("@fechaInicio", (object)fechaInicio ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@fechaFin", (object)fechaFin ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@clienteId", (object)clienteId ?? DBNull.Value);
@@ -297,7 +312,7 @@ namespace Datos.Repositorio
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Mapear cada venta filtrada
                         {
                             lista.Add(new ReporteVenta
                             {
@@ -315,7 +330,9 @@ namespace Datos.Repositorio
             return lista;
         }
 
-        // 🔹 Reporte mensual por vendedor
+        // =============================
+        // REPORTE MENSUAL POR VENDEDOR
+        // =============================
         public List<ReporteVenta> ObtenerReporteMensualPorVendedor(int anio, int mes)
         {
             var lista = new List<ReporteVenta>();
@@ -323,15 +340,15 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 string query = @"
-            SELECT 
-                u.NombreCompleto AS Vendedor,
-                COUNT(v.VentaId) AS TotalVentas,
-                SUM(v.Total) AS TotalRecaudado
-            FROM Ventas v
-            INNER JOIN Usuarios u ON v.UserId = u.UserId
-            WHERE YEAR(v.Fecha) = @anio AND MONTH(v.Fecha) = @mes
-            GROUP BY u.NombreCompleto
-            ORDER BY TotalRecaudado DESC";
+                    SELECT 
+                        u.NombreCompleto AS Vendedor,
+                        COUNT(v.VentaId) AS TotalVentas,
+                        SUM(v.Total) AS TotalRecaudado
+                    FROM Ventas v
+                    INNER JOIN Usuarios u ON v.UserId = u.UserId
+                    WHERE YEAR(v.Fecha) = @anio AND MONTH(v.Fecha) = @mes
+                    GROUP BY u.NombreCompleto
+                    ORDER BY TotalRecaudado DESC";
 
                 using (var cmd = new SqlCommand(query, conn))
                 {
@@ -340,7 +357,7 @@ namespace Datos.Repositorio
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Mapear ventas por vendedor
                         {
                             lista.Add(new ReporteVenta
                             {
@@ -355,7 +372,9 @@ namespace Datos.Repositorio
             return lista;
         }
 
-        // 🔹 Reporte mensual por cliente
+        // =============================
+        // REPORTE MENSUAL POR CLIENTE
+        // =============================
         public List<ReporteVenta> ObtenerReporteMensualPorCliente(int anio, int mes)
         {
             var lista = new List<ReporteVenta>();
@@ -363,15 +382,15 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 string query = @"
-            SELECT 
-                c.Nombre AS Cliente,
-                COUNT(v.VentaId) AS TotalVentas,
-                SUM(v.Total) AS TotalRecaudado
-            FROM Ventas v
-            INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
-            WHERE YEAR(v.Fecha) = @anio AND MONTH(v.Fecha) = @mes
-            GROUP BY c.Nombre
-            ORDER BY TotalRecaudado DESC";
+                    SELECT 
+                        c.Nombre AS Cliente,
+                        COUNT(v.VentaId) AS TotalVentas,
+                        SUM(v.Total) AS TotalRecaudado
+                    FROM Ventas v
+                    INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
+                    WHERE YEAR(v.Fecha) = @anio AND MONTH(v.Fecha) = @mes
+                    GROUP BY c.Nombre
+                    ORDER BY TotalRecaudado DESC";
 
                 using (var cmd = new SqlCommand(query, conn))
                 {
@@ -380,7 +399,7 @@ namespace Datos.Repositorio
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Mapear ventas por cliente
                         {
                             lista.Add(new ReporteVenta
                             {
@@ -395,7 +414,9 @@ namespace Datos.Repositorio
             return lista;
         }
 
-        // 🔹 Reporte mensual por producto
+        // =============================
+        // REPORTE MENSUAL POR PRODUCTO
+        // =============================
         public List<ReporteVenta> ObtenerReporteMensualPorProducto(int anio, int mes)
         {
             var lista = new List<ReporteVenta>();
@@ -403,16 +424,16 @@ namespace Datos.Repositorio
             {
                 conn.Open();
                 string query = @"
-            SELECT 
-                p.Nombre AS Producto,
-                SUM(d.Cantidad) AS TotalVendido,
-                SUM(d.Cantidad * d.PrecioUnitario) AS TotalRecaudado
-            FROM DetalleVenta d
-            INNER JOIN Ventas v ON d.VentaId = v.VentaId
-            INNER JOIN Productos p ON d.ProductoId = p.ProductoId
-            WHERE YEAR(v.Fecha) = @anio AND MONTH(v.Fecha) = @mes
-            GROUP BY p.Nombre
-            ORDER BY TotalVendido DESC";
+                    SELECT 
+                        p.Nombre AS Producto,
+                        SUM(d.Cantidad) AS TotalVendido,
+                        SUM(d.Cantidad * d.PrecioUnitario) AS TotalRecaudado
+                    FROM DetalleVenta d
+                    INNER JOIN Ventas v ON d.VentaId = v.VentaId
+                    INNER JOIN Productos p ON d.ProductoId = p.ProductoId
+                    WHERE YEAR(v.Fecha) = @anio AND MONTH(v.Fecha) = @mes
+                    GROUP BY p.Nombre
+                    ORDER BY TotalVendido DESC";
 
                 using (var cmd = new SqlCommand(query, conn))
                 {
@@ -421,7 +442,7 @@ namespace Datos.Repositorio
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Mapear ventas por producto
                         {
                             lista.Add(new ReporteVenta
                             {
@@ -435,9 +456,5 @@ namespace Datos.Repositorio
             }
             return lista;
         }
-
-
-
-
     }
 }

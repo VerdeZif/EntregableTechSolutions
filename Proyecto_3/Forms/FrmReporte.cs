@@ -1,21 +1,19 @@
-﻿using Negocio.Servicios;
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Pdf;
-using System;
+﻿using Negocio.Servicios; // Capa de negocio para obtener reportes
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
+
 
 namespace Presentacion.Forms
 {
     public partial class FrmReporte : Form
     {
+        // Instancia de la capa de negocio para reportes
         private readonly ReporteNegocio _reporteNegocio = new ReporteNegocio();
 
         public FrmReporte()
         {
             InitializeComponent();
+
+            // Configuración de la imagen de fondo del formulario
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
@@ -23,15 +21,17 @@ namespace Presentacion.Forms
             );
 
             this.BackgroundImage = Image.FromFile(rutaImagen);
-            this.BackgroundImageLayout = ImageLayout.Stretch;
+            this.BackgroundImageLayout = ImageLayout.Stretch; // Ajusta la imagen al tamaño del formulario
         }
 
+        // Evento que se ejecuta al cargar el formulario
         private void FrmReporte_Load(object sender, EventArgs e)
         {
-            CargarCombos();
-            CargarVentas();
+            CargarCombos();  // Cargar listas desplegables de clientes y vendedores
+            CargarVentas();  // Cargar tabla de ventas
         }
 
+        // Cargar combos de clientes y vendedores
         private void CargarCombos()
         {
             try
@@ -40,7 +40,7 @@ namespace Presentacion.Forms
                 cbCliente.DataSource = _reporteNegocio.ObtenerClientes();
                 cbCliente.DisplayMember = "Nombre";
                 cbCliente.ValueMember = "ClienteId";
-                cbCliente.SelectedIndex = -1;
+                cbCliente.SelectedIndex = -1; // No seleccionar nada inicialmente
 
                 // Vendedores
                 var vendedores = _reporteNegocio.ObtenerVendedores().ToList();
@@ -55,24 +55,30 @@ namespace Presentacion.Forms
             }
         }
 
+        // Cargar las ventas en el DataGridView según filtros
         private void CargarVentas()
         {
             try
             {
+                // Si el checkbox de rango de fechas está marcado, usar las fechas; si no, null
                 DateTime? fechaInicio = chkRangoFechas.Checked ? dtpInicio.Value.Date : (DateTime?)null;
                 DateTime? fechaFin = chkRangoFechas.Checked ? dtpFin.Value.Date.AddDays(1).AddSeconds(-1) : (DateTime?)null;
 
+                // Obtener cliente y vendedor seleccionados
                 int? clienteId = cbCliente.SelectedIndex >= 0 ? (int?)cbCliente.SelectedValue : null;
                 int? vendedorId = cbVendedor.SelectedIndex >= 0 ? (int?)cbVendedor.SelectedValue : null;
 
+                // Obtener lista filtrada de ventas
                 var lista = _reporteNegocio.ObtenerVentasFiltradas(
                     fechaInicio, fechaFin, clienteId, vendedorId, null, null
                 );
 
+                // Configuración de columnas del DataGridView
                 dgvVentas.AutoGenerateColumns = false;
                 dgvVentas.Columns.Clear();
                 dgvVentas.DataSource = lista;
 
+                // Columnas manuales
                 dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = "VentaId",
@@ -86,7 +92,7 @@ namespace Presentacion.Forms
                     DataPropertyName = "Fecha",
                     HeaderText = "Fecha",
                     Width = 120,
-                    DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm" }
+                    DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm" } // Formato de fecha
                 });
                 dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
                 {
@@ -111,6 +117,7 @@ namespace Presentacion.Forms
                     DefaultCellStyle = { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
                 });
 
+                // Ajustes de visualización
                 dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvVentas.ReadOnly = true;
                 dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -121,13 +128,16 @@ namespace Presentacion.Forms
             }
         }
 
+        // Habilitar/deshabilitar filtros de fechas
         private void chkRangoFechas_CheckedChanged(object sender, EventArgs e)
         {
             dtpInicio.Enabled = dtpFin.Enabled = chkRangoFechas.Checked;
         }
 
+        // Botón buscar ventas
         private void btnBuscar_Click(object sender, EventArgs e) => CargarVentas();
 
+        // Botón limpiar filtros
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             chkRangoFechas.Checked = false;
@@ -136,6 +146,7 @@ namespace Presentacion.Forms
             CargarVentas();
         }
 
+        // Ver detalle de la venta seleccionada
         private void btnVerDetalle_Click(object sender, EventArgs e)
         {
             try
@@ -146,6 +157,7 @@ namespace Presentacion.Forms
                     return;
                 }
 
+                // Buscar columna que contenga "VentaId"
                 string colId = dgvVentas.Columns
                     .Cast<DataGridViewColumn>()
                     .FirstOrDefault(c => c.DataPropertyName.ToLower().Contains("ventaid"))?.Name;
@@ -157,6 +169,8 @@ namespace Presentacion.Forms
                 }
 
                 int ventaId = Convert.ToInt32(dgvVentas.CurrentRow.Cells[colId].Value);
+
+                // Abrir formulario de detalle de venta
                 new FrmReporteVentaIndividual(ventaId).ShowDialog();
             }
             catch (Exception ex)
@@ -165,7 +179,7 @@ namespace Presentacion.Forms
             }
         }
 
-
+        // Simulación de impresión (se puede reemplazar por PrintDocument real)
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             PrintDialog pd = new PrintDialog();
@@ -175,16 +189,14 @@ namespace Presentacion.Forms
             }
         }
 
+        // Abrir detalle de venta al hacer doble clic en la fila
         private void dgvVentas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Evita errores si hacen doble clic en el encabezado
+            if (e.RowIndex >= 0)
             {
                 try
                 {
-                    // Obtener el ID de la venta desde la fila seleccionada
                     int ventaId = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["VentaId"].Value);
-
-                    // Abrir el formulario de detalle
                     var frmDetalle = new FrmReporteVentaIndividual(ventaId);
                     frmDetalle.ShowDialog();
                 }
@@ -195,28 +207,31 @@ namespace Presentacion.Forms
             }
         }
 
+        // Abrir reporte mensual de vendedor
         private void btnReporteVendedorMensual_Click_1(object sender, EventArgs e)
         {
             var frmVendedor = new FrmReporteVendedorMensual();
             frmVendedor.ShowDialog(); // Modal
         }
 
+        // Abrir reporte mensual de cliente
         private void btnReporteClienteMensual_Click(object sender, EventArgs e)
         {
             var frmVendedor = new FrmReporteClienteMensual();
             frmVendedor.ShowDialog();
         }
 
+        // Abrir reporte mensual de producto
         private void btnReporteProductoMensual_Click(object sender, EventArgs e)
         {
             var frmVendedor = new FrmReporteProductoMensual();
             frmVendedor.ShowDialog();
         }
 
+        // Botón cerrar formulario
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
     }
 }
-

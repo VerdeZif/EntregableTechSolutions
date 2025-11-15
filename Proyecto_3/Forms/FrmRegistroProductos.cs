@@ -3,28 +3,41 @@ using Negocio.Servicios;
 
 namespace Presentacion.Forms
 {
+    // ==============================
+    // FORMULARIO PARA REGISTRO, EDICIÓN Y ELIMINACIÓN DE PRODUCTOS
+    // ==============================
     public partial class FrmRegistroProductos : Form
     {
         private readonly ProductoNegocio _productoNegocio = new ProductoNegocio();
 
+        // ==============================
+        // Constructor
+        // ==============================
         public FrmRegistroProductos()
         {
             InitializeComponent();
+
+            // Configurar imagen de fondo
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
                 "fondo.jpg"
             );
-
             this.BackgroundImage = Image.FromFile(rutaImagen);
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        // ==============================
+        // LOAD DEL FORMULARIO
+        // ==============================
         private void FrmProductos_Load(object sender, EventArgs e)
         {
             CargarProductos();
         }
 
+        // ==============================
+        // CARGAR PRODUCTOS EN DATAGRIDVIEW
+        // ==============================
         private void CargarProductos()
         {
             try
@@ -33,9 +46,7 @@ namespace Presentacion.Forms
 
                 // Ocultar columna Imagen
                 if (dgvProductos.Columns.Contains("Imagen"))
-                {
                     dgvProductos.Columns["Imagen"].Visible = false;
-                }
             }
             catch (Exception ex)
             {
@@ -43,33 +54,34 @@ namespace Presentacion.Forms
             }
         }
 
-
+        // ==============================
+        // UTILIDADES
+        // ==============================
         private byte[]? ObtenerImagenBytes()
         {
-            if (pbImagen.Image == null)
-                return null;
+            if (pbImagen.Image == null) return null;
 
-            using (var ms = new MemoryStream())
-            {
-                pbImagen.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                return ms.ToArray();
-            }
+            using var ms = new MemoryStream();
+            pbImagen.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            return ms.ToArray();
         }
 
+        // ==============================
+        // BOTONES
+        // ==============================
         private void btnSeleccionarImagen_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            using OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.bmp";
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                ofd.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.bmp";
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    pbImagen.Image = Image.FromFile(ofd.FileName);
-                }
+                pbImagen.Image = Image.FromFile(ofd.FileName);
             }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            // Validaciones
             if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtPrecio.Text))
             {
                 MessageBox.Show("Debe ingresar el nombre y precio del producto.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);

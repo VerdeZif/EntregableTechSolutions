@@ -1,48 +1,53 @@
-﻿using Entidad.Models;
-using Negocio.Servicios;
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Pdf;
+﻿using Entidad.Models;           // Clases de entidades: Usuario, Cliente, ReporteVenta, etc.
+using Negocio.Servicios;        // Servicios de negocio: ReporteNegocio
+using PdfSharpCore.Drawing;     // Para dibujar en PDF
+using PdfSharpCore.Pdf;         // Para generar PDFs
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Drawing;            // Para gráficos y colores
 using System.Linq;
 using System.Windows.Forms;
-using static Azure.Core.HttpHeader;
 
 namespace Presentacion.Forms
 {
     public partial class FrmReporteClienteMensual : Form
     {
-        private readonly ReporteNegocio _reporteNegocio = new ReporteNegocio();
-        private List<ReporteVenta> listaReporte;
+        private readonly ReporteNegocio _reporteNegocio = new ReporteNegocio(); // Servicio para obtener reportes
+        private List<ReporteVenta> listaReporte; // Lista que contendrá los datos del reporte
 
+        // Propiedades para seleccionar mes y año
         public int MesSeleccionado { get; set; }
         public int AnioSeleccionado { get; set; }
 
+        // Constructor principal
         public FrmReporteClienteMensual()
         {
             InitializeComponent();
+
+            // Establecer imagen de fondo
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
                 "fondo.jpg"
             );
-
             this.BackgroundImage = Image.FromFile(rutaImagen);
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        // Constructor opcional que recibe mes y año
         public FrmReporteClienteMensual(int mes, int anio) : this()
         {
             MesSeleccionado = mes;
             AnioSeleccionado = anio;
         }
 
+        // Evento al cargar el formulario
         private void FrmReporteClienteMensual_Load(object sender, EventArgs e)
         {
             CargarMeses();
             CargarAnios();
 
+            // Si se pasó mes y año desde el constructor, seleccionarlos automáticamente
             if (MesSeleccionado > 0 && AnioSeleccionado > 0)
             {
                 cbMes.SelectedValue = MesSeleccionado;
@@ -51,35 +56,44 @@ namespace Presentacion.Forms
             }
         }
 
+        // Cargar meses en ComboBox
         private void CargarMeses()
         {
             cbMes.DataSource = Enumerable.Range(1, 12)
-                .Select(m => new { Valor = m, Nombre = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m) })
+                .Select(m => new
+                {
+                    Valor = m,
+                    Nombre = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
+                })
                 .ToList();
-            cbMes.DisplayMember = "Nombre";
-            cbMes.ValueMember = "Valor";
-            cbMes.SelectedIndex = DateTime.Now.Month - 1;
+            cbMes.DisplayMember = "Nombre"; // Mostrar nombre del mes
+            cbMes.ValueMember = "Valor";     // Valor interno (1-12)
+            cbMes.SelectedIndex = DateTime.Now.Month - 1; // Seleccionar mes actual
         }
 
+        // Cargar años en ComboBox
         private void CargarAnios()
         {
-            cbAnio.DataSource = Enumerable.Range(DateTime.Now.Year - 5, 6).ToList();
-            cbAnio.SelectedItem = DateTime.Now.Year;
+            cbAnio.DataSource = Enumerable.Range(DateTime.Now.Year - 5, 6).ToList(); // Últimos 5 años + año actual
+            cbAnio.SelectedItem = DateTime.Now.Year; // Seleccionar año actual
         }
 
+        // Botón generar reporte
         private void btnGenerar_Click(object sender, EventArgs e)
         {
             GenerarReporte();
         }
 
+        // Método principal para generar el reporte
         private void GenerarReporte()
         {
             int mes = Convert.ToInt32(cbMes.SelectedValue);
             int anio = Convert.ToInt32(cbAnio.SelectedItem);
 
+            // Obtener datos desde la capa de negocio
             listaReporte = _reporteNegocio.ObtenerReporteMensualPorCliente(anio, mes);
 
-            // ---- DataGridView ----
+            // ---- Configurar DataGridView ----
             dgvReporte.DataSource = null;
             dgvReporte.Columns.Clear();
             dgvReporte.AutoGenerateColumns = false;
@@ -92,15 +106,17 @@ namespace Presentacion.Forms
             dgvReporte.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvReporte.ReadOnly = true;
 
-            // ---- Vista previa derecha ----
+            // ---- Mostrar vista previa en panel lateral ----
             MostrarVistaPrevia(listaReporte);
         }
 
+        // Mostrar vista previa dentro de un panel (simulación de reporte visual)
         private void MostrarVistaPrevia(List<ReporteVenta> lista)
         {
             panelVistaPrevia.Controls.Clear();
             int y = 10;
 
+            // Título
             Label lblTitulo = new Label
             {
                 Text = "Reporte Mensual por Cliente",
@@ -111,6 +127,7 @@ namespace Presentacion.Forms
             panelVistaPrevia.Controls.Add(lblTitulo);
             y += 35;
 
+            // Mes/Año
             Label lblFecha = new Label
             {
                 Text = $"Mes: {cbMes.Text} / Año: {cbAnio.SelectedItem}",
@@ -121,6 +138,7 @@ namespace Presentacion.Forms
             panelVistaPrevia.Controls.Add(lblFecha);
             y += 25;
 
+            // Encabezado
             Panel encabezado = new Panel
             {
                 Location = new Point(10, y),
@@ -133,6 +151,7 @@ namespace Presentacion.Forms
             panelVistaPrevia.Controls.Add(encabezado);
             y += 30;
 
+            // Filas
             foreach (var item in lista)
             {
                 Panel fila = new Panel
@@ -148,9 +167,9 @@ namespace Presentacion.Forms
                 y += 28;
             }
 
+            // Total general
             int totalVentas = lista.Sum(r => r.TotalVentas ?? 0);
             decimal totalRecaudado = lista.Sum(r => r.TotalRecaudado ?? 0m);
-
             Label lblTotal = new Label
             {
                 Text = $"Total General: {totalVentas} ventas | Recaudado: S/ {totalRecaudado:N2}",
@@ -161,6 +180,7 @@ namespace Presentacion.Forms
             panelVistaPrevia.Controls.Add(lblTotal);
         }
 
+        // Exportar reporte a PDF
         private void btnExportarPDF_Click(object sender, EventArgs e)
         {
             if (listaReporte == null || listaReporte.Count == 0)
@@ -189,19 +209,13 @@ namespace Presentacion.Forms
                         int y = 40;
 
                         // Título
-                        gfx.DrawString("Reporte Mensual por Cliente",
-                            new XFont("Arial", 14, XFontStyle.Bold),
-                            XBrushes.Black,
-                            new XRect(0, y, page.Width, 0),
-                            XStringFormats.TopCenter);
+                        gfx.DrawString("Reporte Mensual por Cliente", new XFont("Arial", 14, XFontStyle.Bold), XBrushes.Black,
+                            new XRect(0, y, page.Width, 0), XStringFormats.TopCenter);
                         y += 40;
 
-                        // Mes / Año
-                        gfx.DrawString($"Mes: {cbMes.Text} / Año: {cbAnio.SelectedItem}",
-                            font,
-                            XBrushes.Black,
-                            new XRect(40, y, page.Width - 80, 0),
-                            XStringFormats.TopLeft);
+                        // Mes/Año
+                        gfx.DrawString($"Mes: {cbMes.Text} / Año: {cbAnio.SelectedItem}", font, XBrushes.Black,
+                            new XRect(40, y, page.Width - 80, 0), XStringFormats.TopLeft);
                         y += 30;
 
                         // Encabezado
@@ -211,7 +225,7 @@ namespace Presentacion.Forms
                         gfx.DrawString("Total Recaudado (S/)", font, XBrushes.Black, new XRect(310, y + 3, 120, 0), XStringFormats.TopLeft);
                         y += 25;
 
-                        // Filas
+                        // Filas del reporte
                         foreach (var item in listaReporte)
                         {
                             gfx.DrawRectangle(XBrushes.White, 40, y, page.Width - 80, 20);
@@ -221,6 +235,7 @@ namespace Presentacion.Forms
 
                             y += 22;
 
+                            // Nueva página si se pasa del límite
                             if (y > page.Height - 50)
                             {
                                 page = pdf.AddPage();
@@ -234,10 +249,7 @@ namespace Presentacion.Forms
                         decimal totalRecaudado = listaReporte.Sum(r => r.TotalRecaudado ?? 0m);
                         y += 10;
                         gfx.DrawString($"Total General: {totalVentas} ventas | Recaudado: S/ {totalRecaudado:N2}",
-                            font,
-                            XBrushes.Black,
-                            new XRect(40, y, page.Width - 80, 0),
-                            XStringFormats.TopLeft);
+                            font, XBrushes.Black, new XRect(40, y, page.Width - 80, 0), XStringFormats.TopLeft);
 
                         pdf.Save(sfd.FileName);
                         MessageBox.Show($"PDF exportado correctamente en:\n{sfd.FileName}", "Éxito");
@@ -250,7 +262,7 @@ namespace Presentacion.Forms
             }
         }
 
-
+        // Simulación de impresión
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             PrintDialog pd = new PrintDialog();
@@ -260,6 +272,7 @@ namespace Presentacion.Forms
             }
         }
 
+        // Cerrar formulario
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -1,6 +1,6 @@
-﻿using Datos.Database;
-using Entidad.Models;
-using Microsoft.Data.SqlClient;
+﻿using Datos.Database; // Conexión a la base de datos (singleton)
+using Entidad.Models; // Modelos: ReporteVenta, DetalleVenta
+using Microsoft.Data.SqlClient; // Cliente SQL Server
 
 namespace Datos.Repositorio
 {
@@ -11,38 +11,40 @@ namespace Datos.Repositorio
         // ===============================
         public List<ReporteVenta> ObtenerVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
-            var lista = new List<ReporteVenta>();
+            var lista = new List<ReporteVenta>(); // Lista donde se guardarán las ventas
 
-            using (var conn = ConexionBD.Instance.GetConnection())
+            using (var conn = ConexionBD.Instance.GetConnection()) // Abrir conexión a la BD
             {
                 conn.Open();
                 string query = @"
-            SELECT 
-                v.VentaId,
-                v.Fecha,
-                c.Nombre AS Cliente,
-                u.NombreCompleto AS Usuario,
-                p.Nombre AS Producto,
-                d.Cantidad AS CantidadVendida,
-                (d.Cantidad * d.PrecioUnitario) AS Total,
-                v.Total AS TotalRecaudado
-            FROM Ventas v
-            INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
-            INNER JOIN Usuarios u ON v.UserId = u.UserId
-            INNER JOIN DetalleVenta d ON v.VentaId = d.VentaId
-            INNER JOIN Productos p ON d.ProductoId = p.ProductoId
-            WHERE CAST(v.Fecha AS DATE) BETWEEN @fechaInicio AND @fechaFin
-            ORDER BY v.Fecha DESC";
+                    SELECT 
+                        v.VentaId,
+                        v.Fecha,
+                        c.Nombre AS Cliente,
+                        u.NombreCompleto AS Usuario,
+                        p.Nombre AS Producto,
+                        d.Cantidad AS CantidadVendida,
+                        (d.Cantidad * d.PrecioUnitario) AS Total,
+                        v.Total AS TotalRecaudado
+                    FROM Ventas v
+                    INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
+                    INNER JOIN Usuarios u ON v.UserId = u.UserId
+                    INNER JOIN DetalleVenta d ON v.VentaId = d.VentaId
+                    INNER JOIN Productos p ON d.ProductoId = p.ProductoId
+                    WHERE CAST(v.Fecha AS DATE) BETWEEN @fechaInicio AND @fechaFin
+                    ORDER BY v.Fecha DESC";
 
                 using (var cmd = new SqlCommand(query, conn))
                 {
+                    // Asignar parámetros de fecha
                     cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
                     cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
 
-                    using (var dr = cmd.ExecuteReader())
+                    using (var dr = cmd.ExecuteReader()) // Ejecuta consulta
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Leer cada fila de resultados
                         {
+                            // Mapear datos de la fila a objeto ReporteVenta
                             lista.Add(new ReporteVenta
                             {
                                 VentaId = Convert.ToInt32(dr["VentaId"]),
@@ -59,7 +61,7 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Retorna todas las ventas dentro del rango de fechas
         }
 
         // ===============================
@@ -67,7 +69,7 @@ namespace Datos.Repositorio
         // ===============================
         public List<ReporteVenta> ObtenerProductosMasVendidos(DateTime fechaInicio, DateTime fechaFin)
         {
-            var lista = new List<ReporteVenta>();
+            var lista = new List<ReporteVenta>(); // Lista donde se guardan los productos más vendidos
 
             using (var conn = ConexionBD.Instance.GetConnection())
             {
@@ -86,12 +88,13 @@ namespace Datos.Repositorio
 
                 using (var cmd = new SqlCommand(query, conn))
                 {
+                    // Asignar parámetros de fechas
                     cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
                     cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Leer cada fila y mapear a ReporteVenta
                         {
                             lista.Add(new ReporteVenta
                             {
@@ -104,7 +107,7 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Retorna los productos más vendidos en el rango de fechas
         }
 
         // ===============================
@@ -112,7 +115,7 @@ namespace Datos.Repositorio
         // ===============================
         public List<ReporteVenta> ObtenerTotalVentasPorUsuario(DateTime fechaInicio, DateTime fechaFin)
         {
-            var lista = new List<ReporteVenta>();
+            var lista = new List<ReporteVenta>(); // Lista para acumular ventas por usuario
 
             using (var conn = ConexionBD.Instance.GetConnection())
             {
@@ -135,7 +138,7 @@ namespace Datos.Repositorio
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Mapear cada usuario y su total de ventas
                         {
                             lista.Add(new ReporteVenta
                             {
@@ -148,7 +151,7 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Retorna la lista de usuarios con sus totales de ventas
         }
 
         // ===============================
@@ -156,7 +159,7 @@ namespace Datos.Repositorio
         // ===============================
         public List<DetalleVenta> ObtenerDetalleVenta(int ventaId)
         {
-            var lista = new List<DetalleVenta>();
+            var lista = new List<DetalleVenta>(); // Lista donde se guardan los productos de la venta
 
             using (var conn = ConexionBD.Instance.GetConnection())
             {
@@ -178,11 +181,11 @@ namespace Datos.Repositorio
                     INNER JOIN Clientes c ON v.ClienteId = c.ClienteId
                     WHERE d.VentaId = @ventaId", conn))
                 {
-                    cmd.Parameters.AddWithValue("@ventaId", ventaId);
+                    cmd.Parameters.AddWithValue("@ventaId", ventaId); // Asignar ID de venta
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Leer cada producto de la venta
                         {
                             lista.Add(new DetalleVenta
                             {
@@ -201,7 +204,7 @@ namespace Datos.Repositorio
                 }
             }
 
-            return lista;
+            return lista; // Retorna todos los productos de la venta específica
         }
     }
 }

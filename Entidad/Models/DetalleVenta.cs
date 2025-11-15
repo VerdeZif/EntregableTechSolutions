@@ -1,18 +1,50 @@
-﻿public class DetalleVenta
+﻿namespace Entidad.Models
 {
-    public int DetalleId { get; set; }
-    public int VentaId { get; set; }
-    public int ProductoId { get; set; }
-    public int Cantidad { get; set; }
-    public decimal PrecioUnitario { get; set; }
-    public string? NombreProducto { get; set; }
-    public decimal Subtotal => Cantidad * PrecioUnitario;
+    // ==============================
+    // MODELO DE DETALLE DE VENTA
+    // Representa cada línea o ítem dentro de una venta
+    // ==============================
+    public class DetalleVenta
+    {
+        // Identificador único del detalle de venta
+        public int DetalleId { get; set; }
 
-    // Propiedades adicionales para el reporte (no requieren cambios en DB)
-    public DateTime FechaVenta { get; set; }
-    public string NombreCliente { get; set; } = string.Empty;
-    public string NombreUsuario { get; set; } = string.Empty;
-    public decimal TotalVenta { get; set; }
+        // Identificador de la venta a la que pertenece este detalle
+        public int VentaId { get; set; }
 
-    public string? Descripcion { get; set; }
+        // Identificador del producto vendido
+        public int ProductoId { get; set; }
+
+        // Cantidad vendida de este producto
+        public int Cantidad { get; set; }
+
+        // Precio unitario del producto en la venta
+        public decimal PrecioUnitario { get; set; }
+
+        // Nombre del producto (útil para mostrar en reportes o vistas)
+        public string? NombreProducto { get; set; }
+
+        // Calcula automáticamente el subtotal de este detalle (Cantidad * PrecioUnitario)
+        public decimal Subtotal => Cantidad * PrecioUnitario;
+
+        // ==============================
+        // PROPIEDADES ADICIONALES PARA REPORTES
+        // No requieren cambios en la base de datos, solo para mostrar info
+        // ==============================
+
+        // Fecha en que se realizó la venta
+        public DateTime FechaVenta { get; set; }
+
+        // Nombre del cliente que realizó la compra
+        public string NombreCliente { get; set; } = string.Empty;
+
+        // Nombre del usuario/vendedor que registró la venta
+        public string NombreUsuario { get; set; } = string.Empty;
+
+        // Total de la venta completa (suma de todos los detalles)
+        public decimal TotalVenta { get; set; }
+
+        // Descripción adicional del producto (opcional)
+        public string? Descripcion { get; set; }
+    }
 }

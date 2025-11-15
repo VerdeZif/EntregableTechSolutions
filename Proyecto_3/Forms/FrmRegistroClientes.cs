@@ -1,48 +1,46 @@
 ﻿using Entidad.Models;
 using Negocio.Servicios;
-using System;
-using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace Presentacion.Forms
 {
+    // ==============================
+    // FORMULARIO PARA REGISTRO, EDICIÓN Y ELIMINACIÓN DE CLIENTES
+    // ==============================
     public partial class FrmRegistroClientes : Form
     {
         private readonly ClienteNegocio _clienteNegocio = new ClienteNegocio();
-        //private readonly int _rolActual;
 
-        public FrmRegistroClientes()//(int rolActual)
+        // ==============================
+        // Constructor
+        // ==============================
+        public FrmRegistroClientes()
         {
             InitializeComponent();
-            //_rolActual = rolActual;
+
+            // Configurar imagen de fondo
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
                 "fondo.jpg"
             );
-
             this.BackgroundImage = Image.FromFile(rutaImagen);
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        // ==============================
+        // LOAD DEL FORMULARIO
+        // ==============================
         private void FrmRegistroClientes_Load(object sender, EventArgs e)
         {
             CargarClientes();
-
-            // Solo los administradores (RoleId = 1) pueden editar
-            //if (_rolActual != 1)
-            //{
-            //    btnEditar.Enabled = false;
-            //    btnEditar.BackColor = Color.Gray;
-            //    btnEditar.Cursor = Cursors.No;
-            //}
         }
 
+        // ==============================
+        // CARGAR CLIENTES EN DATAGRIDVIEW
+        // ==============================
         private void CargarClientes()
         {
             try
@@ -50,6 +48,7 @@ namespace Presentacion.Forms
                 var lista = _clienteNegocio.ListarClientes();
                 dgvClientes.DataSource = lista;
 
+                // Ocultar columnas sensibles o innecesarias
                 if (dgvClientes.Columns.Contains("Foto"))
                     dgvClientes.Columns["Foto"].Visible = false;
                 if (dgvClientes.Columns.Contains("PasswordHash"))
@@ -61,9 +60,9 @@ namespace Presentacion.Forms
             }
         }
 
-        // ===========================
-        // VALIDACIONES Y UTILIDADES
-        // ===========================
+        // ==============================
+        // VALIDACIONES
+        // ==============================
         private bool EsCorreoValido(string correo)
         {
             if (string.IsNullOrWhiteSpace(correo)) return false;
@@ -90,24 +89,22 @@ namespace Presentacion.Forms
             return BitConverter.ToString(bytes).Replace("-", "").ToLower();
         }
 
-        // ===========================
+        // ==============================
         // BOTONES
-        // ===========================
+        // ==============================
         private void btnSeleccionarFoto_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            using OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.bmp";
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                ofd.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.bmp";
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    pbFoto.Image = Image.FromFile(ofd.FileName);
-                }
+                pbFoto.Image = Image.FromFile(ofd.FileName);
             }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            // Validaciones
+            // Validaciones obligatorias
             if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtCorreo.Text))
             {
                 MessageBox.Show("Debe ingresar al menos el nombre y correo del cliente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -135,7 +132,7 @@ namespace Presentacion.Forms
                 Foto = ObtenerFotoBytes(),
                 Username = txtUsername.Text.Trim(),
                 PasswordHash = HashPassword(txtPassword.Text.Trim()),
-                UserId = 0 // Se generará automáticamente
+                UserId = 0 // Se genera automáticamente
             };
 
             try
@@ -175,7 +172,9 @@ namespace Presentacion.Forms
                 Direccion = txtDireccion.Text.Trim(),
                 Foto = ObtenerFotoBytes(),
                 Username = txtUsername.Text.Trim(),
-                PasswordHash = string.IsNullOrWhiteSpace(txtPassword.Text) ? dgvClientes.CurrentRow.Cells["PasswordHash"].Value.ToString()! : HashPassword(txtPassword.Text.Trim())
+                PasswordHash = string.IsNullOrWhiteSpace(txtPassword.Text)
+                    ? dgvClientes.CurrentRow.Cells["PasswordHash"].Value.ToString()!
+                    : HashPassword(txtPassword.Text.Trim())
             };
 
             try
@@ -217,6 +216,9 @@ namespace Presentacion.Forms
             }
         }
 
+        // ==============================
+        // SELECCIONAR CLIENTE DESDE EL DATAGRIDVIEW
+        // ==============================
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -242,6 +244,9 @@ namespace Presentacion.Forms
             }
         }
 
+        // ==============================
+        // LIMPIAR CAMPOS DEL FORMULARIO
+        // ==============================
         private void LimpiarCampos()
         {
             txtNombre.Clear();
@@ -253,14 +258,7 @@ namespace Presentacion.Forms
             pbFoto.Image = null;
         }
 
-        private void pbFoto_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void pbFoto_Click(object sender, EventArgs e) { }
+        private void button1_Click(object sender, EventArgs e) { this.Close(); }
     }
 }

@@ -1,50 +1,51 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using Microsoft.Data.SqlClient;// Librería para SQL Server
+using System.Data;// Librería para tipos de datos ADO.NET
 
 namespace Datos.Database
 {
+    // Clase para manejar transacciones SQL con commit y rollback
     public class TransaccionHelper : IDisposable
     {
-        public SqlConnection Conexion { get; private set; }
-        public SqlTransaction Transaccion { get; private set; }
+        public SqlConnection Conexion { get; private set; }// Conexión a la base de datos
+        public SqlTransaction Transaccion { get; private set; }// Transacción activa
 
         public TransaccionHelper()
         {
-            Conexion = ConexionBD.Instance.GetConnection(); // ← Cambio aquí
-            Conexion.Open();
-            Transaccion = Conexion.BeginTransaction();
+            Conexion = ConexionBD.Instance.GetConnection(); // Obtiene la conexión desde el singleton
+            Conexion.Open();// Abre la conexión
+            Transaccion = Conexion.BeginTransaction();// Inicia la transacción
         }
 
-        public SqlCommand CrearComando(string query, CommandType tipo = CommandType.Text)
+        public SqlCommand CrearComando(string query, CommandType tipo = CommandType.Text)// Crea un comando asociado a la conexión y transacción
         {
-            var cmd = new SqlCommand(query, Conexion, Transaccion)
+            var cmd = new SqlCommand(query, Conexion, Transaccion)// Crea un comando asociado a la conexión y transacción
             {
-                CommandType = tipo
+                CommandType = tipo// Tipo de comando (Text, StoredProcedure, etc.)
             };
-            return cmd;
+            return cmd;// Devuelve el comando listo para ejecutar
         }
 
         public void Confirmar()
         {
-            Transaccion?.Commit();
-            Cerrar();
+            Transaccion?.Commit();// Confirma la transacción
+            Cerrar();// Cierra la conexión
         }
 
         public void Revertir()
         {
-            Transaccion?.Rollback();
-            Cerrar();
+            Transaccion?.Rollback();// Revierte la transacción
+            Cerrar();// Cierra la conexión
         }
 
         private void Cerrar()
         {
             if (Conexion != null && Conexion.State == ConnectionState.Open)
-                Conexion.Close();
+                Conexion.Close();// Cierra la conexión si está abierta
         }
 
         public void Dispose()
         {
-            Cerrar();
+            Cerrar();// Permite usar "using" para liberar recursos
         }
     }
 }

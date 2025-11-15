@@ -1,60 +1,72 @@
 ﻿using Entidad.Models;
 using Negocio.Servicios;
 using System.Text.RegularExpressions;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
 
 namespace Presentacion.Forms
 {
+    // ==============================
+    // FORMULARIO PARA EDITAR EL PERFIL DEL CLIENTE
+    // ==============================
     public partial class FrmEditarPerfilCliente : Form
     {
-        private readonly int _clienteId;
-        private readonly ClienteNegocio _clienteNegocio;
-        private readonly UsuarioNegocio _usuarioNegocio;
-        private Cliente _cliente;
-        private Usuario? _usuario;
+        // ==============================
+        // Campos privados
+        // ==============================
+        private readonly int _clienteId;                // ID del cliente a editar
+        private readonly ClienteNegocio _clienteNegocio; // Capa de negocio de clientes
+        private readonly UsuarioNegocio _usuarioNegocio; // Capa de negocio de usuarios
+        private Cliente _cliente;                        // Objeto Cliente cargado
+        private Usuario? _usuario;                       // Objeto Usuario vinculado (para login)
 
+        // ==============================
+        // Constructor
+        // ==============================
         public FrmEditarPerfilCliente(int clienteId)
         {
             InitializeComponent();
             _clienteId = clienteId;
             _clienteNegocio = new ClienteNegocio();
             _usuarioNegocio = new UsuarioNegocio();
+
+            // Configurar imagen de fondo
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
                 "fondo.jpg"
             );
-
             this.BackgroundImage = Image.FromFile(rutaImagen);
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        // ==============================
+        // EVENTO LOAD DEL FORMULARIO
+        // ==============================
         private void FrmEditarPerfilCliente_Load(object sender, EventArgs e)
         {
-            CargarDatos();
+            CargarDatos(); // Cargar información del cliente
 
-            // Contraseña nueva enmascarada inicialmente
+            // Configuración de campos de contraseña
             txtPassword.UseSystemPasswordChar = true;
-            txtPassword.PasswordChar = '\0'; // Asegúrate de que no haya otro caracter asignado
+            txtPassword.PasswordChar = '\0'; // Asegurar que no haya otro caracter
 
-            // Contraseña actual: siempre enmascarada
-            txtPasswordActual.Text = "********";
+            txtPasswordActual.Text = "********";       // contraseña actual oculta
             txtPasswordActual.ReadOnly = true;
             txtPasswordActual.BackColor = SystemColors.Control;
             txtPasswordActual.TabStop = false;
 
-            // CheckBox controla la visibilidad de la contraseña nueva
+            // Mostrar u ocultar nueva contraseña con checkbox
             chkMostrarPassword.CheckedChanged += (s, ev) =>
             {
                 txtPassword.UseSystemPasswordChar = !chkMostrarPassword.Checked;
             };
         }
 
+        // ==============================
+        // CARGAR DATOS DEL CLIENTE
+        // ==============================
         private void CargarDatos()
         {
+            // Obtener datos del cliente
             _cliente = _clienteNegocio.ObtenerClientePorId(_clienteId);
             if (_cliente == null)
             {
@@ -63,30 +75,36 @@ namespace Presentacion.Forms
                 return;
             }
 
+            // Llenar los campos del formulario
             txtNombre.Text = _cliente.Nombre;
             txtCorreo.Text = _cliente.Correo;
             txtTelefono.Text = _cliente.Telefono;
             txtDireccion.Text = _cliente.Direccion;
 
+            // Cargar foto si existe
             if (_cliente.Foto != null && _cliente.Foto.Length > 0)
             {
                 using (var ms = new MemoryStream(_cliente.Foto))
                 {
-                    pbFoto.Image = Image.FromStream(ms);
+                    using (var tempImage = Image.FromStream(ms))
+                    {
+                        pbFoto.Image = new Bitmap(tempImage); // copia independiente
+                    }
                 }
             }
 
-            // Obtener usuario (Username y contraseña)
+            // Obtener usuario vinculado (para login)
             _usuario = _usuarioNegocio.ObtenerPorId(_cliente.UserId);
             if (_usuario != null)
             {
                 txtUsername.Text = _usuario.Username;
-                txtPassword.Text = string.Empty; // Nunca mostrar la contraseña real
+                txtPassword.Text = string.Empty; // nunca mostrar la contraseña real
             }
-
-
         }
 
+        // ==============================
+        // SELECCIONAR NUEVA FOTO
+        // ==============================
         private void btnSeleccionarFoto_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -99,9 +117,12 @@ namespace Presentacion.Forms
             }
         }
 
+        // ==============================
+        // GUARDAR CAMBIOS DEL PERFIL
+        // ==============================
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            // Validar campos del cliente
+            // Validación de campos obligatorios
             if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
                 string.IsNullOrWhiteSpace(txtCorreo.Text) ||
                 string.IsNullOrWhiteSpace(txtTelefono.Text) ||
@@ -111,7 +132,7 @@ namespace Presentacion.Forms
                 return;
             }
 
-            // Validar correo
+            // Validar formato de correo
             if (!Regex.IsMatch(txtCorreo.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 MessageBox.Show("Ingrese un correo válido.", "Validación");
@@ -131,15 +152,17 @@ namespace Presentacion.Forms
             _cliente.Telefono = txtTelefono.Text.Trim();
             _cliente.Direccion = txtDireccion.Text.Trim();
 
+            // Guardar foto si se seleccionó
             if (pbFoto.Image != null)
             {
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    pbFoto.Image.Save(ms, pbFoto.Image.RawFormat);
+                    pbFoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png); // mejor usar PNG
                     _cliente.Foto = ms.ToArray();
                 }
             }
 
+            // Guardar cambios en la base de datos
             bool clienteActualizado = _clienteNegocio.ActualizarCliente(_cliente);
 
             // Actualizar datos del usuario
@@ -158,6 +181,7 @@ namespace Presentacion.Forms
                     usuarioActualizado = _usuarioNegocio.ActualizarUsuario(_usuario);
             }
 
+            // Mensajes finales
             if (clienteActualizado && usuarioActualizado)
             {
                 MessageBox.Show("Perfil actualizado correctamente.", "Éxito");
@@ -169,6 +193,9 @@ namespace Presentacion.Forms
             }
         }
 
+        // ==============================
+        // CANCELAR EDICIÓN
+        // ==============================
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -176,7 +203,8 @@ namespace Presentacion.Forms
 
         private void lblPassword_Click(object sender, EventArgs e)
         {
-
+            // Este evento está vacío, solo lo genera el diseñador
         }
     }
 }
+

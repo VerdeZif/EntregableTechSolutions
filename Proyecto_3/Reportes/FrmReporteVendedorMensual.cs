@@ -2,27 +2,28 @@
 using Negocio.Servicios;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace Presentacion.Forms
 {
+    // Formulario para generar y mostrar reporte mensual por vendedor
     public partial class FrmReporteVendedorMensual : Form
     {
+        // Servicio para obtener datos de reportes
         private readonly ReporteNegocio _reporteNegocio = new ReporteNegocio();
+
+        // Lista que almacena los datos del reporte
         private List<ReporteVenta> listaReporte;
 
+        // Propiedades para seleccionar mes y año desde fuera del formulario
         public int MesSeleccionado { get; set; }
         public int AnioSeleccionado { get; set; }
 
+        // Constructor principal
         public FrmReporteVendedorMensual()
         {
             InitializeComponent();
+
+            // Configurar imagen de fondo
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
@@ -33,17 +34,20 @@ namespace Presentacion.Forms
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        // Constructor con mes y año preseleccionado
         public FrmReporteVendedorMensual(int mes, int anio) : this()
         {
             MesSeleccionado = mes;
             AnioSeleccionado = anio;
         }
 
+        // Evento Load del formulario
         private void FrmReporteVendedorMensual_Load(object sender, EventArgs e)
         {
             CargarMeses();
             CargarAnios();
 
+            // Si se pasó un mes y año, generar reporte automáticamente
             if (MesSeleccionado > 0 && AnioSeleccionado > 0)
             {
                 cbMes.SelectedValue = MesSeleccionado;
@@ -52,6 +56,7 @@ namespace Presentacion.Forms
             }
         }
 
+        // Cargar ComboBox de meses (1-12 con nombre del mes)
         private void CargarMeses()
         {
             cbMes.DataSource = Enumerable.Range(1, 12)
@@ -59,32 +64,37 @@ namespace Presentacion.Forms
                 .ToList();
             cbMes.DisplayMember = "Nombre";
             cbMes.ValueMember = "Valor";
-            cbMes.SelectedIndex = DateTime.Now.Month - 1;
+            cbMes.SelectedIndex = DateTime.Now.Month - 1; // Mes actual por defecto
         }
 
+        // Cargar ComboBox de años (últimos 5 años + año actual)
         private void CargarAnios()
         {
             cbAnio.DataSource = Enumerable.Range(DateTime.Now.Year - 5, 6).ToList();
-            cbAnio.SelectedItem = DateTime.Now.Year;
+            cbAnio.SelectedItem = DateTime.Now.Year; // Año actual por defecto
         }
 
+        // Evento clic del botón "Generar"
         private void btnGenerar_Click(object sender, EventArgs e)
         {
             GenerarReporte();
         }
 
+        // Generar el reporte y mostrarlo en DataGridView y panel de vista previa
         private void GenerarReporte()
         {
             int mes = Convert.ToInt32(cbMes.SelectedValue);
             int anio = Convert.ToInt32(cbAnio.SelectedItem);
 
+            // Obtener reporte desde el negocio
             listaReporte = _reporteNegocio.ObtenerReporteMensualPorVendedor(anio, mes);
 
-            // ---- DataGridView ----
+            // ---- Configurar DataGridView ----
             dgvReporte.DataSource = null;
             dgvReporte.Columns.Clear();
             dgvReporte.AutoGenerateColumns = false;
 
+            // Columnas del DataGridView
             dgvReporte.Columns.Add(new DataGridViewTextBoxColumn { Name = "Usuario", HeaderText = "Vendedor", DataPropertyName = "Usuario" });
             dgvReporte.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalVentas", HeaderText = "Total Ventas", DataPropertyName = "TotalVentas" });
             dgvReporte.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalRecaudado", HeaderText = "Total Recaudado (S/)", DataPropertyName = "TotalRecaudado", DefaultCellStyle = { Format = "N2" } });
@@ -97,6 +107,7 @@ namespace Presentacion.Forms
             MostrarVistaPrevia(listaReporte);
         }
 
+        // Mostrar vista previa del reporte en panel
         private void MostrarVistaPrevia(List<ReporteVenta> lista)
         {
             panelVistaPrevia.Controls.Clear();
@@ -113,7 +124,7 @@ namespace Presentacion.Forms
             panelVistaPrevia.Controls.Add(lblTitulo);
             y += 35;
 
-            // Mes / Año
+            // Mes y año
             Label lblFecha = new Label
             {
                 Text = $"Mes: {cbMes.Text} / Año: {cbAnio.SelectedItem}",
@@ -137,7 +148,7 @@ namespace Presentacion.Forms
             panelVistaPrevia.Controls.Add(encabezado);
             y += 30;
 
-            // Filas
+            // Filas de datos
             foreach (var item in lista)
             {
                 Panel fila = new Panel
@@ -173,6 +184,7 @@ namespace Presentacion.Forms
             panelVistaPrevia.Controls.Add(lblTotal);
         }
 
+        // Exportar reporte a PDF
         private void btnExportarPDF_Click(object sender, EventArgs e)
         {
             if (listaReporte == null || listaReporte.Count == 0)
@@ -223,7 +235,7 @@ namespace Presentacion.Forms
                         gfx.DrawString("Total Recaudado (S/)", font, XBrushes.Black, new XRect(310, y + 3, 120, 0), XStringFormats.TopLeft);
                         y += 25;
 
-                        // Filas
+                        // Filas de datos
                         foreach (var item in listaReporte)
                         {
                             gfx.DrawRectangle(XBrushes.White, 40, y, page.Width - 80, 20);
@@ -264,7 +276,7 @@ namespace Presentacion.Forms
             }
         }
 
-
+        // Simulación de impresión
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             PrintDialog pd = new PrintDialog();
@@ -274,9 +286,11 @@ namespace Presentacion.Forms
             }
         }
 
+        // Cerrar formulario
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
     }
 }
+

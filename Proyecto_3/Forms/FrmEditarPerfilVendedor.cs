@@ -1,38 +1,47 @@
 ﻿using Entidad.Models;
 using Negocio.Servicios;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
 
 namespace Presentacion.Forms
 {
+    // ==============================
+    // FORMULARIO PARA EDITAR PERFIL DEL VENDEDOR
+    // ==============================
     public partial class FrmEditarPerfilVendedor : Form
     {
-        private readonly int _vendedorId;
-        private readonly UsuarioNegocio _usuarioNegocio;
-        private Usuario _vendedor;
+        // ==============================
+        // Campos privados
+        // ==============================
+        private readonly int _vendedorId;            // ID del vendedor a editar
+        private readonly UsuarioNegocio _usuarioNegocio; // Capa de negocio de usuarios
+        private Usuario _vendedor;                   // Objeto Usuario del vendedor
 
+        // ==============================
+        // Constructor
+        // ==============================
         public FrmEditarPerfilVendedor(int vendedorId)
         {
             InitializeComponent();
             _vendedorId = vendedorId;
             _usuarioNegocio = new UsuarioNegocio();
+
+            // Configurar imagen de fondo
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
                 "fondo.jpg"
             );
-
             this.BackgroundImage = Image.FromFile(rutaImagen);
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        // ==============================
+        // EVENTO LOAD DEL FORMULARIO
+        // ==============================
         private void FrmEditarPerfilVendedor_Load(object sender, EventArgs e)
         {
-            CargarDatos();
+            CargarDatos(); // Cargar información del vendedor
 
-            // Contraseña actual: siempre enmascarada
+            // Contraseña actual: enmascarada y no editable
             txtPasswordActual.Text = "********";
             txtPasswordActual.UseSystemPasswordChar = true;
             txtPasswordActual.ReadOnly = true;
@@ -42,13 +51,16 @@ namespace Presentacion.Forms
             // Nueva contraseña: enmascarada inicialmente
             txtNuevaPassword.UseSystemPasswordChar = true;
 
-            // CheckBox controla solo la nueva contraseña
+            // CheckBox controla visibilidad de la nueva contraseña
             chkMostrarPassword.CheckedChanged += ChkMostrarPassword_CheckedChanged;
 
             // Mensaje informativo
             lblInfo.Text = "La contraseña actual no se puede mostrar por seguridad.";
         }
 
+        // ==============================
+        // CARGAR DATOS DEL VENDEDOR
+        // ==============================
         private void CargarDatos()
         {
             _vendedor = _usuarioNegocio.ObtenerPorId(_vendedorId);
@@ -62,6 +74,7 @@ namespace Presentacion.Forms
             txtNombre.Text = _vendedor.NombreCompleto;
             txtUsername.Text = _vendedor.Username;
 
+            // Cargar foto si existe
             if (_vendedor.FotoPerfil != null && _vendedor.FotoPerfil.Length > 0)
             {
                 using (var ms = new MemoryStream(_vendedor.FotoPerfil))
@@ -71,12 +84,18 @@ namespace Presentacion.Forms
             }
         }
 
+        // ==============================
+        // CHECKBOX PARA MOSTRAR/OCULTAR NUEVA CONTRASEÑA
+        // ==============================
         private void ChkMostrarPassword_CheckedChanged(object sender, EventArgs e)
         {
             bool mostrar = chkMostrarPassword.Checked;
             txtNuevaPassword.UseSystemPasswordChar = !mostrar;
         }
 
+        // ==============================
+        // SELECCIONAR NUEVA FOTO
+        // ==============================
         private void btnSeleccionarFoto_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -89,32 +108,42 @@ namespace Presentacion.Forms
             }
         }
 
+        // ==============================
+        // GUARDAR CAMBIOS DEL PERFIL
+        // ==============================
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            // Validar campos obligatorios
             if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtUsername.Text))
             {
                 MessageBox.Show("Por favor, complete los campos obligatorios (nombre y username).");
                 return;
             }
 
+            // Actualizar datos del vendedor
             _vendedor.NombreCompleto = txtNombre.Text.Trim();
             _vendedor.Username = txtUsername.Text.Trim();
 
+            // Guardar foto si se seleccionó
             if (pbFoto.Image != null)
             {
+                using (var bitmapCopia = new Bitmap(pbFoto.Image))
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    pbFoto.Image.Save(ms, pbFoto.Image.RawFormat);
+                    bitmapCopia.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                     _vendedor.FotoPerfil = ms.ToArray();
                 }
             }
 
+            // Determinar si se cambia la contraseña
             string? nuevaPassword = string.IsNullOrWhiteSpace(txtNuevaPassword.Text)
                 ? null
                 : txtNuevaPassword.Text.Trim();
 
+            // Actualizar usuario en la base de datos
             bool actualizado = _usuarioNegocio.ActualizarUsuario(_vendedor, nuevaPassword);
 
+            // Mensajes finales
             if (actualizado)
             {
                 MessageBox.Show("Perfil actualizado correctamente.");
@@ -126,6 +155,9 @@ namespace Presentacion.Forms
             }
         }
 
+        // ==============================
+        // CANCELAR EDICIÓN
+        // ==============================
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -133,7 +165,7 @@ namespace Presentacion.Forms
 
         private void lblInfo_Click(object sender, EventArgs e)
         {
-
+            // Evento vacío generado por el diseñador
         }
     }
 }

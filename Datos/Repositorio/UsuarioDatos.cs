@@ -1,6 +1,6 @@
-﻿using Datos.Database;
-using Entidad.Models;
-using Microsoft.Data.SqlClient;
+﻿using Datos.Database; // Conexión a la base de datos (singleton)
+using Entidad.Models; // Modelos: Usuario, Rol
+using Microsoft.Data.SqlClient; // Cliente SQL Server
 using System.Data;
 
 namespace Datos.Repositorio
@@ -12,8 +12,8 @@ namespace Datos.Repositorio
         // =======================
         public Usuario? Login(string username, string password)
         {
-            Usuario? user = null;
-            using (var conn = ConexionBD.Instance.GetConnection())
+            Usuario? user = null; // Inicializar variable donde se guardará el usuario si existe
+            using (var conn = ConexionBD.Instance.GetConnection()) // Abrir conexión a BD
             {
                 conn.Open();
                 using (var cmd = new SqlCommand(@"
@@ -23,12 +23,15 @@ namespace Datos.Repositorio
                     INNER JOIN Roles r ON u.RoleId = r.RoleId
                     WHERE u.Username = @username AND u.PasswordHash = @password", conn))
                 {
+                    // Asignar parámetros del login
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@password", password);
-                    using (var dr = cmd.ExecuteReader())
+
+                    using (var dr = cmd.ExecuteReader()) // Ejecutar consulta
                     {
-                        if (dr.Read())
+                        if (dr.Read()) // Si se encontró un usuario
                         {
+                            // Mapear datos de la fila al objeto Usuario
                             user = new Usuario
                             {
                                 UserId = Convert.ToInt32(dr["UserId"]),
@@ -43,15 +46,15 @@ namespace Datos.Repositorio
                     }
                 }
             }
-            return user;
+            return user; // Retorna usuario si existe, si no null
         }
 
         // =======================
-        // OBTENER POR USERNAME
+        // OBTENER USUARIO POR USERNAME
         // =======================
         public Usuario? ObtenerPorUsername(string username)
         {
-            Usuario? user = null;
+            Usuario? user = null; // Inicializar variable
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
@@ -63,9 +66,10 @@ namespace Datos.Repositorio
                     WHERE u.Username = @username", conn))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
+
                     using (var dr = cmd.ExecuteReader())
                     {
-                        if (dr.Read())
+                        if (dr.Read()) // Si se encontró el usuario
                         {
                             user = new Usuario
                             {
@@ -81,15 +85,15 @@ namespace Datos.Repositorio
                     }
                 }
             }
-            return user;
+            return user; // Retorna usuario o null
         }
 
         // =======================
-        // LISTAR USUARIOS
+        // LISTAR TODOS LOS USUARIOS
         // =======================
         public List<Usuario> Listar()
         {
-            var lista = new List<Usuario>();
+            var lista = new List<Usuario>(); // Lista donde se guardan los usuarios
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
@@ -101,7 +105,7 @@ namespace Datos.Repositorio
                 {
                     using (var dr = cmd.ExecuteReader())
                     {
-                        while (dr.Read())
+                        while (dr.Read()) // Leer cada usuario
                         {
                             lista.Add(new Usuario
                             {
@@ -116,11 +120,11 @@ namespace Datos.Repositorio
                     }
                 }
             }
-            return lista;
+            return lista; // Retorna la lista de todos los usuarios
         }
 
         // =======================
-        // REGISTRAR USUARIO
+        // REGISTRAR NUEVO USUARIO
         // =======================
         public bool Registrar(Usuario usuario)
         {
@@ -131,13 +135,16 @@ namespace Datos.Repositorio
                     INSERT INTO Usuarios (Username, PasswordHash, NombreCompleto, RoleId, FotoPerfil)
                     VALUES (@username, @password, @nombre, @roleId, @foto)", conn))
                 {
+                    // Asignar parámetros del usuario
                     cmd.Parameters.AddWithValue("@username", usuario.Username);
                     cmd.Parameters.AddWithValue("@password", usuario.PasswordHash);
                     cmd.Parameters.AddWithValue("@nombre", usuario.NombreCompleto);
                     cmd.Parameters.AddWithValue("@roleId", usuario.RoleId);
+
                     var paramFoto = cmd.Parameters.Add("@foto", SqlDbType.VarBinary, -1);
                     paramFoto.Value = (object?)usuario.FotoPerfil ?? DBNull.Value;
 
+                    // Ejecutar inserción, devuelve true si afectó filas
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
@@ -158,7 +165,7 @@ namespace Datos.Repositorio
                         NombreCompleto = @nombreCompleto,
                         FotoPerfil = @fotoPerfil";
 
-                // Solo actualiza la contraseña si viene con valor
+                // Solo actualizar contraseña si no está vacía
                 if (!string.IsNullOrWhiteSpace(usuario.PasswordHash))
                     sql += ", PasswordHash = @passwordHash";
 
@@ -176,7 +183,7 @@ namespace Datos.Repositorio
                     if (!string.IsNullOrWhiteSpace(usuario.PasswordHash))
                         cmd.Parameters.AddWithValue("@passwordHash", usuario.PasswordHash);
 
-                    return cmd.ExecuteNonQuery() > 0;
+                    return cmd.ExecuteNonQuery() > 0; // Retorna true si se actualizó
                 }
             }
         }
@@ -192,17 +199,17 @@ namespace Datos.Repositorio
                 using (var cmd = new SqlCommand("DELETE FROM Usuarios WHERE UserId = @userId", conn))
                 {
                     cmd.Parameters.AddWithValue("@userId", userId);
-                    return cmd.ExecuteNonQuery() > 0;
+                    return cmd.ExecuteNonQuery() > 0; // True si se eliminó
                 }
             }
         }
 
         // =======================
-        // LISTAR ROLES
+        // LISTAR TODOS LOS ROLES
         // =======================
         public List<Rol> ListarRoles()
         {
-            var roles = new List<Rol>();
+            var roles = new List<Rol>(); // Lista donde se guardan los roles
             using (var conn = ConexionBD.Instance.GetConnection())
             {
                 conn.Open();
@@ -221,11 +228,11 @@ namespace Datos.Repositorio
                     }
                 }
             }
-            return roles;
+            return roles; // Retorna lista de roles
         }
 
         // =======================
-        // OBTENER POR ID
+        // OBTENER USUARIO POR ID
         // =======================
         public Usuario? ObtenerPorId(int id)
         {
@@ -260,7 +267,8 @@ namespace Datos.Repositorio
                     }
                 }
             }
-            return usuario;
+            return usuario; // Retorna usuario por ID o null
         }
     }
 }
+

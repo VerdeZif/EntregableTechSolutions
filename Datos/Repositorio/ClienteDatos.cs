@@ -1,10 +1,11 @@
-﻿using Datos.Database;
-using Entidad.Models;
-using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using Datos.Database; // Conexión a BD y helpers
+using Entidad.Models; // Modelo Cliente
+using Microsoft.Data.SqlClient; // SQL Server
+using System.Data; // Tipos ADO.NET
 
 namespace Datos.Repositorio
 {
+    // Clase para operaciones CRUD de clientes en la base de datos
     public class ClienteDatos
     {
         // =============================
@@ -14,9 +15,9 @@ namespace Datos.Repositorio
         {
             var lista = new List<Cliente>();
 
-            using (var conn = ConexionBD.Instance.GetConnection())
+            using (var conn = ConexionBD.Instance.GetConnection())// Obtener conexión
             {
-                conn.Open();
+                conn.Open();// Abrir conexión
                 using (SqlCommand cmd = new SqlCommand(@"
             SELECT 
                 c.ClienteId,
@@ -33,11 +34,11 @@ namespace Datos.Repositorio
             WHERE u.RoleId = 3  -- Solo los usuarios con rol 'Cliente'
             ORDER BY c.ClienteId DESC", conn))
                 {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader dr = cmd.ExecuteReader())// Leer resultados
                     {
-                        while (dr.Read())
+                        while (dr.Read())// Recorrer cada registro
                         {
-                            lista.Add(new Cliente
+                            lista.Add(new Cliente // Mapear a objeto Cliente
                             {
                                 ClienteId = Convert.ToInt32(dr["ClienteId"]),
                                 UserId = Convert.ToInt32(dr["UserId"]),
@@ -50,11 +51,11 @@ namespace Datos.Repositorio
                                 Foto = dr["Foto"] == DBNull.Value ? null : (byte[])dr["Foto"]
                             });
                         }
-                    }
+                    }   
                 }
             }
 
-            return lista;
+            return lista; // Devolver lista de clientes
         }
 
 
@@ -64,7 +65,7 @@ namespace Datos.Repositorio
         // =============================
         public Cliente? ObtenerPorId(int id)
         {
-            Cliente? cliente = null;
+            Cliente? cliente = null;  // Declaración de variable que puede ser null si no se encuentra el cliente
 
             using (var conn = ConexionBD.Instance.GetConnection())
             {
@@ -74,11 +75,11 @@ namespace Datos.Repositorio
                     FROM Clientes
                     WHERE ClienteId = @id", conn))
                 {
-                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id; // Parámetro ID
 
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        if (dr.Read())
+                        if (dr.Read()) // Si se encuentra el cliente
                         {
                             cliente = new Cliente
                             {
@@ -95,7 +96,7 @@ namespace Datos.Repositorio
                 }
             }
 
-            return cliente;
+            return cliente; // Devolver cliente o null
         }
 
         // =============================
@@ -107,15 +108,15 @@ namespace Datos.Repositorio
             {
                 conn.Open();
 
-                using (var trans = conn.BeginTransaction())
+                using (var trans = conn.BeginTransaction()) // Iniciar transacción
                 {
                     try
                     {
-                        // 1️⃣ Crear el usuario asociado al cliente (con foto)
+                        // Crear el usuario asociado al cliente
                         var cmdUsuario = new SqlCommand(@"
-                    INSERT INTO Usuarios (Username, PasswordHash, NombreCompleto, FotoPerfil, RoleId)
-                    OUTPUT INSERTED.UserId
-                    VALUES (@Username, @PasswordHash, @NombreCompleto, @FotoPerfil, @RoleId);", conn, trans);
+                        INSERT INTO Usuarios (Username, PasswordHash, NombreCompleto, FotoPerfil, RoleId)
+                        OUTPUT INSERTED.UserId
+                        VALUES (@Username, @PasswordHash, @NombreCompleto, @FotoPerfil, @RoleId);", conn, trans);
 
                         cmdUsuario.Parameters.AddWithValue("@Username", cliente.Username);
                         cmdUsuario.Parameters.AddWithValue("@PasswordHash", cliente.PasswordHash);
@@ -125,12 +126,12 @@ namespace Datos.Repositorio
                         var paramFotoPerfil = cmdUsuario.Parameters.Add("@FotoPerfil", SqlDbType.VarBinary, -1);
                         paramFotoPerfil.Value = (object?)cliente.Foto ?? DBNull.Value;
 
-                        int nuevoUserId = Convert.ToInt32(cmdUsuario.ExecuteScalar());
+                        int nuevoUserId = Convert.ToInt32(cmdUsuario.ExecuteScalar()); // Insertar y obtener UserId
 
-                        // 2️⃣ Crear el cliente vinculado al usuario recién creado
+                        // Crear registro del cliente
                         var cmdCliente = new SqlCommand(@"
-                    INSERT INTO Clientes (UserId, Nombre, Correo, Telefono, Direccion, Foto)
-                    VALUES (@UserId, @Nombre, @Correo, @Telefono, @Direccion, @Foto);", conn, trans);
+                        INSERT INTO Clientes (UserId, Nombre, Correo, Telefono, Direccion, Foto)
+                        VALUES (@UserId, @Nombre, @Correo, @Telefono, @Direccion, @Foto);", conn, trans);
 
                         cmdCliente.Parameters.AddWithValue("@UserId", nuevoUserId);
                         cmdCliente.Parameters.AddWithValue("@Nombre", cliente.Nombre);
@@ -141,16 +142,14 @@ namespace Datos.Repositorio
                         var paramFoto = cmdCliente.Parameters.Add("@Foto", SqlDbType.VarBinary, -1);
                         paramFoto.Value = (object?)cliente.Foto ?? DBNull.Value;
 
-                        cmdCliente.ExecuteNonQuery();
+                        cmdCliente.ExecuteNonQuery();// Insertar cliente
 
-                        // ✅ Confirmar ambas inserciones
-                        trans.Commit();
+                        trans.Commit();// Confirmar transacción
                         return true;
                     }
                     catch
                     {
-                        // ❌ Deshacer todo si algo falla
-                        trans.Rollback();
+                        trans.Rollback(); // Revertir si falla
                         throw;
                     }
                 }
@@ -170,14 +169,14 @@ namespace Datos.Repositorio
                 {
                     try
                     {
-                        // 1️⃣ Actualizar datos del usuario (incluyendo la foto)
+                        // Actualizar usuario
                         var cmdUsuario = new SqlCommand(@"
-                    UPDATE Usuarios
-                    SET Username = @Username,
-                        PasswordHash = @PasswordHash,
-                        NombreCompleto = @NombreCompleto,
-                        FotoPerfil = @FotoPerfil
-                    WHERE UserId = @UserId;", conn, trans);
+                        UPDATE Usuarios
+                            SET Username = @Username,
+                                PasswordHash = @PasswordHash,
+                                NombreCompleto = @NombreCompleto,
+                                FotoPerfil = @FotoPerfil
+                            WHERE UserId = @UserId;", conn, trans);
 
                         cmdUsuario.Parameters.AddWithValue("@UserId", cliente.UserId);
                         cmdUsuario.Parameters.AddWithValue("@Username", cliente.Username);
@@ -189,15 +188,15 @@ namespace Datos.Repositorio
 
                         cmdUsuario.ExecuteNonQuery();
 
-                        // 2️⃣ Actualizar datos del cliente
+                        // Actualizar datos del cliente
                         var cmdCliente = new SqlCommand(@"
-                    UPDATE Clientes
-                    SET Nombre = @Nombre,
-                        Correo = @Correo,
-                        Telefono = @Telefono,
-                        Direccion = @Direccion,
-                        Foto = @Foto
-                    WHERE ClienteId = @ClienteId;", conn, trans);
+                        UPDATE Clientes
+                            SET Nombre = @Nombre,
+                                Correo = @Correo,
+                                Telefono = @Telefono,
+                                Direccion = @Direccion,
+                                Foto = @Foto
+                            WHERE ClienteId = @ClienteId;", conn, trans);// Confirmar cambios
 
                         cmdCliente.Parameters.AddWithValue("@ClienteId", cliente.ClienteId);
                         cmdCliente.Parameters.AddWithValue("@Nombre", cliente.Nombre);
@@ -210,12 +209,12 @@ namespace Datos.Repositorio
 
                         cmdCliente.ExecuteNonQuery();
 
-                        trans.Commit();
+                        trans.Commit(); // Confirmar cambios
                         return true;
                     }
                     catch
                     {
-                        trans.Rollback();
+                        trans.Rollback(); // Revertir si falla
                         throw;
                     }
                 }
@@ -234,7 +233,7 @@ namespace Datos.Repositorio
                 {
                     try
                     {
-                        // 1️⃣ Obtener el UserId del cliente
+                        // Obtener el UserId del cliente
                         var cmdGetUserId = new SqlCommand(@"
                             SELECT UserId FROM Clientes WHERE ClienteId = @ClienteId;", conn, trans);
                         cmdGetUserId.Parameters.AddWithValue("@ClienteId", clienteId);
@@ -245,24 +244,24 @@ namespace Datos.Repositorio
 
                         int userId = Convert.ToInt32(result);
 
-                        // 2️⃣ Eliminar cliente
+                        // Eliminar cliente
                         var cmdDeleteCliente = new SqlCommand(@"
                             DELETE FROM Clientes WHERE ClienteId = @ClienteId;", conn, trans);
                         cmdDeleteCliente.Parameters.AddWithValue("@ClienteId", clienteId);
                         cmdDeleteCliente.ExecuteNonQuery();
 
-                        // 3️⃣ Eliminar usuario vinculado
+                        // Eliminar usuario vinculado
                         var cmdDeleteUsuario = new SqlCommand(@"
                             DELETE FROM Usuarios WHERE UserId = @UserId;", conn, trans);
                         cmdDeleteUsuario.Parameters.AddWithValue("@UserId", userId);
                         cmdDeleteUsuario.ExecuteNonQuery();
 
-                        trans.Commit();
+                        trans.Commit();// Confirmar eliminación
                         return true;
                     }
                     catch
                     {
-                        trans.Rollback();
+                        trans.Rollback();// Revertir si falla
                         throw;
                     }
                 }
@@ -289,7 +288,7 @@ namespace Datos.Repositorio
 
                     using (var dr = cmd.ExecuteReader())
                     {
-                        if (dr.Read())
+                        if (dr.Read())// Mapear a Cliente si existe 
                         {
                             cliente = new Cliente
                             {
@@ -306,7 +305,7 @@ namespace Datos.Repositorio
                 }
             }
 
-            return cliente;
+            return cliente; // Devolver cliente o null
         }
     }
 }

@@ -4,57 +4,86 @@ using Negocio.Seguridad;
 
 namespace Negocio.Servicios
 {
+    // ==============================
+    // CAPA DE NEGOCIO PARA USUARIOS
+    // Gestiona toda la lógica de negocio relacionada con los usuarios:
+    // login, registro, actualización, eliminación y roles.
+    // ==============================
     public class UsuarioNegocio
     {
+        // Instancia para acceder a la capa de datos de usuarios
         private readonly UsuarioDatos _usuarioDatos;
+
+        // Instancia para manejo de hash de contraseñas
         private readonly PasswordHasher _passwordHasher;
 
+        // Constructor: inicializa las dependencias
         public UsuarioNegocio()
         {
             _usuarioDatos = new UsuarioDatos();
             _passwordHasher = new PasswordHasher();
         }
 
-        // Validar login de usuario
+        // ==============================
+        // LOGIN DE USUARIO
+        // Valida credenciales y retorna el objeto Usuario si son correctas
+        // ==============================
         public Usuario? Login(string username, string password)
         {
+            // Obtener usuario por username
             var usuario = _usuarioDatos.ObtenerPorUsername(username);
             if (usuario == null)
                 return null;
 
-            // Validar contraseña (hash)
+            // Validar contraseña usando hash
             if (!_passwordHasher.VerifyPassword(password, usuario.PasswordHash))
                 return null;
 
             return usuario;
         }
 
-        // Listar todos los usuarios
+        // ==============================
+        // LISTAR USUARIOS
+        // Devuelve todos los usuarios registrados
+        // ==============================
         public List<Usuario> ListarUsuarios()
         {
             return _usuarioDatos.Listar();
         }
 
-        // Registrar nuevo usuario
+        // ==============================
+        // REGISTRAR NUEVO USUARIO
+        // Recibe usuario y contraseña en texto plano,
+        // genera hash de la contraseña y lo guarda
+        // ==============================
         public bool RegistrarUsuario(Usuario usuario, string passwordPlano)
         {
             usuario.PasswordHash = _passwordHasher.HashPassword(passwordPlano);
             return _usuarioDatos.Registrar(usuario);
         }
 
-        // Listar roles
+        // ==============================
+        // LISTAR ROLES
+        // Devuelve todos los roles disponibles en el sistema
+        // ==============================
         public List<Rol> ListarRoles()
         {
             return _usuarioDatos.ListarRoles();
         }
 
-        // Actualizar usuario
+        // ==============================
+        // ACTUALIZAR USUARIO
+        // Actualiza información básica del usuario (sin cambiar contraseña)
+        // ==============================
         public bool ActualizarUsuario(Usuario usuario)
         {
             return _usuarioDatos.Actualizar(usuario);
         }
 
-        // Otra forma de Actualizar usuario
+        // ==============================
+        // ACTUALIZAR USUARIO CON NUEVA CONTRASEÑA
+        // Si se recibe nueva contraseña, se genera hash antes de actualizar
+        // ==============================
         public bool ActualizarUsuario(Usuario usuario, string? nuevaPassword)
         {
             if (!string.IsNullOrWhiteSpace(nuevaPassword))
@@ -65,18 +94,27 @@ namespace Negocio.Servicios
             return _usuarioDatos.Actualizar(usuario);
         }
 
-        // Eliminar usuario
+        // ==============================
+        // ELIMINAR USUARIO
+        // Elimina un usuario según su ID
+        // ==============================
         public bool EliminarUsuario(int userId)
         {
             return _usuarioDatos.Eliminar(userId);
         }
 
+        // ==============================
+        // OBTENER USUARIO POR ID
+        // ==============================
         public Usuario? ObtenerPorId(int id)
         {
             return _usuarioDatos.ObtenerPorId(id);
         }
 
-        // Generar hash desde la capa de negocio (útil para cambio de contraseña)
+        // ==============================
+        // GENERAR HASH DE CONTRASEÑA
+        // Método útil para cambios de contraseña o validaciones externas
+        // ==============================
         public string GenerarHash(string passwordPlano)
         {
             return _passwordHasher.HashPassword(passwordPlano);

@@ -1,19 +1,26 @@
-﻿using Negocio.Servicios;
+﻿using Negocio.Servicios; // Capa de negocio para usuarios y ventas
 
 namespace Presentacion.Forms
 {
     public partial class FrmVendedor : Form
     {
+        // Id del vendedor actualmente logueado
         private readonly int _vendedorId;
+
+        // Instancias de servicios de negocio
         private readonly UsuarioNegocio _usuarioNegocio;
         private readonly VentaNegocio _ventaNegocio;
 
+        // Constructor del formulario, recibe el id del vendedor
         public FrmVendedor(int vendedorId)
         {
             InitializeComponent();
+
             _vendedorId = vendedorId;
             _usuarioNegocio = new UsuarioNegocio();
             _ventaNegocio = new VentaNegocio();
+
+            // Establecer imagen de fondo
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
@@ -24,12 +31,14 @@ namespace Presentacion.Forms
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        // Evento al cargar el formulario
         private void FrmVendedor_Load(object sender, EventArgs e)
         {
-            CargarDatosVendedor();
-            CargarHistorialVentas();
+            CargarDatosVendedor();     // Carga información del vendedor
+            CargarHistorialVentas();   // Carga historial de ventas
         }
 
+        // Cargar datos del vendedor (nombre, rol, foto)
         private void CargarDatosVendedor()
         {
             var vendedor = _usuarioNegocio.ObtenerPorId(_vendedorId);
@@ -40,9 +49,10 @@ namespace Presentacion.Forms
                 return;
             }
 
-            lblNombre.Text = vendedor.NombreCompleto;
-            lblRole.Text = "Vendedor";
+            lblNombre.Text = vendedor.NombreCompleto; // Mostrar nombre
+            lblRole.Text = "Vendedor";                // Mostrar rol fijo
 
+            // Cargar foto si existe
             if (vendedor.FotoPerfil != null && vendedor.FotoPerfil.Length > 0)
             {
                 using (var ms = new MemoryStream(vendedor.FotoPerfil))
@@ -52,53 +62,50 @@ namespace Presentacion.Forms
             }
         }
 
+        // Cargar historial de ventas del vendedor
         private void CargarHistorialVentas()
         {
             var ventas = _ventaNegocio.ListarVentasPorVendedor(_vendedorId);
-            dgvVentas.DataSource = ventas;
+            dgvVentas.DataSource = ventas; // Vincular al DataGridView
         }
 
+        // Cerrar sesión y volver al login
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            new FrmLogin().Show();
-            this.Close();
+            new FrmLogin().Show(); // Abrir login
+            this.Close();          // Cerrar formulario actual
         }
 
+        // Abrir formulario para editar perfil del vendedor
         private void btnEditarPerfil_Click(object sender, EventArgs e)
         {
             using (FrmEditarPerfilVendedor editar = new FrmEditarPerfilVendedor(_vendedorId))
             {
-                editar.ShowDialog();
-                CargarDatosVendedor();
+                editar.ShowDialog();   // Modal
+                CargarDatosVendedor(); // Recargar datos después de editar
             }
         }
 
+        // Abrir formulario para gestionar clientes
         private void btnGestionarClientes_Click(object sender, EventArgs e)
         {
-            // Obtener el usuario actual (el vendedor)
-            //var vendedor = _usuarioNegocio.ObtenerPorId(_vendedorId);
-
-            //if (vendedor == null)
-            //{
-            //    MessageBox.Show("No se pudo cargar la información del vendedor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
-            // Enviar el rol (no el ID)
-            using var frm = new FrmRegistroClientes();// ✅ Se pasa el id del usuario logueado
+            // Se abre FrmRegistroClientes sin pasar rol específico
+            using var frm = new FrmRegistroClientes();
             frm.ShowDialog();
         }
 
+        // Abrir formulario para gestionar productos
         private void btnGestionarProductos_Click(object sender, EventArgs e)
         {
             new FrmRegistroProductos().ShowDialog();
         }
 
+        // Abrir formulario para registrar ventas
         private void btnGestionarVenta_Click(object sender, EventArgs e)
         {
             try
             {
-                // Obtener el objeto Usuario del vendedor
+                // Obtener objeto vendedor
                 var vendedor = _usuarioNegocio.ObtenerPorId(_vendedorId);
                 if (vendedor == null)
                 {
@@ -106,7 +113,7 @@ namespace Presentacion.Forms
                     return;
                 }
 
-                // Abrir FrmVentas pasándole el objeto Usuario
+                // Abrir formulario de ventas pasándole el objeto vendedor
                 using (FrmVentas frmVentas = new FrmVentas(vendedor))
                 {
                     frmVentas.ShowDialog();
@@ -121,21 +128,23 @@ namespace Presentacion.Forms
             }
         }
 
+        // Evento vacío (puede eliminarse o implementarse)
         private void groupBoxAcciones_Enter(object sender, EventArgs e)
         {
 
         }
 
+        // Abrir detalle de venta al hacer doble clic en una fila del DataGridView
         private void dgvVentas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 try
                 {
-                    // Obtiene el ID de la venta seleccionada
+                    // Obtener el ID de la venta
                     int ventaId = Convert.ToInt32(dgvVentas.Rows[e.RowIndex].Cells["VentaId"].Value);
 
-                    // Abre el reporte individual con el ID de la venta
+                    // Abrir formulario de detalle individual
                     FrmReporteVentaIndividual frm = new FrmReporteVentaIndividual(ventaId);
                     frm.ShowDialog();
                 }

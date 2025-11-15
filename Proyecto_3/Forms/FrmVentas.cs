@@ -1,25 +1,28 @@
-﻿using Entidad.Models;
-using Negocio.Servicios;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
+﻿using Entidad.Models; // Clases de entidad: Usuario, Producto, Cliente, DetalleVenta, etc.
+using Negocio.Servicios; // Servicios de negocio: UsuarioNegocio, ProductoNegocio, VentaNegocio
 
 namespace Presentacion.Forms
 {
     public partial class FrmVentas : Form
     {
+        // Usuario que realiza la venta
         private readonly Usuario _usuario;
+
+        // Servicios de negocio
         private readonly ClienteNegocio _clienteNegocio = new ClienteNegocio();
         private readonly ProductoNegocio _productoNegocio = new ProductoNegocio();
         private readonly VentaNegocio _ventaNegocio = new VentaNegocio();
+
+        // Lista de detalles de la venta actual
         private List<DetalleVenta> _detallesVenta = new List<DetalleVenta>();
 
+        // Constructor, recibe el usuario logueado
         public FrmVentas(Usuario usuario)
         {
             InitializeComponent();
             _usuario = usuario;
+
+            // Establecer imagen de fondo
             string rutaImagen = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Imagen",
@@ -30,24 +33,27 @@ namespace Presentacion.Forms
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        // Evento al cargar el formulario
         private void FrmVentas_Load(object sender, EventArgs e)
         {
-            CargarClientes();
-            CargarProductos();
-            lblVendedor.Text = $"Vendedor: {_usuario.NombreCompleto}";
-            dgvDetalles.AutoGenerateColumns = false;
-            ConfigurarGridDetalles();
+            CargarClientes(); // Carga los clientes en el combo
+            CargarProductos(); // Carga los productos en el combo
+            lblVendedor.Text = $"Vendedor: {_usuario.NombreCompleto}"; // Muestra el nombre del vendedor
+            dgvDetalles.AutoGenerateColumns = false; // Evita columnas automáticas
+            ConfigurarGridDetalles(); // Configura columnas del DataGridView
         }
 
+        // Cargar clientes en el comboBox
         private void CargarClientes()
         {
             var clientes = _clienteNegocio.ListarClientes();
             cmbCliente.DataSource = clientes;
-            cmbCliente.DisplayMember = "Nombre";
-            cmbCliente.ValueMember = "ClienteId";
-            cmbCliente.SelectedIndex = -1;
+            cmbCliente.DisplayMember = "Nombre";   // Qué se muestra
+            cmbCliente.ValueMember = "ClienteId";  // Valor interno
+            cmbCliente.SelectedIndex = -1;         // No seleccionar nada por defecto
         }
 
+        // Cargar productos en el comboBox
         private void CargarProductos()
         {
             var productos = _productoNegocio.ListarProductos();
@@ -57,6 +63,7 @@ namespace Presentacion.Forms
             cmbProducto.SelectedIndex = -1;
         }
 
+        // Agregar producto a la lista de detalles de la venta
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (cmbProducto.SelectedItem == null)
@@ -81,17 +88,17 @@ namespace Presentacion.Forms
                 return;
             }
 
-            // Verificar si el producto ya está agregado
+            // Verificar si el producto ya fue agregado
             var detalleExistente = _detallesVenta.FirstOrDefault(d => d.ProductoId == producto.ProductoId);
 
             if (detalleExistente != null)
             {
+                // Sumar cantidades, respetando stock
                 if (detalleExistente.Cantidad + cantidad > producto.Stock)
                 {
                     MessageBox.Show($"No puede agregar más de {producto.Stock} unidades de este producto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
                 detalleExistente.Cantidad += cantidad;
             }
             else
@@ -102,6 +109,7 @@ namespace Presentacion.Forms
                     return;
                 }
 
+                // Crear nuevo detalle de venta
                 _detallesVenta.Add(new DetalleVenta
                 {
                     ProductoId = producto.ProductoId,
@@ -112,10 +120,11 @@ namespace Presentacion.Forms
                 });
             }
 
-            CargarDetalles();
-            CalcularTotal();
+            CargarDetalles(); // Actualizar DataGridView
+            CalcularTotal();  // Actualizar total
         }
 
+        // Eliminar un detalle de la venta
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvDetalles.CurrentRow == null) return;
@@ -126,6 +135,7 @@ namespace Presentacion.Forms
             CalcularTotal();
         }
 
+        // Registrar la venta completa
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
             if (cmbCliente.SelectedValue == null)
@@ -186,18 +196,21 @@ namespace Presentacion.Forms
             }
         }
 
+        // Actualizar DataGridView con los detalles de venta
         private void CargarDetalles()
         {
             dgvDetalles.DataSource = null;
             dgvDetalles.DataSource = _detallesVenta;
         }
 
+        // Calcular total de la venta
         private void CalcularTotal()
         {
             decimal total = _detallesVenta.Sum(d => d.Subtotal);
             lblTotal.Text = $"Total: S/ {total:0.00}";
         }
 
+        // Configurar columnas del DataGridView de detalles
         private void ConfigurarGridDetalles()
         {
             dgvDetalles.Columns.Clear();
@@ -254,10 +267,10 @@ namespace Presentacion.Forms
             dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
+        // Cerrar formulario
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
     }
 }
-
